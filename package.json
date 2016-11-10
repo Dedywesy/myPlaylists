@@ -1,0 +1,23 @@
+{
+  "name": "myplaylists",
+  "version": "1.0.0",
+  "description": "Playlist storage based on web musics",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dedywesy/myPlaylists.git"
+  },
+  "author": "Dedywesy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dedywesy/myPlaylists/issues"
+  },
+  "homepage": "https://github.com/Dedywesy/myPlaylists#readme",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0"
+  }
+}
