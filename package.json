@@ -1,4 +1,4 @@
-{
+/*{
   "name": "myplaylists",
   "version": "1.0.0",
   "description": "Playlist storage based on web musics",
@@ -20,4 +20,30 @@
     "ejs": "^2.5.2",
     "express": "^4.14.0"
   }
+}*/
+{
+  "name": "myplaylists",
+  "version": "1.0.0",
+  "description": "Playlist storage based on web musics",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "2.4.1",
+    "express": "4.13.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dedywesy/myPlaylists"
+  },
+  "keywords": [
+    "playlist",
+    "music",
+    "share"
+  ],
+  "license": "MIT"
 }

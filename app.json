@@ -1,0 +1,8 @@
+{
+  "name": "Start on Heroku: Node.js",
+  "description": "test",
+  "repository": "https://github.com/Dedywesy/myPlaylists"
+  //"logo": "http://node-js-sample.herokuapp.com/node.svg",
+  //"keywords": ["node", "express", "static"],
+  //"image": "heroku/nodejs"
+}
