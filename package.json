@@ -40,10 +40,6 @@
     "type": "git",
     "url": "https://github.com/Dedywesy/myPlaylists"
   },
-  "keywords": [
-    "playlist",
-    "music",
-    "share"
-  ],
+
   "license": "MIT"
 }
