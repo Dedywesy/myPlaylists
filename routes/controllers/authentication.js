@@ -16,9 +16,7 @@ module.exports.register = function(req, res) {
      return;
   }
   var user = User.createUser(req.body.email, req.body.name, req.body.password);
-  /*user.name = req.body.name;
-  user.email = req.body.email;
-  user.setPassword(req.body.password);*/
+
   console.log("User created!");
   User.save(user, function(err) {
     console.log("generating token...")

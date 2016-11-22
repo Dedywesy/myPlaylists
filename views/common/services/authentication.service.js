@@ -15,6 +15,7 @@
       return $window.localStorage['mean-token'];
     };
 
+
     var isLoggedIn = function() {
       var token = getToken();
       var payload;
@@ -29,7 +30,6 @@
         return false;
       }
     };
-
     var currentUser = function() {
       if(isLoggedIn()){
         var token = getToken();
