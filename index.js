@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 //serve bin folder to serve static ressources
-app.use(express.static(path.join(__dirname, 'bin')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 //initialize passport before using the route middleware
 app.use(passport.initialize());
