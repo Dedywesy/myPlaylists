@@ -41,7 +41,6 @@ app.use('/api', routesAPI);
 app.use(function(req, res) {
   var p = path.join(__dirname, 'views', 'index.html');
   res.sendFile(p);
-  //console.log(p); //TODO Delete
 });
 
 // catch 404 and forward to error handler
@@ -54,6 +53,7 @@ app.use(function(req, res, next) {
 //Catch unauthorised errors
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
+      console.error(err.name + " " + err.message);
     res.status(401);
     res.json({"message" : err.name + ": " + err.message});
   }

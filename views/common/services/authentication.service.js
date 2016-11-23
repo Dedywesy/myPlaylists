@@ -6,7 +6,7 @@
 
   authentication.$inject = ['$http', '$window'];
   function authentication ($http, $window) {
-
+    console.log("function authentication");
     var saveToken = function (token) {
       $window.localStorage['mean-token'] = token;
     };
@@ -17,6 +17,7 @@
 
 
     var isLoggedIn = function() {
+        console.log("IS LOGGED IN");
       var token = getToken();
       var payload;
 
@@ -32,10 +33,12 @@
     };
     var currentUser = function() {
       if(isLoggedIn()){
+        console.log("CurrentUser function");
         var token = getToken();
         var payload = token.split('.')[1];
         payload = $window.atob(payload);
         payload = JSON.parse(payload);
+        console.log(payload);
         return {
           email : payload.email,
           name : payload.name
@@ -43,7 +46,7 @@
       }
     };
 
-    register = function(user) {
+    var register = function(user) {
       return $http.post('/api/register', user).success(function(data){
         saveToken(data.token);
       });

@@ -5,7 +5,7 @@ var User = require('../models/users');
 passport.use(new LocalStrategy({
     usernameField: 'email'
   },
-  function(username, password, done) { //TODO get back and understand
+  function(username, password, done) {
       console.log(password + username);
       User.getByEmail(username, function (err, user) {
           /*console.log("err " + err);
@@ -29,6 +29,7 @@ passport.use(new LocalStrategy({
         });
       }
       // If credentials are correct, return the user object
+          console.log("user authenticated !!");
       return done(null, user);
     });
   }

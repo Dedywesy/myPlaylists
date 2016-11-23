@@ -50,6 +50,7 @@ module.exports.login = function(req, res) {
 
     // If a user is found
     if(user){
+        console.log("User found !");
       token = user.generateJwt();
       res.status(200);
       res.json({
@@ -57,6 +58,7 @@ module.exports.login = function(req, res) {
       });
     } else {
       // If user is not found
+        console.log("User not found ! ");
       res.status(401).json(info);
     }
   })(req, res);
