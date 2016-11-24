@@ -1,13 +1,30 @@
-<div class="navbar navbar-default">
-  <div class="container">
-    <div id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="navvm.isLoggedIn"><a href="login">Sign in</a></li>
-        <li ng-show="navvm.isLoggedIn"><a href="profile">{{ navvm.currentUser.name }}</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+<header id="header" class="alt">
+    <h1 id="logo"><a href="/">DEDYWESY <span></span></a></h1>
+    <nav id="nav">
+        <ul>
+            <li class="current"><a href="/">Welcome</a></li>
+            <li class="submenu">
+                <a href="#">Menus</a>
+                <ul>
+                    <li><a href="topplaylists.html">TOP Playlists</a></li>
+                    <li><a href="myplaylists.html">My Playlists</a></li>
+                    <li><a href="/profile">My Account</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li class="submenu">
+                        <!--<a href="#">Submenu</a>
+                        <ul>
+                            <li><a href="#">Dolore Sed</a></li>
+                            <li><a href="#">Consequat</a></li>
+                            <li><a href="#">Lorem Magna</a></li>
+                            <li><a href="#">Sed Magna</a></li>
+                            <li><a href="#">Ipsum Nisl</a></li>
+                        </ul>
+                        -->
+                    </li>
+                </ul>
+            </li>
+            <li ng-hide="navvm.isLoggedIn"><a href="login" class="button special">Sign In</a></li>
+            <li ng-show="navvm.isLoggedIn"><a href="profile" class="button special">{{ navvm.currentUser.name }}</a></li>
+        </ul>
+    </nav>
+</header>
