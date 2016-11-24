@@ -8,7 +8,7 @@
         return {
             restrict: 'EA',
             templateUrl: '/common/directives/foot/footer.template.html',
-            controller: 'footerCtrl as footervm'
+            controller: 'footCtrl as footervm'
         };
     }
 
