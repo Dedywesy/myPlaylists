@@ -16,22 +16,11 @@ function User(ID, email, name, salt, hash){
 
 var exports = module.exports = {};
 
-/*
-exports.User = function() {
-    console.log("creating user object");
-    this.salt = null;
-    this.hash = null;
-    this.email = null;
-    this.name = null;
-};
-*/
 exports.createUser = function(email, name, password) {
     var user = new User(null, email, name, null, null);
     user.setPassword(password);
     return user;
 }
-
-
 
 User.prototype.setPassword =  function(password) {
 	this.salt = crypto.randomBytes(16).toString('hex');
@@ -40,8 +29,6 @@ User.prototype.setPassword =  function(password) {
 
 User.prototype.validPassword = function(password) {
 	var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-    console.log("In valid password, salt is ", this.salt);
-	console.log("In valid password, hash is ", hash);
   	return this.hash === hash;
 };
 
@@ -64,11 +51,7 @@ exports.save = function(user, callback) {
     var toInsert =' ("Salt", "Name", "Email", "Hash") values ( \'' +
         user.salt + '\' , \'' + user.name  + '\' , \'' +
         user.email + '\' , \'' + user.hash + '\')';
-    /*var returnTuple = db.insertQuery(table, toInsert); //TODO check email before
-    if(returnTuple[0]!=null){
-        console.error("error while adding user to database");
-    }
-    callback(returnTuple[0]);*/
+ //TODO check email and name before
 
     db.insertQuery(table, toInsert, function (err, returnTuple) {
         if(err){
@@ -85,10 +68,8 @@ exports.getByEmail = function(email, callback){
 
     db.getQuery(table, where, function (err, result) {
         var currentUser;
-        console.log("Result in User : ");
-        console.log(result);
-        if(!err && result[0]){
-           currentUser = userFromDB(result[0]);
+        if(!err && result.rows[0]){
+           currentUser = userFromDB(result.rows[0]);
         }
         callback(err, currentUser);
     });
@@ -101,10 +82,8 @@ exports.getByID = function (id, callback) {
 
   db.getQuery(table, where, function (err, result) {
      var currentUser;
-     console.log("Result in User : ");
-     console.log(result);
-     if(!err && result[0]){
-         currentUser = userFromDB(result[0]);
+     if(!err && result.rows[0]){
+         currentUser = userFromDB(result.rows[0]);
      }
      callback(err, currentUser);
   });
@@ -112,9 +91,6 @@ exports.getByID = function (id, callback) {
 
 function userFromDB(rawUser){
     console.log("UserFromDB");
-    //var jsonContent = JSON.parse(jSonUser);
-/*    console.log("Name : ", rawUser.Name);
-    console.log("Email : ", rawUser.Email);*/
     var user = new User(rawUser.ID, rawUser.Email, rawUser.Name, rawUser.Salt, rawUser.Hash);
 
     console.log(user);
