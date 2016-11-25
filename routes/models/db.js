@@ -4,7 +4,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1234@l
 
 if (process.env.DATABASE_URL) { //connection from heroku
     pg.defaults.ssl = true;
-    console.log("SSL Connection with DB");
+    console.log(process.env.DATABASE_URL);
 }
 
 var config = configFromString(connectionString)
