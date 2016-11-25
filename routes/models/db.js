@@ -54,22 +54,16 @@ function configFromString(connectString) {
     var res = connectString.split("://");
     var temp = res[1];
     var db_type = res[0];
-    console.log(db_type);
-    console.log(temp);
     res = temp.split(":");
     var passAndhost = res[1];
     var portAndDbName = res[2];
     var user = res[0];
-    console.log(user);
     res = passAndhost.split("@");
     var password = res[0];
-    console.log(password);
     var host = res[1];
     res = portAndDbName.split("/");
     var port = res[0];
-    console.log(port);
     var dbname = res[1];
-    console.log(dbname);
 
     var config = {
         user: user.toString(), //env var: PGUSER
