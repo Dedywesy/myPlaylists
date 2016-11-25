@@ -67,6 +67,8 @@ function configFromString(connectString) {
     temp = res[1];
     var host = res[0];
     console.log(host);
+    console.log("after host");
+    console.log(res[1]);
     res = temp.split("/")
     var port = res[0];
     console.log(port);
