@@ -1,10 +1,10 @@
 var pg = require('pg');
 var query = require('pg-query');
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1234@localhost/myplaylists';
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/myplaylists';
 
 if (process.env.DATABASE_URL) { //connection from heroku
     pg.defaults.ssl = true;
-    console.log("SSL Connection with DB");
+    console.log(process.env.DATABASE_URL);
 }
 
 var config = configFromString(connectionString)
@@ -55,13 +55,14 @@ function configFromString(connectString) {
     var temp = res[1];
     var db_type = res[0];
     res = temp.split(":");
-    temp = res[1];
+    var passAndhost = res[1];
+    var portAndDbName = res[2];
     var user = res[0];
-    res = temp.split("@");
-    temp = res[1];
+    res = passAndhost.split("@");
     var password = res[0];
-    res = temp.split("/");
-    var host = res[0];
+    var host = res[1];
+    res = portAndDbName.split("/");
+    var port = res[0];
     var dbname = res[1];
 
     var config = {

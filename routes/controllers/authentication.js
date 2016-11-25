@@ -19,13 +19,23 @@ module.exports.register = function(req, res) {
 
   console.log("User created!");
   User.save(user, function(err) {
-    console.log("generating token...")
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
+    console.log("generating token...");
+    //Request user to get the automatically generated id
+    User.getByEmail(user.email, function (err, user) {
+      if(err){
+          console.error("Error, the user has not properly been added to DB");
+      }
+      else {
+          console.log(user);
+          var token;
+          token = user.generateJwt();
+          res.status(200);
+          res.json({
+              "token": token
+          });
+      }
     });
+
   });
 
 };
