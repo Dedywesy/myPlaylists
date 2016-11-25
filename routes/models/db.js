@@ -69,7 +69,7 @@ function configFromString(connectString) {
     console.log(host);
     console.log("after host");
     console.log(res[1]);
-    res = temp.split("/")
+    res = temp.split("/");
     var port = res[0];
     console.log(port);
     var dbname = res[1];
