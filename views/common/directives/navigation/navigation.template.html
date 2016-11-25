@@ -1,0 +1,30 @@
+<header id="header" class="alt">
+    <h1 id="logo"><a href="/">DEDYWESY <span></span></a></h1>
+    <nav id="nav">
+        <ul class="drop_menu">
+            <li class="current"><a href="/">Welcome</a></li>
+            <li class="submenu">
+                <a href="#">Menus</a>
+                <ul>
+                    <li><a href="/topPlaylists">TOP Playlists</a></li>
+                    <li><a href="/myPlaylists">My Playlists</a></li>
+                    <li><a href="/profile">My Account</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </li>
+            <li ng-hide="navvm.isLoggedIn"><a href="login" class="button special">Sign In</a></li>
+            <li ng-show="navvm.isLoggedIn"><a href="profile" class="button special">{{ navvm.currentUser.name }}</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Scripts -->
+
+<script src="js/jquery.dropotron.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollgress.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<!--[if lte IE 8]><script src="js/ie/respond.min.js"></script><![endif]-->
+<script src="js/main.js"></script>
+

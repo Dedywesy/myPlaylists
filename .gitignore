@@ -48,3 +48,13 @@ npm-debug.log
 # Docker
 Dockerfile
 docker-compose.yml
+#WebStorm
+.idea/module.xml
+.idea/workspace.xml
+.idea/myPlaylist.iml
+.idea/vcs.xml
+.idea/workspace.xml
+
+.idea/modules.xml
+.idea/myPlaylists.iml
+.idea/modules.xml
