@@ -1,36 +1,33 @@
 <div id="page-wrapper">
+    <navigation></navigation>
+    <article id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="form-signin-heading">Sign in</h1>
+                    <p class="lead">Not a member? Please <a href="register">register</a> instead.</p>
+                    <form ng-submit="vm.onSubmit()">
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email"
+                                   ng-model="vm.credentials.email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password"
+                                   ng-model="vm.credentials.password">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="button special">Sign in!</button>
+                        </div>
+                    </form>
 
-<navigation></navigation>
-<article id="main">
-<div class="container">
+                </div>
+            </div>
 
-  <div class="row">
-    
-    <div class="col-md-6">
-
-      <h1 class="form-signin-heading">Sign in</h1>
-      <p class="lead">Not a member? Please <a href="register">register</a> instead.</p>
-  
-      <form ng-submit="vm.onSubmit()">
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="button special">Sign in!</button>
-        </div>
-      </form>
+    </article>
 
-    </div>
-  </div>
-
-</div>
-</article>
-
-<foot></foot>
+    <foot></foot>
 
 </div>
