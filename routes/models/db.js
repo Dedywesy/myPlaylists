@@ -56,7 +56,7 @@ exports.updateQuery = function (tableName, setArg, where, callback) {
         if(err){
             return console.error('error fetching client from pool', err);
         }
-        var queryString = 'UPDATE ' + tableName + ' SET ' + setArg + ' WHERE ' + where;
+        var queryString = 'UPDATE ' + tableName + ' SET ' + setArg + ' WHERE ' + where + ' RETURNING *';
         client.query(queryString, function (err, res) {
             if(err) {
             return console.error('error running UPDATE query', err);

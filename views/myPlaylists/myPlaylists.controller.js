@@ -4,8 +4,8 @@
         .module('meanApp')
         .controller('myPlaylistsCtrl', myPlaylistsCtrl);
 
-    myPlaylistsCtrl.$inject = ['meanData'];
-    function myPlaylistsCtrl(meanData) {
+    myPlaylistsCtrl.$inject = ['$location','meanData', 'currentPlaylist'];
+    function myPlaylistsCtrl($location, meanData, currentPlaylist) {
         var vm = this;
 
         vm.playlists = {};
@@ -13,7 +13,8 @@
             name: "",
             description: "",
             isPublic: true
-        }
+        };
+
         meanData.getMyPlaylists()
             .success(function (data) {
                 vm.playlists = data;
@@ -29,8 +30,6 @@
                     alert("Error while adding playlist", err);
                 })
                 .then(function (data) {
-                    console.log(data);
-
                     vm.playlists.push(data.data);
                     vm.newPlaylist.name = "";
                     vm.newPlaylist.description = "";
@@ -38,7 +37,8 @@
         };
 
         vm.edit = function (playlist) {
-            console.log("Edit", playlist); //TODO
+            currentPlaylist.set(playlist);
+            $location.path('editPlaylist');
         };
 
         vm.play = function (playlist) {

@@ -1,0 +1,21 @@
+<div id="page-wrapper">
+    <navigation></navigation>
+    <!-- Main -->
+    <article id="main">
+        <header class="special container">
+            <span class="icon fa-music"></span>
+            <h2><strong>{{vm.playlist.name}}</strong></h2>
+            <p>{{vm.playlist.description}}</p>
+            <button class="button small" ng-click="vm.editMode = true" ng-hide="vm.editMode">Edit</button>
+            <form ng-show="vm.editMode" class="wrapper style1 special container 75%">
+                <input type="text" ng-model="vm.tempPlaylist.name">
+                <input type="text" ng-model="vm.tempPlaylist.description">
+                <button class="button small fa fa-check fa-4x" ng-click="vm.saveEdit()"/>
+                <button class="button small fa fa-times-circle fa-4x" ng-click="vm.cancelEdit()"/>
+            </form>
+        </header>
+    </article>
+
+    <foot></foot>
+
+</div>

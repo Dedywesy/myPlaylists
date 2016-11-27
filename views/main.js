@@ -39,10 +39,14 @@
                 controller: 'myPlaylistsCtrl',
                 controllerAs: 'vm'
             })
-            .when('/logout',
-            {
+            .when('/logout', {
                 templateUrl: '/home/home.view.html',
                 controller: 'logoutCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/editPlaylist', {
+                templateUrl: '/editPlaylist/editPlaylist.view.html',
+                controller: 'editPlaylistCtrl',
                 controllerAs: 'vm'
             })
             .otherwise({redirectTo: '/'});
@@ -57,6 +61,9 @@
                 $location.path('/login');
             }
             if ($location.path() === '/myPlaylists' && !authentication.isLoggedIn()) {
+                $location.path('/login');
+            }
+            if ($location.path() === '/editPlaylist' && !authentication.isLoggedIn()) {
                 $location.path('/login');
             }
         });
