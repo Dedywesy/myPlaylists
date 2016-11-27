@@ -15,13 +15,17 @@
 			var	$this = $(this),
 				indent = Math.max(0, $this.parents('li').length - 1),
 				href = $this.attr('href'),
-				target = $this.attr('target');
+				target = $this.attr('target'),
+				nghide = $this.parents('li').attr("ng-hide"),
+                ngshow = $this.parents('li').attr('ng-show');
 
 			b.push(
 				'<a ' +
 					'class="link depth-' + indent + '"' +
 					( (typeof target !== 'undefined' && target != '') ? ' target="' + target + '"' : '') +
 					( (typeof href !== 'undefined' && href != '') ? ' href="' + href + '"' : '') +
+					( (typeof nghide !== 'undefined' && nghide != '') ? ' ng-hide="' + nghide + '"' : '')+
+                	( (typeof ngshow !== 'undefined' && ngshow != '') ? ' ng-hide="' + ngshow + '"' : '')+
 				'>' +
 					'<span class="indent-' + indent + '"></span>' +
 					$this.text() +

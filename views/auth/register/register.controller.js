@@ -15,7 +15,6 @@
     };
 
     vm.onSubmit = function () {
-      console.log('Submitting registration');
       authentication.register(vm.credentials, function (response) {
           if(response.status === 200){
               $location.path('profile');
