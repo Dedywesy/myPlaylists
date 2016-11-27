@@ -27,7 +27,7 @@ exports.insertQuery = function (tableName, toInsert, callback) {
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                return console.error('error running query', err);
+                return console.error('error running INSERT query', err);
             }
             callback(err, res);
         });
@@ -43,7 +43,22 @@ exports.getQuery = function (tableName, where, callback) {
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                return console.error('error running query', err);
+                return console.error('error running GET query', err);
+            }
+            callback(err, res);
+        });
+    });
+};
+
+exports.updateQuery = function (tableName, setArg, where, callback) {
+    pool.connect(function(err, client, done) {
+        if(err){
+            return console.error('error fetching client from pool', err);
+        }
+        var queryString = 'UPDATE ' + tableName + ' SET ' + setArg + ' WHERE ' + where;
+        client.query(queryString, function (err, res) {
+            if(err) {
+            return console.error('error running UPDATE query', err);
             }
             callback(err, res);
         });

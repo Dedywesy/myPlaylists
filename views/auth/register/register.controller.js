@@ -15,15 +15,13 @@
     };
 
     vm.onSubmit = function () {
-      console.log('Submitting registration');
-      authentication
-        .register(vm.credentials)
-        .error(function(err){
-          alert(err);
-        })
-        .then(function(){
-          $location.path('profile');
-        });
+      authentication.register(vm.credentials, function (response) {
+          if(response.status === 200){
+              $location.path('profile');
+          } else{
+              alert(err);
+          }
+      })
     };
   }
 
