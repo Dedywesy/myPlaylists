@@ -9,6 +9,7 @@ var auth = jwt({
 
 var ctrlProfile = require('./controllers/profile');
 var ctrlAuth = require('./controllers/authentication');
+var ctrlPlaylists = require('./controllers/playlists');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -18,8 +19,12 @@ router.use(multer({dest: './uploads/'}).any());
 * */
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
+// get playlists
+router.get('/getPlaylists', auth, ctrlPlaylists.getPlaylists);
+// create playlist
+router.post('/newPlaylist', auth, ctrlPlaylists.createPlaylists);
 
-/*"Not secured" available without login*/
+/*"Not secured" available without being logged in*/
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);

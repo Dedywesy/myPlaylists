@@ -32,22 +32,17 @@ module.exports.register = function (req, res) {
         else {
             var user = User.createUser(req.body.email, req.body.name, req.body.password, result);
             console.log("User created!");
-            User.save(user, function (err) {
+            User.save(user, function (err, result) {
                 console.log("generating token...");
-                //Request user to get the automatically generated id
-                User.getByEmail(user.email, function (err, user) {
-                    if (err) {
-                        console.error("Error, the user has not properly been added to DB");
-                    }
-                    else {
-                        var token;
-                        token = user.generateJwt();
-                        res.status(200);
-                        res.json({
-                            "token": token
-                        });
-                    }
-                });
+                if(!err){
+                    user.ID = result.rows[0].ID;
+                    var token;
+                    token = user.generateJwt();
+                    res.status(200);
+                    res.json({
+                        "token": token
+                    });
+                }
             });
         }
     });

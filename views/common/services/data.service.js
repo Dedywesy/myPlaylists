@@ -15,8 +15,38 @@
             });
         };
 
+        var getMyPlaylists = function () {
+            var currentUserId = authentication.currentUser()._id;
+            return getPlaylists(currentUserId);
+        };
+
+        var getPlaylists = function (userID){
+            return $http.get('/api/getPlaylists', {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken(),
+                    touserid: userID
+                }
+            }) ;
+        };
+
+        var createPlaylist = function (newPlaylist) {
+            return $http.post('/api/newPlaylist',
+                {
+                    playlist: newPlaylist
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + authentication.getToken()
+                    }
+                });
+        };
+
+
+
         return {
             getProfile: getProfile,
+            getMyPlaylists: getMyPlaylists,
+            createPlaylist: createPlaylist
         };
     }
 
