@@ -23,9 +23,10 @@ exports.insertQuery = function (tableName, toInsert, callback) {
         if (err) {
             return console.error('error fetching client from pool', err);
         }
-        var queryString = 'insert into ' + tableName + toInsert;
+        var queryString = 'insert into ' + tableName + toInsert + 'RETURNING *';
         client.query(queryString, function (err, res) {
             done();
+            console.log("insert", err, res.rows[0].ID);
             if (err) {
                 return console.error('error running INSERT query', err);
             }

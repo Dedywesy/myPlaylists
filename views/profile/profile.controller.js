@@ -8,7 +8,6 @@
     function profileCtrl(meanData) {
         var vm = this;
         vm.user = {};
-        vm.customer = {};
         meanData.getProfile()
             .success(function (data) {
                 vm.user = data;

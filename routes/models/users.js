@@ -57,7 +57,7 @@ exports.save = function (user, callback) {
         if (err) {
             console.log("error while adding user to db");
         }
-        callback(err);
+        callback(err, result);
     })
 };
 

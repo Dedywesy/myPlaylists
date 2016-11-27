@@ -5,3 +5,42 @@
     top: -9999px;
     left: -9999px;
 }
+
+/*About playlist page*/
+.playlist{
+    border: 1px;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    background-color: #eeeeee;
+}
+
+.playlist .playlistProperties{
+    width: 80%;
+    display : inline-block;
+}
+
+.playlist .name{
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.playlist .description{
+    text-align: left;
+    font-style: italic;
+}
+
+.playlist .playlistControls{
+    display: inline-block;
+    text-align: right;
+    width : 19%
+}
+
+.playlist .playlistControls .control{
+    margin : 5px;
+}
+
+.playlist:hover{
+    background-color: #d7d7d7;
+}
