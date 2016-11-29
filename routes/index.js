@@ -17,14 +17,21 @@ router.use(multer({dest: './uploads/'}).any());
 /*Secured api routes use auth function
 * A payload with the json webtoken must be provided
 * */
-// profile
+/********** Profile ***************/
 router.get('/profile', auth, ctrlProfile.profileRead);
-// get playlists
-router.get('/getPlaylists', auth, ctrlPlaylists.getPlaylists);
+
+/*********Playlists****************/
+//get a playlist by id
+router.get('/playlist/:id', auth, ctrlPlaylists.getPlaylist);
+/*******User's Playlists***********/
+// get user's playlists
+router.get('/userPlaylists/:id', auth, ctrlPlaylists.getUserPlaylists);
 // create playlist
-router.post('/newPlaylist', auth, ctrlPlaylists.createPlaylists);
+router.post('/playlist', auth, ctrlPlaylists.createPlaylist);
 // edit playlist
-router.post('/editPlaylist', auth, ctrlPlaylists.editPlaylist);
+router.put('/playlist', auth, ctrlPlaylists.editPlaylist);
+//delete playlist
+router.delete('/playlist/:id', auth, ctrlPlaylists.deletePlaylist);
 
 /*"Not secured" available without being logged in*/
 // authentication

@@ -15,15 +15,16 @@ var exports = module.exports = {};
 
 exports.createPlaylist = function (userId, isPublic, name, description) {
     //New playlist is public
-    return new Playlist(null, userId, isPublic, name, description, null);
+    return new Playlist(null, userId, isPublic, name, description, '{"songs":[]}');
 };
 
 exports.save = function (playlist, callback) {
     console.log("playlist save function");
     var table = "public.playlists";
-    var toInsert = ' ("UserID", "IsPublic", "Name", "Description") values ( \'' +
+    var toInsert = ' ("UserID", "IsPublic", "Name", "Description", "JsonPlaylist") values ( \'' +
         playlist.userId + '\' , \'' + playlist.isPublic + '\' , \'' +
-        playlist.name + '\' , \'' + playlist.description + '\')';
+        playlist.name + '\' , \'' + playlist.description + '\', \'' +
+        playlist.jsonPlaylist+'\')';
 
     db.insertQuery(table, toInsert, function (err, result) {
         if (err) {
@@ -47,6 +48,18 @@ exports.update = function (playlist, callback) {
         callback(err, result);
     })
 };
+
+exports.delete = function(playlistID, callback){
+    console.log("playlist delete function");
+    var table = "public.playlists";
+    var where = '"ID"=' + playlistID;
+    db.deleteQuery(table, where, function (err, result) {
+        if(err){
+            console.error("Error while deleting playlist : ", playlistID);
+        }
+        callback(err, result);
+    })
+}
 
 exports.getAllPlaylists = function (userID, callback) {
     console.log('Get all playlists function');
@@ -82,26 +95,20 @@ exports.getPublicPlaylists = function (userID, callback){
     });
 };
 
-/*
 exports.getByID = function (id, callback) {
-    console.log("User by id function");
-    var table = "public.users";
+    console.log("Playlist by id function");
+    var table = "public.playlists";
     var where = '"ID" = ' + id;
-
+    console.log(where);
     db.getQuery(table, where, function (err, result) {
-        var currentUser;
+        var playlist;
         if (!err && result.rows[0]) {
-            currentUser = userFromDB(result.rows[0]);
+            playlist = playlistFromDB(result.rows[0]);
         }
-        callback(err, currentUser);
+        callback(err, playlist);
     });
 };
 
-function userFromDB(rawUser) {
-    console.log("UserFromDB");
-    return new User(rawUser.ID, rawUser.Email, rawUser.Name, rawUser.Salt, rawUser.Hash, rawUser.ProfilePic);
-}
-*/
 function playlistFromDB(rawPlaylist){
     return new Playlist(rawPlaylist.ID,
                         rawPlaylist.UserID,

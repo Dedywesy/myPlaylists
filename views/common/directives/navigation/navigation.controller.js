@@ -13,7 +13,7 @@
         vm.currentUser = authentication.currentUser();
 
         vm.logout = function () {
-            alert('maitre gims');
+            alert('maitre gims'); //TODO delete
             /*authentication.logout();
             $location.path('/');*/
         }

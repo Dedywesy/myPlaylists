@@ -4,8 +4,8 @@
         .module('meanApp')
         .controller('myPlaylistsCtrl', myPlaylistsCtrl);
 
-    myPlaylistsCtrl.$inject = ['$location','meanData', 'currentPlaylist'];
-    function myPlaylistsCtrl($location, meanData, currentPlaylist) {
+    myPlaylistsCtrl.$inject = ['$location','meanData'];
+    function myPlaylistsCtrl($location, meanData) {
         var vm = this;
 
         vm.playlists = {};
@@ -37,8 +37,7 @@
         };
 
         vm.edit = function (playlist) {
-            currentPlaylist.set(playlist);
-            $location.path('editPlaylist');
+            $location.path('editPlaylist/' + playlist.ID);
         };
 
         vm.play = function (playlist) {

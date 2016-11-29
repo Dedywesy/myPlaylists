@@ -12,7 +12,7 @@
         </header>
 
         <div class="wrapper style1 special container 75%" id="playlists">
-            <div class="playlist" ng-repeat="playlist in vm.playlists">
+            <div class="playlist" ng-repeat="playlist in vm.playlists | orderBy: 'name'" >
                 <div class="playlistProperties">
                     <div class="name">{{playlist.name}}</div>
                     <div class="description">{{playlist.description}}</div>

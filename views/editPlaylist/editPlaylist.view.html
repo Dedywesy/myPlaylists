@@ -13,6 +13,27 @@
                 <button class="button small fa fa-check fa-4x" ng-click="vm.saveEdit()"/>
                 <button class="button small fa fa-times-circle fa-4x" ng-click="vm.cancelEdit()"/>
             </form>
+            <div class="playlistContent">
+                <div class="playlist song" ng-repeat="song in vm.tempPlaylist.jsonPlaylist.songs" orderBy="song.rank" >
+                    <div class="playlistProperties">
+                        <span>{{song}}</span>
+                        <div class="name">{{song.title}}</div>
+                        <div class="link"><a href={{song.link}}>Link</a></div>
+                    </div>
+
+
+                </div>
+                <button class="button small fa fa-check fa-4x" ng-show="vm.songListModified" ng-click="vm.saveEdit()">
+                    Save list
+                </button>
+                <form class="add-song wrapper style1 special container 60%" ng-submit="vm.addSong()">
+                    <input type="text" ng-model="vm.title">
+                    <input type="text" ng-model="vm.link">
+                    <button class="button small" type="submit">Add to playlist</button>
+                </form>
+
+                <button class="button special" ng-click="vm.delete()">Delete playlist</button>
+
         </header>
     </article>
 

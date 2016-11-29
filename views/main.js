@@ -44,7 +44,7 @@
                 controller: 'logoutCtrl',
                 controllerAs: 'vm'
             })
-            .when('/editPlaylist', {
+            .when('/editPlaylist/:id', {
                 templateUrl: '/editPlaylist/editPlaylist.view.html',
                 controller: 'editPlaylistCtrl',
                 controllerAs: 'vm'
