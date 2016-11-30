@@ -4,7 +4,7 @@
         .controller('editPlaylistCtrl', editPlaylistCtrl);
 
     editPlaylistCtrl.$inject = ['$location', 'authentication', 'meanData', '$routeParams'];
-    function editPlaylistCtrl($location, authentication, meanData, $routeParams) {
+    function editPlaylistCtrl($location, authentication, meanData, $routeParams, asSortable) {
         vm = this;
         var id = parseInt($routeParams.id);
 
@@ -26,8 +26,9 @@
 
             vm.editMode = false;
             vm.saveEdit = function () {
-                console.log("Saving modifications to title/description");
+                console.log("Saving modifications");
                 if (vm.playlist.title != vm.tempPlaylist.title || vm.playlist.description != vm.tempPlaylist.description || vm.songListModified) {
+                    resetRanks();
                     vm.tempPlaylist.jsonPlaylist = angular.toJson(vm.tempPlaylist.jsonPlaylist);
                     meanData.editPlaylist(vm.tempPlaylist)
                         .error(function (err) {
@@ -35,7 +36,7 @@
                         })
                         .then(function (data) {
                             vm.playlist = copyPlaylist(data.data);
-                            vm.tempPlaylist = copyPlaylist(vm.playlist);
+                            vm.tempPlaylist.jsonPlaylist = JSON.parse(vm.tempPlaylist.jsonPlaylist);
                             vm.editMode = false;
                             vm.songListModified = false;
                         })
@@ -74,6 +75,17 @@
                 vm.title = "";
                 vm.link = "";
             };
+
+            vm.items = ["1", "2", "3", "4"];
+
+            vm.dragControlListeners = {
+                accept: function (sourceItemHandleScope, destSortableScope) {return true},//override to determine
+                // drag is allowed or not. default is true.
+                itemMoved: function (event) {},//Does nothing,
+                orderChanged: function (event) {vm.songListModified = true;},//Do what you want},
+                longTouch: true
+            };
+
         };
 
         var copyPlaylist = function (playlist) {
@@ -84,7 +96,7 @@
                 name: playlist.name,
                 description: playlist.description,
                 jsonPlaylist: playlist.jsonPlaylist || {"songs": []}
-            }
+            };
         };
         //Real entry point of the controller
         vm.playlist = {};
@@ -97,5 +109,16 @@
                 vm.playlist = data.data;
                 playlistRetrieved();
             });
+
+
+        vm.indexOfSong = function(song){
+            return vm.tempPlaylist.jsonPlaylist.songs.indexOf(song);
+        };
+
+        function resetRanks(){
+            for(var i = 0; i<vm.tempPlaylist.jsonPlaylist.songs.length ; i++ ){
+                vm.tempPlaylist.jsonPlaylist.songs[i].rank = i;
+            }
+        }
     }
 })();

@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('meanApp', ['ngRoute']);
+    angular.module('meanApp', ['ngRoute', 'as.sortable']);
 
     function config($routeProvider, $locationProvider) {
         $routeProvider
