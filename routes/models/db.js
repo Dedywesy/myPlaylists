@@ -50,6 +50,23 @@ exports.getQuery = function (tableName, where, callback) {
     });
 };
 
+exports.selectQuery = function (select, from, where, endArg,  callback) {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            return console.error('error fetching client from pool', err);
+        }
+        var queryString = 'SELECT '+ select + ' FROM ' + from + ' WHERE ' + where + ' ' + endArg;
+        console.log(queryString);
+        client.query(queryString, function (err, res) {
+            done();
+            if (err) {
+                return console.error('error running GET query', err);
+            }
+            callback(err, res);
+        });
+    });
+};
+
 exports.updateQuery = function (tableName, setArg, where, callback) {
     pool.connect(function(err, client, done) {
         if(err){

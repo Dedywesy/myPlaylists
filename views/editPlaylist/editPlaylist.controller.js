@@ -27,7 +27,10 @@
             vm.editMode = false;
             vm.saveEdit = function () {
                 console.log("Saving modifications");
-                if (vm.playlist.title != vm.tempPlaylist.title || vm.playlist.description != vm.tempPlaylist.description || vm.songListModified) {
+                if (vm.playlist.title != vm.tempPlaylist.title ||
+                    vm.playlist.description != vm.tempPlaylist.description ||
+                    vm.playlist.isPublic != vm.tempPlaylist.isPublic ||
+                    vm.songListModified) {
                     resetRanks();
                     vm.tempPlaylist.jsonPlaylist = angular.toJson(vm.tempPlaylist.jsonPlaylist);
                     meanData.editPlaylist(vm.tempPlaylist)
@@ -76,6 +79,14 @@
                 vm.link = "";
             };
 
+            vm.removeSong = function (song) {
+                vm.songListModified = true;
+                var index = vm.tempPlaylist.jsonPlaylist.songs.indexOf(song);
+                if(index != -1){
+                    vm.tempPlaylist.jsonPlaylist.songs.splice(index, 1);
+                }
+            };
+
             vm.items = ["1", "2", "3", "4"];
 
             vm.dragControlListeners = {
@@ -102,7 +113,7 @@
         vm.playlist = {};
         meanData.getPlaylist(id)
             .error(function (error) {
-                alert(error);
+                alert(error.message);
                 $location.path("myPlaylists");
             })
             .then(function (data) {

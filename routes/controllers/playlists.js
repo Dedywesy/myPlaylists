@@ -23,9 +23,9 @@ module.exports.getPlaylist = function (req, res) {
         return;
     }
     Playlists.getByID(req.params.id, function (error, result) {
-        if (error == null) {
+        if (error == null && result != undefined) {
             //check if belongs to user or public
-            if((result.UserId == req.payload._id) || result.isPublic){
+            if((result.userId == req.payload._id) || result.isPublic){
                 res.status(200).json(result);
             } else{
                 res.status(401).json({
@@ -33,7 +33,9 @@ module.exports.getPlaylist = function (req, res) {
                 })
             }
         } else {
-            res.status(500).json(error);
+            res.status(500).json({
+                "message": "This playlist does not exist"
+            });
         }
     })
 };
@@ -134,6 +136,3 @@ module.exports.deletePlaylist = function (req, res) {
             })
         });
 };
-
-
-

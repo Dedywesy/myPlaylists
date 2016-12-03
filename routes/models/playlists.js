@@ -1,10 +1,11 @@
 var pg = require('pg');
-var db = require('./db')
+var db = require('./db');
+var likes = require('./likes');
 
 
 function Playlist(ID, userId, isPublic, name, description, jsonPlaylist) {
     this.ID = ID;
-    this.userId = userId ;
+    this.userId = userId;
     this.isPublic = isPublic;
     this.name = name;
     this.description = description;
@@ -13,10 +14,6 @@ function Playlist(ID, userId, isPublic, name, description, jsonPlaylist) {
 
 var exports = module.exports = {};
 
-exports.createPlaylist = function (userId, isPublic, name, description) {
-    //New playlist is public
-    return new Playlist(null, userId, isPublic, name, description, '{"songs":[]}');
-};
 
 exports.save = function (playlist, callback) {
     console.log("playlist save function");
@@ -24,7 +21,7 @@ exports.save = function (playlist, callback) {
     var toInsert = ' ("UserID", "IsPublic", "Name", "Description", "JsonPlaylist") values ( \'' +
         playlist.userId + '\' , \'' + playlist.isPublic + '\' , \'' +
         playlist.name + '\' , \'' + playlist.description + '\', \'' +
-        playlist.jsonPlaylist+'\')';
+        playlist.jsonPlaylist + '\')';
 
     db.insertQuery(table, toInsert, function (err, result) {
         if (err) {
@@ -38,47 +35,57 @@ exports.update = function (playlist, callback) {
     console.log('playlist update function');
     var table = "public.playlists";
     var setArgs = '("Name", "Description", "IsPublic", "JsonPlaylist") = ( \'' +
-            playlist.name + '\' , \'' + playlist.description + '\' , \'' +
-            playlist.isPublic + '\' , \'' + playlist.jsonPlaylist + '\')';
+        playlist.name + '\' , \'' + playlist.description + '\' , \'' +
+        playlist.isPublic + '\' , \'' + playlist.jsonPlaylist + '\')';
     var where = '"ID"=' + playlist.ID;
-    db.updateQuery(table, setArgs, where, function(err, result){
-        if (err){
+    db.updateQuery(table, setArgs, where, function (err, result) {
+        if (err) {
             console.error("Error while updating playlist table");
         }
         callback(err, result);
     })
 };
 
-exports.delete = function(playlistID, callback){
+exports.delete = function (playlistID, callback) {
     console.log("playlist delete function");
     var table = "public.playlists";
     var where = '"ID"=' + playlistID;
     db.deleteQuery(table, where, function (err, result) {
-        if(err){
+        if (err) {
             console.error("Error while deleting playlist : ", playlistID);
         }
         callback(err, result);
     })
-}
+};
 
 exports.getAllPlaylists = function (userID, callback) {
     console.log('Get all playlists function');
     var table = "public.playlists";
     var where = '"UserID" = ' + "'" + userID + "'";
     var results = [];
+    var counter = 0;
 
     db.getQuery(table, where, function (err, result) {
         if (!err && result.rows[0]) {
-            for(var i = 0,  len = result.rows.length; i < len; i++){
-                var pl = playlistFromDB(result.rows[i]);
-                results.push(pl);
-            }
+            result.rows.forEach(function (pl, index) {
+                likes.getPlaylistLikes(pl.ID, function (error, res) {
+                    if (!err && res.rows[0]) {
+                        pl.likeCount = res.rows[0].count;
+                    } else {
+                        pl.likeCount = 0;
+                    }
+                    results.push(pl);
+                    counter++;
+                    if (counter == result.rows.length) {
+                        callback(err, results);
+                    }
+                });
+            });
         }
-        callback(err, results);
     });
 };
 
-exports.getPublicPlaylists = function (userID, callback){
+exports.getPublicPlaylists = function (userID, callback) {
     console.log('Get public playlists function');
     var table = "public.playlists";
     var where = '"UserID" = ' + "'" + userID + "' AND IsPublic is true";
@@ -86,7 +93,7 @@ exports.getPublicPlaylists = function (userID, callback){
 
     db.getQuery(table, where, function (err, result) {
         if (!err && result.rows[0]) {
-            for(var i = 0,  len = result.rows.length; i < len; i++){
+            for (var i = 0, len = result.rows.length; i < len; i++) {
                 var pl = playlistFromDB(result.rows[i]);
                 results.push(pl);
             }
@@ -109,11 +116,11 @@ exports.getByID = function (id, callback) {
     });
 };
 
-function playlistFromDB(rawPlaylist){
+function playlistFromDB(rawPlaylist) {
     return new Playlist(rawPlaylist.ID,
-                        rawPlaylist.UserID,
-                        rawPlaylist.IsPublic,
-                        rawPlaylist.Name,
-                        rawPlaylist.Description,
-                        rawPlaylist.JsonPlaylist);
+        rawPlaylist.UserID,
+        rawPlaylist.IsPublic,
+        rawPlaylist.Name,
+        rawPlaylist.Description,
+        rawPlaylist.JsonPlaylist);
 }
