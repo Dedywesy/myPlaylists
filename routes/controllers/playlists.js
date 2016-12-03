@@ -65,7 +65,7 @@ module.exports.getUserPlaylists = function (req, res) {
     }
     else {
         id = req.params.id;
-        Playlists.getPublicPlaylists(id, onDbResult);
+        Playlists.getPublicPlaylists(id, onDbResult); //TOdo implement
     }
 };
 

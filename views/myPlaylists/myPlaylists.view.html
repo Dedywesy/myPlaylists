@@ -26,8 +26,10 @@
                                      ng-click="vm.toggleLike(playlist)">
                                  {{playlist.likeCount}}</strong>
                         </div>
-                        <div ng-hide="playlist.IsPublic" class="fa fa-lock fa-2x playlist control"></div>
-                        <div ng-show="playlist.IsPublic" class="fa fa-unlock-alt fa-2x playlist control"></div>
+                        <div ng-hide="playlist.IsPublic" class="fa fa-lock fa-2x playlist control" 
+                             style="color:red"></div>
+                        <div ng-show="playlist.IsPublic" class="fa fa-unlock-alt fa-2x playlist control" 
+                             style="color:green;"></div>
                     </div>
                     <div class="playlist properties">
                         <div class="playlist name">{{playlist.Name}}</div>
