@@ -43,11 +43,13 @@
 
                     </li>
                 </ul>
+                <button class="button small fa fa-check fa-4x centered" ng-show="vm.songListModified"
+                        ng-click="vm.saveEdit()">
+                    Save list
+                </button>
             </div>
 
-            <button class="button small fa fa-check fa-4x" ng-show="vm.songListModified" ng-click="vm.saveEdit()">
-                Save list
-            </button>
+
             <section class="wrapper style4 special container 75%">
                 <h2>
                     <strong>Add a new song to this playlist</strong>
