@@ -7,6 +7,7 @@
     meanData.$inject = ['$http', 'authentication'];
     function meanData($http, authentication) {
 
+        /*Profile */
         var getProfile = function () {
             return $http.get('/api/profile', {
                 headers: {
@@ -15,22 +16,22 @@
             });
         };
 
+        /*Playlists*/
         var getMyPlaylists = function () {
             var currentUserId = authentication.currentUser()._id;
-            return getPlaylists(currentUserId);
+            return getUserPlaylists(currentUserId);
         };
 
-        var getPlaylists = function (userID){
-            return $http.get('/api/getPlaylists', {
+        var getUserPlaylists = function (userID) {
+            return $http.get('/api/userPlaylists/' + userID, {
                 headers: {
-                    Authorization: 'Bearer ' + authentication.getToken(),
-                    touserid: userID
+                    Authorization: 'Bearer ' + authentication.getToken()
                 }
-            }) ;
+            });
         };
 
         var createPlaylist = function (newPlaylist) {
-            return $http.post('/api/newPlaylist',
+            return $http.post('/api/playlist',
                 {
                     playlist: newPlaylist
                 },
@@ -42,7 +43,7 @@
         };
 
         var editPlaylist = function (playlist) {
-            return $http.post('/api/editPlaylist',
+            return $http.put('/api/playlist',
                 {
                     playlist: playlist
                 },
@@ -53,13 +54,60 @@
                 });
         };
 
+        var deletePlaylist = function (playlist) {
+            return $http.delete('/api/playlist/' + playlist.ID,
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + authentication.getToken()
+                    }
+                });
+        };
 
+        var getPlaylist = function (playlistId) {
+            return $http.get('/api/playlist/' + playlistId, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
+        var getLikedPlaylists = function () {
+            return $http.get('/api/likes', {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            })
+        };
+
+        var likePlaylist = function (playlistID) {
+            return $http.post('/api/likes', {
+                    playlistID: playlistID
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + authentication.getToken()
+                    }
+                });
+        };
+
+        var unlikePlaylist = function(playlistID){
+            return $http.delete('/api/likes/' + playlistID, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
 
         return {
             getProfile: getProfile,
             getMyPlaylists: getMyPlaylists,
             createPlaylist: createPlaylist,
-            editPlaylist: editPlaylist
+            editPlaylist: editPlaylist,
+            deletePlaylist: deletePlaylist,
+            getPlaylist: getPlaylist,
+            getLikedPlaylists: getLikedPlaylists,
+            likePlaylist: likePlaylist,
+            unlikePlaylist: unlikePlaylist
         };
     }
 

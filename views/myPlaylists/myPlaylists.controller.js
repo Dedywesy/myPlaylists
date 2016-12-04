@@ -4,11 +4,12 @@
         .module('meanApp')
         .controller('myPlaylistsCtrl', myPlaylistsCtrl);
 
-    myPlaylistsCtrl.$inject = ['$location','meanData', 'currentPlaylist'];
-    function myPlaylistsCtrl($location, meanData, currentPlaylist) {
+    myPlaylistsCtrl.$inject = ['$location', 'meanData'];
+    function myPlaylistsCtrl($location, meanData) {
         var vm = this;
 
-        vm.playlists = {};
+        vm.playlists = [];
+        vm.likes = [];
         vm.newPlaylist = {
             name: "",
             description: "",
@@ -18,10 +19,25 @@
         meanData.getMyPlaylists()
             .success(function (data) {
                 vm.playlists = data;
+                meanData.getLikedPlaylists()
+                    .success(function (data) {
+                        vm.likes = data;
+                        vm.playlists.forEach(function (itemPlaylist) {
+                            vm.likes.forEach(function (itemLike) {
+                                if (itemPlaylist.ID == itemLike.playlistId) {
+                                    itemPlaylist.liked = true;
+                                }
+                            })
+                        })
+                    })
+                    .error(function (error) {
+                        console.error(error);
+                    });
             })
             .error(function (error) {
                 console.error(error);
             });
+
 
         vm.addPlaylist = function () {
             console.log("creating playlist. Name : ", vm.newPlaylist.name);
@@ -37,12 +53,68 @@
         };
 
         vm.edit = function (playlist) {
-            currentPlaylist.set(playlist);
-            $location.path('editPlaylist');
+            $location.path('editPlaylist/' + playlist.ID);
         };
 
         vm.play = function (playlist) {
             console.log("Play", playlist); //TODO
+        };
+
+        vm.toggleLike = function (playlist) {
+            if(playlist.liked){
+                meanData.unlikePlaylist(playlist.ID)
+                    .error(function (error) {
+                        console.log(error);
+                    })
+                    .then(function (data) {
+                        var index = vm.likes.indexOf(playlist.ID);
+                        if(index != -1){
+                            vm.likes.splice(index, 1);
+                        }
+                        vm.playlists.forEach(function (item) {
+                            if (item.ID == playlist.ID) {
+                                item.likeCount--;
+                                item.liked = false;
+                            }
+                        })
+                    });
+            }
+            else{
+                meanData.likePlaylist(playlist.ID)
+                    .error(function (error) {
+                        console.log(error);
+                    })
+                    .then(function (data) {
+                        vm.likes.push(playlist.ID);
+                        vm.playlists.forEach(function (item) {
+                            if (item.ID == playlist.ID) {
+                                item.likeCount++;
+                                item.liked = true;
+                            }
+                        })
+                    });
+            }
+
+
+
+        };
+
+        vm.unlike = function (playlistID) {
+            meanData.unlikePlaylist(playlistID)
+                .error(function (error) {
+                    console.log(error);
+                })
+                .then(function (data) {
+                    var index = vm.likes.indexOf(playlistID);
+                    if (index != -1) {
+                        vm.likes.splice(index, 1);
+                    }
+                    vm.playlists.forEach(function (item) {
+                        if (item.ID == playlistID) {
+                            item.likeCount--;
+                        }
+                    })
+                });
         }
     }
 

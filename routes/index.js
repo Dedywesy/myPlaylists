@@ -10,6 +10,7 @@ var auth = jwt({
 var ctrlProfile = require('./controllers/profile');
 var ctrlAuth = require('./controllers/authentication');
 var ctrlPlaylists = require('./controllers/playlists');
+var ctrlLikes = require('./controllers/likes');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -17,14 +18,30 @@ router.use(multer({dest: './uploads/'}).any());
 /*Secured api routes use auth function
 * A payload with the json webtoken must be provided
 * */
-// profile
+/********** Profile ***************/
 router.get('/profile', auth, ctrlProfile.profileRead);
-// get playlists
-router.get('/getPlaylists', auth, ctrlPlaylists.getPlaylists);
+
+/*********Playlists****************/
+//get a playlist by id
+router.get('/playlist/:id', auth, ctrlPlaylists.getPlaylist);
+
+/*******User's Playlists***********/
+// get user's playlists
+router.get('/userPlaylists/:id', auth, ctrlPlaylists.getUserPlaylists);
 // create playlist
-router.post('/newPlaylist', auth, ctrlPlaylists.createPlaylists);
+router.post('/playlist', auth, ctrlPlaylists.createPlaylist);
 // edit playlist
-router.post('/editPlaylist', auth, ctrlPlaylists.editPlaylist);
+router.put('/playlist', auth, ctrlPlaylists.editPlaylist);
+//delete playlist
+router.delete('/playlist/:id', auth, ctrlPlaylists.deletePlaylist);
+
+/*******User's Likes*****************/
+//get user liked playlists
+router.get('/likes', auth, ctrlLikes.getUserLikes);
+//"post" a like on a playlist
+router.post('/likes', auth, ctrlLikes.likePlaylist);
+//"delete" a like on a playlist
+router.delete('likes/:id', auth, ctrlLikes.unlikePlaylist);
 
 /*"Not secured" available without being logged in*/
 // authentication

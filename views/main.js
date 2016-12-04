@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('meanApp', ['ngRoute']);
+    angular.module('meanApp', ['ngRoute', 'as.sortable']);
 
     function config($routeProvider, $locationProvider) {
         $routeProvider
@@ -44,7 +44,7 @@
                 controller: 'logoutCtrl',
                 controllerAs: 'vm'
             })
-            .when('/editPlaylist', {
+            .when('/editPlaylist/:id', {
                 templateUrl: '/editPlaylist/editPlaylist.view.html',
                 controller: 'editPlaylistCtrl',
                 controllerAs: 'vm'

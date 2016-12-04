@@ -4,18 +4,94 @@
     <article id="main">
         <header class="special container">
             <span class="icon fa-music"></span>
-            <h2><strong>{{vm.playlist.name}}</strong></h2>
-            <p>{{vm.playlist.description}}</p>
+            <h2><strong>{{vm.playlist.Name}}</strong></h2>
+            <p><span>{{vm.playlist.Description}}</span><span><abc ng-hide="!vm.playlist.IsPublic"> - Public
+            </abc><abc ng-hide = "vm.playlist.IsPublic"> - Private</abc> playlist</span>
+            </span></p>
             <button class="button small" ng-click="vm.editMode = true" ng-hide="vm.editMode">Edit</button>
             <form ng-show="vm.editMode" class="wrapper style1 special container 75%">
-                <input type="text" ng-model="vm.tempPlaylist.name">
-                <input type="text" ng-model="vm.tempPlaylist.description">
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                           ng-model="vm.tempPlaylist.IsPublic" checked>
+                    <label class="onoffswitch-label" for="myonoffswitch">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <label>Playlist Name : </label><input type="text" ng-model="vm.tempPlaylist.Name">
+                <label>Description :</label><input type="text" ng-model="vm.tempPlaylist.Description">
                 <button class="button small fa fa-check fa-4x" ng-click="vm.saveEdit()"/>
                 <button class="button small fa fa-times-circle fa-4x" ng-click="vm.cancelEdit()"/>
             </form>
         </header>
+
+            <div class="wrapper style1 special container 75%" id="playlists">
+                <strong>Drag the songs to reorganize them</strong>
+                <ul data-as-sortable="vm.dragControlListeners" data-ng-model="vm.tempPlaylist.JsonPlaylist.songs">
+                    <li class="playlist playlistRow"
+                        data-ng-repeat="song in vm.tempPlaylist.JsonPlaylist.songs"
+                        data-as-sortable-item>
+                        <div class="playlist item" data-as-sortable-item-handle>
+                            <div class="playlist song">
+                                <div class="playlist name">{{vm.indexOfSong(song)}} : {{song.title}}</div>
+                                <div class="link"><a href={{song.link}}>Link</a></div>
+                            </div>
+                            <div class="playlist controls">
+                                <span class="fa fa-trash fa-2x playlist control" ng-click="vm.removeSong(song)"></span>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+                <button class="button small fa fa-check fa-4x centered" ng-show="vm.songListModified"
+                        ng-click="vm.saveEdit()">
+                    Save list
+                </button>
+            </div>
+
+
+            <section class="wrapper style4 special container 75%">
+                <h2>
+                    <strong>Add a new song to this playlist</strong>
+                </h2>
+                <div class="content">
+                    <form ng-submit="vm.addSong()">
+                        <div class="row 100%">
+                            <div class="12u">
+                                <span for="newSongName">Song title</span>
+                                <input id="newSongName" type="text" name="song_title" placeholder="Title"
+                                       ng-model="vm.title"/>
+                            </div>
+                        </div>
+                        <div class="row 100%">
+                            <div class="12u">
+                                <span for="newSongLink">Link</span>
+                                <input id="newSongLink" type="text" name="song_link" placeholder="Link from youtube"
+                                       ng-model="vm.link"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="12u">
+                                <ul class="buttons">
+                                    <li><input type="submit" class="button small" value="Add to playlist"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        <div class="wrapper style1 special container 75% centered">
+            <button class="button special" ng-click="vm.delete()">Delete playlist</button>
+        </div>
+
+
     </article>
 
     <foot></foot>
 
 </div>
+
+
+<!--------------------------------SCRIPTS-------------------------------------->
+
