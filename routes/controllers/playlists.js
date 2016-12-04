@@ -24,6 +24,8 @@ module.exports.getPlaylist = function (req, res) {
     }
     Playlists.getByID(req.params.id, function (error, result) {
         if (error == null && result != undefined) {
+            console.log("result :");
+            console.log(result);
             //check if belongs to user or public
             if((result.userId == req.payload._id) || result.isPublic){
                 res.status(200).json(result);
