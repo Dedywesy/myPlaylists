@@ -19,7 +19,7 @@
                 alert("no playlist to edit");
                 $location.path('home');
             }
-            if (authentication.currentUser()._id != vm.playlist.userId) {
+            if (authentication.currentUser()._id != vm.playlist.UserID) {
                 alert("This is not the playlist you are looking for :)");
                 $location.path('home');
             }
