@@ -27,7 +27,22 @@ exports.save = function (playlist, callback) {
 
     db.insertQuery(table, toInsert, function (err, result) {
         if (err) {
-            console.log("error while adding playlist to db");
+            console.error("error while adding playlist to db", err);
+        }
+        callback(err, result);
+    })
+};
+
+exports.update = function (playlist, callback) {
+    console.log('playlist update function');
+    var table = "public.playlists";
+    var setArgs = '("Name", "Description", "IsPublic", "JsonPlaylist") = ( \'' +
+            playlist.name + '\' , \'' + playlist.description + '\' , \'' +
+            playlist.isPublic + '\' , \'' + playlist.jsonPlaylist + '\')';
+    var where = '"ID"=' + playlist.ID;
+    db.updateQuery(table, setArgs, where, function(err, result){
+        if (err){
+            console.error("Error while updating playlist table");
         }
         callback(err, result);
     })

@@ -46,3 +46,24 @@ module.exports.createPlaylists = function (req, res) {
         }
     })
 };
+
+module.exports.editPlaylist = function (req, res) {
+    console.log("Edit playlists function");
+    console.log(req.payload._id);
+    console.log(req.body);
+    var newPlaylist = Playlists.createPlaylist(req.payload._id,
+        req.body.playlist.isPublic,
+        req.body.playlist.name,
+        req.body.playlist.description);
+    newPlaylist.jsonPlaylist = req.body.playlist.jsonPlaylist;
+    newPlaylist.ID = req.body.playlist.ID;
+
+    Playlists.update(newPlaylist, function (error, result) {
+        if (error == null) {
+            newPlaylist.ID = result.rows[0].ID;
+            res.status(200).json(newPlaylist);
+        } else {
+            res.status(500).json(error);
+        }
+    })
+};

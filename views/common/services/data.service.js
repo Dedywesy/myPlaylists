@@ -41,12 +41,25 @@
                 });
         };
 
+        var editPlaylist = function (playlist) {
+            return $http.post('/api/editPlaylist',
+                {
+                    playlist: playlist
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + authentication.getToken()
+                    }
+                });
+        };
+
 
 
         return {
             getProfile: getProfile,
             getMyPlaylists: getMyPlaylists,
-            createPlaylist: createPlaylist
+            createPlaylist: createPlaylist,
+            editPlaylist: editPlaylist
         };
     }
 

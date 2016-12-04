@@ -23,6 +23,8 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 router.get('/getPlaylists', auth, ctrlPlaylists.getPlaylists);
 // create playlist
 router.post('/newPlaylist', auth, ctrlPlaylists.createPlaylists);
+// edit playlist
+router.post('/editPlaylist', auth, ctrlPlaylists.editPlaylist);
 
 /*"Not secured" available without being logged in*/
 // authentication
