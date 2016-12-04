@@ -1,46 +1,121 @@
-.ng-hide {
-    /* this is just another form of hiding an element */
-    display: none!important;
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-}
-
 /*About playlist page*/
 .playlist{
     border: 1px;
     border-radius: 5px;
     margin: 5px;
-    padding: 10px;
+    padding: 5px;
+    height: auto;
     background-color: #eeeeee;
 }
-
-.playlist .playlistProperties{
-    width: 80%;
-    display : inline-block;
+.playlist .item{
+    height: auto;
 }
 
-.playlist .name{
+.playlist.properties{
+    width: 60%;
+    height: 100%;
+    display : inline-block;
+    vertical-align: top;
+}
+
+.playlist.name{
     margin: auto;
     text-align: center;
     font-weight: bold;
 }
 
-.playlist .description{
+.playlist.description{
     text-align: left;
     font-style: italic;
 }
 
-.playlist .playlistControls{
+.playlist.song{
+    width : auto;
     display: inline-block;
-    text-align: right;
-    width : 19%
+    height:100%;
+    vertical-align: top;
 }
 
-.playlist .playlistControls .control{
-    margin : 5px;
+.playlist.controls{
+    display: inline-block;
+    float: right;
+    text-align:right;
+    vertical-align: top;
+    height:100%;
+    width : auto;
+    margin: 0px;
+    padding: 0px;
+}
+.playlist.likes{
+    display: inline-block;
+    float: left;
+    text-align:left;
+    height:100%;
+    color: #FFFFFF;
+    width : auto;
 }
 
-.playlist:hover{
+.playlist.control{
+    text-align: center;
+    display: flex;
+    margin : 0px;
+}
+
+.playlist.playlistRow:hover{
     background-color: #d7d7d7;
+}
+.centered{
+    text-align: center;
+}
+
+.playlist.clickable:hover{
+    cursor: pointer;
+}
+
+
+/********************ON-OFF-SWITCH**************/
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Public";
+    padding-left: 10px;
+    background-color: #34C258; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Private";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #989898;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
 }

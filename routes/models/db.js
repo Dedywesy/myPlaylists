@@ -1,5 +1,5 @@
 var pg = require('pg');
-var query = require('pg-query');
+var query = require('pg-query');//TODO use pg-escape to escape special char
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/myplaylists';
 
 if (process.env.DATABASE_URL) { //connection from heroku
@@ -26,7 +26,6 @@ exports.insertQuery = function (tableName, toInsert, callback) {
         var queryString = 'insert into ' + tableName + toInsert + 'RETURNING *';
         client.query(queryString, function (err, res) {
             done();
-            console.log("insert", err, res.rows[0].ID);
             if (err) {
                 return console.error('error running INSERT query', err);
             }
@@ -51,6 +50,23 @@ exports.getQuery = function (tableName, where, callback) {
     });
 };
 
+exports.selectQuery = function (select, from, where, endArg,  callback) {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            return console.error('error fetching client from pool', err);
+        }
+        var queryString = 'SELECT '+ select + ' FROM ' + from + ' WHERE ' + where + ' ' + endArg;
+        console.log(queryString);
+        client.query(queryString, function (err, res) {
+            done();
+            if (err) {
+                return console.error('error running GET query', err);
+            }
+            callback(err, res);
+        });
+    });
+};
+
 exports.updateQuery = function (tableName, setArg, where, callback) {
     pool.connect(function(err, client, done) {
         if(err){
@@ -58,12 +74,29 @@ exports.updateQuery = function (tableName, setArg, where, callback) {
         }
         var queryString = 'UPDATE ' + tableName + ' SET ' + setArg + ' WHERE ' + where + ' RETURNING *';
         client.query(queryString, function (err, res) {
+            done();
             if(err) {
-            return console.error('error running UPDATE query', err);
+                return console.error('error running UPDATE query', err);
             }
             callback(err, res);
         });
     });
+};
+
+exports.deleteQuery = function(tableName, where, callback){
+    pool.connect(function(err, client, done){
+        if(err){
+            return console.error('error fetching client from pool');
+        }
+        var queryString = 'DELETE FROM ' + tableName + ' WHERE ' + where;
+        client.query(queryString, function(err, res){
+            done();
+            if(err) {
+                return console.error('error running DELETE query');
+            }
+            callback(err, res);
+        })
+    })
 };
 
 function configFromString(connectString) {
