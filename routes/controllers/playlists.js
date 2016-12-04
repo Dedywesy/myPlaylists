@@ -27,7 +27,7 @@ module.exports.getPlaylist = function (req, res) {
             console.log("result :");
             console.log(result);
             //check if belongs to user or public
-            if((result.userId == req.payload._id) || result.isPublic){
+            if((result.UserID == req.payload._id) || result.isPublic){
                 res.status(200).json(result);
             } else{
                 res.status(401).json({
