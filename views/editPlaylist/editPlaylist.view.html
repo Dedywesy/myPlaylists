@@ -4,22 +4,22 @@
     <article id="main">
         <header class="special container">
             <span class="icon fa-music"></span>
-            <h2><strong>{{vm.playlist.name}}</strong></h2>
-            <p><span>{{vm.playlist.description}}</span><span><abc ng-hide="!vm.playlist.isPublic"> - Public
-            </abc><abc ng-hide = "vm.playlist.isPublic"> - Private</abc> playlist</span>
+            <h2><strong>{{vm.playlist.Name}}</strong></h2>
+            <p><span>{{vm.playlist.Description}}</span><span><abc ng-hide="!vm.playlist.IsPublic"> - Public
+            </abc><abc ng-hide = "vm.playlist.IsPublic"> - Private</abc> playlist</span>
             </span></p>
             <button class="button small" ng-click="vm.editMode = true" ng-hide="vm.editMode">Edit</button>
             <form ng-show="vm.editMode" class="wrapper style1 special container 75%">
                 <div class="onoffswitch">
                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                           ng-model="vm.tempPlaylist.isPublic" checked>
+                           ng-model="vm.tempPlaylist.IsPublic" checked>
                     <label class="onoffswitch-label" for="myonoffswitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
                     </label>
                 </div>
-                <label>Playlist Name : </label><input type="text" ng-model="vm.tempPlaylist.name">
-                <label>Description :</label><input type="text" ng-model="vm.tempPlaylist.description">
+                <label>Playlist Name : </label><input type="text" ng-model="vm.tempPlaylist.Name">
+                <label>Description :</label><input type="text" ng-model="vm.tempPlaylist.Description">
                 <button class="button small fa fa-check fa-4x" ng-click="vm.saveEdit()"/>
                 <button class="button small fa fa-times-circle fa-4x" ng-click="vm.cancelEdit()"/>
             </form>
@@ -27,9 +27,9 @@
 
             <div class="wrapper style1 special container 75%" id="playlists">
                 <strong>Drag the songs to reorganize them</strong>
-                <ul data-as-sortable="vm.dragControlListeners" data-ng-model="vm.tempPlaylist.jsonPlaylist.songs">
+                <ul data-as-sortable="vm.dragControlListeners" data-ng-model="vm.tempPlaylist.JsonPlaylist.songs">
                     <li class="playlist playlistRow"
-                        data-ng-repeat="song in vm.tempPlaylist.jsonPlaylist.songs"
+                        data-ng-repeat="song in vm.tempPlaylist.JsonPlaylist.songs"
                         data-as-sortable-item>
                         <div class="playlist item" data-as-sortable-item-handle>
                             <div class="playlist song">

@@ -27,19 +27,19 @@
             vm.editMode = false;
             vm.saveEdit = function () {
                 console.log("Saving modifications");
-                if (vm.playlist.title != vm.tempPlaylist.title ||
-                    vm.playlist.description != vm.tempPlaylist.description ||
-                    vm.playlist.isPublic != vm.tempPlaylist.isPublic ||
+                if (vm.playlist.Name != vm.tempPlaylist.Name ||
+                    vm.playlist.Description != vm.tempPlaylist.Description ||
+                    vm.playlist.IsPublic != vm.tempPlaylist.IsPublic ||
                     vm.songListModified) {
                     resetRanks();
-                    vm.tempPlaylist.jsonPlaylist = angular.toJson(vm.tempPlaylist.jsonPlaylist);
+                    vm.tempPlaylist.JsonPlaylist = angular.toJson(vm.tempPlaylist.JsonPlaylist);
                     meanData.editPlaylist(vm.tempPlaylist)
                         .error(function (err) {
                             alert("error while updating playlist", err);
                         })
                         .then(function (data) {
                             vm.playlist = copyPlaylist(data.data);
-                            vm.tempPlaylist.jsonPlaylist = JSON.parse(vm.tempPlaylist.jsonPlaylist);
+                            vm.tempPlaylist.JsonPlaylist = JSON.parse(vm.tempPlaylist.JsonPlaylist);
                             vm.editMode = false;
                             vm.songListModified = false;
                         })
@@ -48,9 +48,9 @@
 
             vm.cancelEdit = function () {
                 vm.editMode = false;
-                var temp = vm.tempPlaylist.jsonPlaylist;
+                var temp = vm.tempPlaylist.JsonPlaylist;
                 vm.tempPlaylist = copyPlaylist(vm.playlist);
-                vm.tempPlaylist.jsonPlaylist = temp; //TODO Adapt
+                vm.tempPlaylist.JsonPlaylist = temp; //TODO Adapt
             };
 
             vm.delete = function () {
@@ -72,18 +72,18 @@
                 var newSong = {
                     title: vm.title,
                     link: vm.link,
-                    rank: vm.tempPlaylist.jsonPlaylist.songs.length
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
                 };
-                vm.tempPlaylist.jsonPlaylist.songs.push(newSong);
+                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
                 vm.title = "";
                 vm.link = "";
             };
 
             vm.removeSong = function (song) {
                 vm.songListModified = true;
-                var index = vm.tempPlaylist.jsonPlaylist.songs.indexOf(song);
+                var index = vm.tempPlaylist.JsonPlaylist.songs.indexOf(song);
                 if(index != -1){
-                    vm.tempPlaylist.jsonPlaylist.songs.splice(index, 1);
+                    vm.tempPlaylist.JsonPlaylist.songs.splice(index, 1);
                 }
             };
 
@@ -102,11 +102,11 @@
         var copyPlaylist = function (playlist) {
             return {
                 ID: playlist.ID,
-                userId: playlist.userID,
-                isPublic: playlist.isPublic,
-                name: playlist.name,
-                description: playlist.description,
-                jsonPlaylist: playlist.jsonPlaylist || {"songs": []}
+                UserID: playlist.UserID,
+                isPublic: playlist.IsPublic,
+                Name: playlist.Name,
+                Description: playlist.Description,
+                JsonPlaylist: playlist.JsonPlaylist || {"songs": []}
             };
         };
         //Real entry point of the controller
@@ -123,12 +123,12 @@
 
 
         vm.indexOfSong = function(song){
-            return vm.tempPlaylist.jsonPlaylist.songs.indexOf(song);
+            return vm.tempPlaylist.JsonPlaylist.songs.indexOf(song);
         };
 
         function resetRanks(){
-            for(var i = 0; i<vm.tempPlaylist.jsonPlaylist.songs.length ; i++ ){
-                vm.tempPlaylist.jsonPlaylist.songs[i].rank = i;
+            for(var i = 0; i<vm.tempPlaylist.JsonPlaylist.songs.length ; i++ ){
+                vm.tempPlaylist.JsonPlaylist.songs[i].rank = i;
             }
         }
     }
