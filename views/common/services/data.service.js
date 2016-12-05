@@ -6,10 +6,9 @@
 
     meanData.$inject = ['$http', 'authentication'];
     function meanData($http, authentication) {
-
         /*Profile */
-        var getProfile = function () {
-            return $http.get('/api/profile', {
+        var getProfile = function (userID) {
+            return $http.get('/api/profile/' + userID, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
                 }
@@ -79,6 +78,10 @@
             })
         };
 
+        var getTopPlaylist = function () {
+            return $http.get('/api/topPlaylists');
+        };
+
         var likePlaylist = function (playlistID) {
             return $http.post('/api/likes', {
                     playlistID: playlistID
@@ -106,6 +109,7 @@
             deletePlaylist: deletePlaylist,
             getPlaylist: getPlaylist,
             getLikedPlaylists: getLikedPlaylists,
+            getTopPlaylists: getTopPlaylist,
             likePlaylist: likePlaylist,
             unlikePlaylist: unlikePlaylist
         };

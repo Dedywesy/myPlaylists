@@ -19,7 +19,7 @@
                 controller: 'loginCtrl',
                 controllerAs: 'vm'
             })
-            .when('/profile', {
+            .when('/profile/:id?', {
                 templateUrl: '/profile/profile.view.html',
                 controller: 'profileCtrl',
                 controllerAs: 'vm'

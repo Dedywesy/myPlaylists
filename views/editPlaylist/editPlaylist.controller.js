@@ -4,7 +4,7 @@
         .controller('editPlaylistCtrl', editPlaylistCtrl);
 
     editPlaylistCtrl.$inject = ['$location', 'authentication', 'meanData', '$routeParams'];
-    function editPlaylistCtrl($location, authentication, meanData, $routeParams, asSortable) {
+    function editPlaylistCtrl($location, authentication, meanData, $routeParams) {
         vm = this;
         var id = parseInt($routeParams.id);
 

@@ -1,104 +1,112 @@
 <div id="page-wrapper">
-  <!--Here comes the navigation bar : defined in : common/directives/navigation.template.html -->
-  <navigation></navigation>
+    <!--Here comes the navigation bar : defined in : common/directives/navigation.template.html -->
+    <navigation></navigation>
 
 
-  <!-- Banner -->
-  <section id="banner">
+    <!-- Banner -->
+    <section id="banner">
 
-    <div class="inner">
+        <div class="inner">
 
-      <header>
-        <h2>DedyWesy</h2>
-      </header>
-      <p>This is<strong></strong> a free
-        <br />
-        app to share Playlists.
-        <br />
-        by <a href="http://dedywesy.webnode.fr/">Dedywesy</a>.</p>
-      <footer>
-        <ul class="buttons vertical">
-          <li><a href="#main" class="button fit scrolly">Tell Me More</a></li>
-        </ul>
-      </footer>
+            <header>
+                <h2>DedyWesy</h2>
+            </header>
+            <p>This is<strong></strong> a free
+                <br/>
+                app to share Playlists.
+                <br/>
+                by <a href="http://dedywesy.webnode.fr/">Dedywesy</a>.</p>
+            <footer>
+                <ul class="buttons vertical">
+                    <li><a href="#main" class="button fit scrolly">Tell Me More</a></li>
+                </ul>
+            </footer>
 
-    </div>
+        </div>
 
-  </section>
+    </section>
 
-  <!-- Main -->
-  <article id="main">
+    <!-- Main -->
+    <article id="main">
 
-    <header class="special container">
-      <span class="icon fa-bar-chart-o"></span>
-      <h2>This is our project for the course <strong>M7011E</strong> Design of Dynamic Web Systems
-        <br />
-      </h2>
-      <p>We decided to give it a really creative name
+        <header class="special container">
+            <span class="icon fa-bar-chart-o"></span>
+            <h2>This is our project for the course <strong>M7011E</strong> Design of Dynamic Web Systems
+                <br/>
+            </h2>
+            <p>We decided to give it a really creative name
 
-    </header>
+        </header>
 
 
+        <!-- Two
+            <section class="wrapper style1 container special">
+                <div class="row">
+                    <div class="4u 12u(narrower)">
 
-    <!-- Two
-        <section class="wrapper style1 container special">
-            <div class="row">
-                <div class="4u 12u(narrower)">
+                        <section>
+                            <span class="icon featured fa-check"></span>
+                            <header>
+                                <h3>This is Something</h3>
+                            </header>
+                            <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+                        </section>
 
-                    <section>
-                        <span class="icon featured fa-check"></span>
-                        <header>
-                            <h3>This is Something</h3>
-                        </header>
-                        <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-                    </section>
+                    </div>
+                    <div class="4u 12u(narrower)">
 
+                        <section>
+                            <span class="icon featured fa-check"></span>
+                            <header>
+                                <h3>Also Something</h3>
+                            </header>
+                            <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+                        </section>
+
+                    </div>
+                    <div class="4u 12u(narrower)">
+
+                        <section>
+                            <span class="icon featured fa-check"></span>
+                            <header>
+                                <h3>Probably Something</h3>
+                            </header>
+                            <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+                        </section>
+
+                    </div>
                 </div>
-                <div class="4u 12u(narrower)">
-
-                    <section>
-                        <span class="icon featured fa-check"></span>
-                        <header>
-                            <h3>Also Something</h3>
-                        </header>
-                        <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-                    </section>
-
-                </div>
-                <div class="4u 12u(narrower)">
-
-                    <section>
-                        <span class="icon featured fa-check"></span>
-                        <header>
-                            <h3>Probably Something</h3>
-                        </header>
-                        <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-                    </section>
-
-                </div>
-            </div>
+            </section>
+    -->
+        <!-- Three -->
+        <section class="wrapper style3 container special">
+            <header class="major">
+                <h2>Top <strong>Playlists</strong></h2>
+            </header>
+            <topPlaylists limitrows="2"></topPlaylists>
+            <footer class="major">
+                <ul class="buttons">
+                    <li><a href="/topPlaylists/" class="button">See More</a></li>
+                </ul>
+            </footer>
         </section>
--->
-    <!-- Three -->
-<topPlaylists></topPlaylists>
+    </article>
 
-  </article>
+    <!-- CTA -->
+    <section id="cta">
 
-  <!-- CTA -->
-  <section id="cta">
+        <header>
+            <h2>Ready to do <strong>something</strong>?</h2>
+            <p>Login or Register to our new app.</p>
+        </header>
+        <footer>
+            <ul class="buttons">
+                <li><a href="/login" class="button special">Sign In</a></li>
+                <li><a href="/register" class="button">Sign Up</a></li>
+            </ul>
+        </footer>
 
-    <header>
-      <h2>Ready to do <strong>something</strong>?</h2>
-      <p>Login or Register to our new app.</p>
-    </header>
-    <footer>
-      <ul class="buttons">
-        <li><a href="/login" class="button special">Sign In</a></li>
-        <li><a href="/register" class="button">Sign Up</a></li>
-      </ul>
-    </footer>
-
-  </section>
-  <foot></foot>
+    </section>
+    <foot></foot>
 
 </div>
