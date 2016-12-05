@@ -69,6 +69,17 @@ module.exports.getUserPlaylists = function (req, res) {
     }
 };
 
+module.exports.getTopPlaylist = function(req, res){
+    console.log("get top playlists function");
+    Playlists.getTopPlaylists(function(error, result){
+        if(error){
+            res.status(500).json(error);
+        } else {
+            res.status(200).json(result);
+        }
+    })
+};
+
 module.exports.createPlaylist = function (req, res) {
     console.log("create playlists function");
     var newPlaylist = Playlists.createPlaylist(req.payload._id,

@@ -91,19 +91,19 @@ exports.getAllPlaylists = function (userID, callback) {
 
 exports.getPublicPlaylists = function (userID, callback) {
     /*console.log('Get public playlists function');
-    var table = "public.playlists";
-    var where = '"UserID" = ' + "'" + userID + "' AND IsPublic is true";
-    var results = [];
+     var table = "public.playlists";
+     var where = '"UserID" = ' + "'" + userID + "' AND IsPublic is true";
+     var results = [];
 
-    db.getQuery(table, where, function (err, result) {
-        if (!err && result.rows[0]) {
-            for (var i = 0, len = result.rows.length; i < len; i++) {
-                var pl = playlistFromDB(result.rows[i]);
-                results.push(pl);
-            }
-        }
-        callback(err, results);
-    });*/
+     db.getQuery(table, where, function (err, result) {
+     if (!err && result.rows[0]) {
+     for (var i = 0, len = result.rows.length; i < len; i++) {
+     var pl = playlistFromDB(result.rows[i]);
+     results.push(pl);
+     }
+     }
+     callback(err, results);
+     });*/
 };
 
 exports.getByID = function (id, callback) {
@@ -120,11 +120,14 @@ exports.getByID = function (id, callback) {
     });
 };
 
-function playlistFromDB(rawPlaylist) {
-    return new Playlist(rawPlaylist.ID,
-        rawPlaylist.UserID,
-        rawPlaylist.IsPublic,
-        rawPlaylist.Name,
-        rawPlaylist.Description,
-        rawPlaylist.JsonPlaylist);
-}
+exports.getTopPlaylists = function (callback) {
+    var select = 'count(p."ID") likeCount, p."ID" PlaylistID, p."Name" PlaylistName, p."Description"' +
+        ' PlaylistDescription, p."JsonPlaylist" PlaylistPlaylist, u."Name" UserName, u."ID" UserID'
+    var from = 'public.playlists p, public.users u, public.likes l';
+    var where = 'p."UserID" = u."ID" AND p."ID" = l."PlaylistID" AND p."IsPublic" = true';
+    var endArgs = 'GROUP BY p."ID", u."Name", U."ID" ORDER BY likeCount DESC LIMIT 10';
+
+    db.selectQuery(select, from, where, endArgs, function(error, result){
+        callback(error, result.rows);
+    })
+};

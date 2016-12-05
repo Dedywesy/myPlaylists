@@ -12,9 +12,9 @@
             </li>
             <li ng-hide="navvm.isLoggedIn"><a href="login" class="button special">Sign In</a></li>
             <li class = "submenu" ng-show="navvm.isLoggedIn">
-                <a href="#" class="button special">{{ navvm.currentUser.name }}</a>
+                <a class="button special">{{ navvm.currentUser.name }}</a>
                 <ul>
-                    <li><a href="/profile">My account</a></li>
+                    <li><a href="/profile/">My account</a></li>
                     <li><a href="/myPlaylists">My playlists</a> </li>
                     <li><a href="/logout">Disconnect</a> </li>
                 </ul>

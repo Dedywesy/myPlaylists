@@ -19,7 +19,7 @@ router.use(multer({dest: './uploads/'}).any());
 * A payload with the json webtoken must be provided
 * */
 /********** Profile ***************/
-router.get('/profile', auth, ctrlProfile.profileRead);
+router.get('/profile/:id', auth, ctrlProfile.profileRead);
 
 /*********Playlists****************/
 //get a playlist by id
@@ -43,9 +43,11 @@ router.post('/likes', auth, ctrlLikes.likePlaylist);
 //"delete" a like on a playlist
 router.delete('likes/:id', auth, ctrlLikes.unlikePlaylist);
 
-/*"Not secured" available without being logged in*/
-// authentication
+/**"Not secured" available without being logged in*/
+/********Authentication****************/
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
+// get top playlists
+router.get('/topPlaylists', ctrlPlaylists.getTopPlaylist);
 
 module.exports = router;

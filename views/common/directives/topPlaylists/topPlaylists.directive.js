@@ -7,8 +7,11 @@
     function topPlaylists () {
         return {
             restrict: 'EA',
+            scope: {
+                limitrows: '='
+            },
             templateUrl: '/common/directives/topPlaylists/topPlaylists.template.html',
-            controller: 'topplaylistsCtrl as topplaylistsvm'
+            controller: 'topPlaylistsTemplateCtrl as topPlaylistsVm'
         };
     }
 
