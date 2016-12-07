@@ -87,8 +87,6 @@
                 }
             };
 
-            vm.items = ["1", "2", "3", "4"];
-
             vm.dragControlListeners = {
                 accept: function (sourceItemHandleScope, destSortableScope) {return true},//override to determine
                 // drag is allowed or not. default is true.

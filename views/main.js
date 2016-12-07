@@ -49,6 +49,11 @@
                 controller: 'editPlaylistCtrl',
                 controllerAs: 'vm'
             })
+            .when('/playlist/:id', {
+                templateUrl: '/playlist/playlist.view.html',
+                controller: 'playlistCtrl',
+                controllerAs: 'vm'
+            })
             .otherwise({redirectTo: '/'});
 
         // use the HTML5 History API

@@ -32,7 +32,8 @@ module.exports.likePlaylist = function(req, res){
         return;
     }
     var like = Likes.createLike(req.payload._id, req.body.playlistID);
-    Likes.getSpecificLike(req.payload._id, req.body.playlistID, function (error, results){
+    Likes.getSpecificLike(req.payload._id, req.body.playlistID, function (error, results){//todo check that playlist
+        // is public
         if(error){
             res.status(500).json(error);
         } else if (results.rows[0]){
@@ -52,7 +53,7 @@ module.exports.likePlaylist = function(req, res){
     });
 };
 
-module.exports.unlikePlaylist = function (req, res){
+module.exports.unlikePlaylist = function (req, res){ //todo playlist is public?
     console.log("Unlike a playlist function");
     if (!req.payload._id) {
         res.status(401).json({

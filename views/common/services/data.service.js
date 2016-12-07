@@ -82,8 +82,10 @@
             return $http.get('/api/topPlaylists');
         };
 
+        /*Likes*/
         var likePlaylist = function (playlistID) {
-            return $http.post('/api/likes', {
+            return $http.post('/api/likes',
+                {
                     playlistID: playlistID
                 },
                 {
@@ -93,13 +95,35 @@
                 });
         };
 
-        var unlikePlaylist = function(playlistID){
+        var unlikePlaylist = function (playlistID) {
             return $http.delete('/api/likes/' + playlistID, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
                 }
             });
         };
+
+        /*Comments*/
+        var commentPlaylist = function (playlistID, comment) {
+            return $http.post('/api/comments/',
+                {
+                    playlistID: playlistID,
+                    comment: comment
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + authentication.getToken()
+                    }
+                });
+        };
+
+        var getComments = function (playlistID){
+            return $http.get('/api/comments/' + playlistID, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        }
 
         return {
             getProfile: getProfile,
@@ -111,7 +135,9 @@
             getLikedPlaylists: getLikedPlaylists,
             getTopPlaylists: getTopPlaylist,
             likePlaylist: likePlaylist,
-            unlikePlaylist: unlikePlaylist
+            unlikePlaylist: unlikePlaylist,
+            commentPlaylist:commentPlaylist,
+            getComments: getComments
         };
     }
 

@@ -17,11 +17,17 @@
         };
 
         meanData.getMyPlaylists()
-            .success(function (data) {
-                vm.playlists = data;
+            .error(function (error) {
+                console.error(error);
+            })
+            .then(function (data) {
+                vm.playlists = data.data;
                 meanData.getLikedPlaylists()
-                    .success(function (data) {
-                        vm.likes = data;
+                    .error(function (error) {
+                        console.error(error);
+                    })
+                    .then(function (data) {
+                        vm.likes = data.data;
                         vm.playlists.forEach(function (itemPlaylist) {
                             vm.likes.forEach(function (itemLike) {
                                 if (itemPlaylist.ID == itemLike.playlistId) {
@@ -30,13 +36,8 @@
                             })
                         })
                     })
-                    .error(function (error) {
-                        console.error(error);
-                    });
-            })
-            .error(function (error) {
-                console.error(error);
             });
+
 
 
         vm.addPlaylist = function () {

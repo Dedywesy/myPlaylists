@@ -10,81 +10,85 @@
             <h2><strong>My Playlists</strong></h2>
             <p>What do you want to listen to today ?</p>
         </header>
-
-        <div class="wrapper style1 special container 75%" id="playlists">
-            <li class="playlist playlistRow" ng-repeat="playlist in vm.playlists | orderBy: 'Name'">
-                <div class="playlist item">
-                    <div class="playlist likes controls properties">
-                        <div class="fa-stack fa-1x">
-                             <i ng-show="playlist.liked" style="color: plum"
-                                class="fa fa-heart fa-stack-2x"
-                             ></i>
-                            <i ng-hide="playlist.liked" style="color: grey"
-                               class="fa fa-heart fa-stack-2x"
-                            ></i>
-                             <strong class="fa-stack-1x fa-stack-text file-text"
-                                     ng-click="vm.toggleLike(playlist)">
-                                 {{playlist.likeCount}}</strong>
+        <div id="left">
+            <div class="wrapper style1 special container 50%" id="playlists">
+                <li class="playlist playlistRow" ng-repeat="playlist in vm.playlists | orderBy: 'Name'">
+                    <div class="playlist item">
+                        <div class="playlist likes controls properties">
+                            <div class="fa-stack fa-1x">
+                                <i ng-show="playlist.liked" style="color: plum"
+                                   class="fa fa-heart fa-stack-2x"
+                                ></i>
+                                <i ng-hide="playlist.liked" style="color: grey"
+                                   class="fa fa-heart fa-stack-2x"
+                                ></i>
+                                <strong class="fa-stack-1x fa-stack-text file-text"
+                                        ng-click="vm.toggleLike(playlist)">
+                                    {{playlist.likeCount}}</strong>
+                            </div>
+                            <div ng-hide="playlist.IsPublic" class="fa fa-lock fa-2x playlist control"
+                                 style="color:red"></div>
+                            <div ng-show="playlist.IsPublic" class="fa fa-unlock-alt fa-2x playlist control"
+                                 style="color:green;"></div>
                         </div>
-                        <div ng-hide="playlist.IsPublic" class="fa fa-lock fa-2x playlist control" 
-                             style="color:red"></div>
-                        <div ng-show="playlist.IsPublic" class="fa fa-unlock-alt fa-2x playlist control" 
-                             style="color:green;"></div>
+                        <div class="playlist properties">
+                            <div class="playlist name"><a href="/playlist/{{playlist.ID}}">{{playlist.Name}}</a></div>
+                            <div class="description">{{playlist.Description}}</div>
+                        </div>
+                        <div class="playlist controls">
+                            <div class="fa fa-wrench fa-2x playlist control clickable"
+                                 ng-click="vm.edit(playlist)"></div>
+                            <div class="fa fa-play fa-2x playlist control clickable" ng-click="vm.play(playlist)"></div>
+                        </div>
                     </div>
-                    <div class="playlist properties">
-                        <div class="playlist name">{{playlist.Name}}</div>
-                        <div class="description">{{playlist.Description}}</div>
-                    </div>
-                    <div class="playlist controls">
-                        <div class="fa fa-wrench fa-2x playlist control clickable" ng-click="vm.edit(playlist)"></div>
-                        <div class="fa fa-play fa-2x playlist control clickable" ng-click="vm.play(playlist)"></div>
-                    </div>
-                </div>
-            </li>
+                </li>
+            </div>
         </div>
 
-        <!-- One -->
-        <section class="wrapper style4 special container 75%">
-            <h2>
-                <stron>Add a new one ;)</stron>
-            </h2>
-            <!-- Content -->
-            <div class="content">
+        <div id="right">
+            <section class="wrapper style4 special container 50%">
+                <h2>
+                    <stron>Add a new one ;)</stron>
+                </h2>
+                <!-- Content -->
+                <div class="content">
 
-                <form ng-submit="vm.addPlaylist()">
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                               ng-model="vm.newPlaylist.isPublic" checked>
-                        <label class="onoffswitch-label" for="myonoffswitch">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
-                    </div>
-                    <div class="row 100%">
-                        <div class="12u">
-                            <span for="newPlaylistName">Playlist name</span>
-                            <input id="newPlaylistName" type="text" name="playlist_name" placeholder="Name"
-                                   ng-model="vm.newPlaylist.name" required/>
+                    <form ng-submit="vm.addPlaylist()">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                                   ng-model="vm.newPlaylist.isPublic" checked>
+                            <label class="onoffswitch-label" for="myonoffswitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
                         </div>
-                    </div>
-                    <div class="row 100%">
-                        <div class="12u">
-                            <span for="newPlaylistDescription">Description</span>
-                            <input id="newPlaylistDescription" type="text" name="description" placeholder="Description"
-                                   ng-model="vm.newPlaylist.description"/>
+                        <div class="row 100%">
+                            <div class="12u">
+                                <span for="newPlaylistName">Playlist name</span>
+                                <input id="newPlaylistName" type="text" name="playlist_name" placeholder="Name"
+                                       ng-model="vm.newPlaylist.name" required/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="12u">
-                            <ul class="buttons">
-                                <li><input type="submit" class="special" value="Create"/></li>
-                            </ul>
+                        <div class="row 100%">
+                            <div class="12u">
+                                <span for="newPlaylistDescription">Description</span>
+                                <input id="newPlaylistDescription" type="text" name="description"
+                                       placeholder="Description"
+                                       ng-model="vm.newPlaylist.description"/>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                        <div class="row">
+                            <div class="12u">
+                                <ul class="buttons">
+                                    <li><input type="submit" class="special" value="Create"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-        </section>
+            </section>
+        </div>
     </article>
 
     <foot></foot>

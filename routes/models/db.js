@@ -21,13 +21,13 @@ var exports = module.exports = {};
 exports.insertQuery = function (tableName, toInsert, callback) {
     pool.connect(function (err, client, done) {
         if (err) {
-            return console.error('error fetching client from pool', err);
+            console.error('error fetching client from pool', err);
         }
         var queryString = 'insert into ' + tableName + toInsert + 'RETURNING *';
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                return console.error('error running INSERT query', err);
+                console.error('error running INSERT query', err);
             }
             callback(err, res);
         });
@@ -43,7 +43,7 @@ exports.getQuery = function (tableName, where, callback) {
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                return console.error('error running GET query', err);
+                console.error('error running GET query', err);
             }
             callback(err, res);
         });
@@ -60,7 +60,7 @@ exports.selectQuery = function (select, from, where, endArg,  callback) {
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                return console.error('error running GET query', err);
+                console.error('error running SELECT query', err);
             }
             callback(err, res);
         });
@@ -76,7 +76,7 @@ exports.updateQuery = function (tableName, setArg, where, callback) {
         client.query(queryString, function (err, res) {
             done();
             if(err) {
-                return console.error('error running UPDATE query', err);
+                console.error('error running UPDATE query', err);
             }
             callback(err, res);
         });
@@ -92,7 +92,7 @@ exports.deleteQuery = function(tableName, where, callback){
         client.query(queryString, function(err, res){
             done();
             if(err) {
-                return console.error('error running DELETE query');
+                console.error('error running DELETE query');
             }
             callback(err, res);
         })
