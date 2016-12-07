@@ -6,7 +6,7 @@ function hasRightsOnPlaylist(userID, playlistID, onSucess, onError) {
             return onError();
         }
         else {
-            if (userID == playlist.userId) {
+            if (userID == playlist.UserID) {
                 return onSucess();
             }
             return onError();
@@ -25,7 +25,7 @@ module.exports.getPlaylist = function (req, res) {
     Playlists.getByID(req.params.id, function (error, result) {
         if (error == null && result != undefined) {
             //check if belongs to user or public
-            if((result.UserID == req.payload._id) || result.isPublic){
+            if((result.UserID == req.payload._id) || result.IsPublic){
                 res.status(200).json(result);
             } else{
                 res.status(401).json({
@@ -83,7 +83,7 @@ module.exports.getTopPlaylist = function(req, res){
 module.exports.createPlaylist = function (req, res) {
     console.log("create playlists function");
     var newPlaylist = Playlists.createPlaylist(req.payload._id,
-        req.body.playlist.isPublic,
+        req.body.playlist.IsPublic,
         req.body.playlist.name,
         req.body.playlist.description);
     Playlists.save(newPlaylist, function (error, result) {
@@ -100,11 +100,12 @@ module.exports.editPlaylist = function (req, res) {
     console.log("Edit playlists function");
     hasRightsOnPlaylist(req.payload._id, req.body.playlist.ID,
         function () {
+        console.log(req.body.playlist);
             var newPlaylist = Playlists.createPlaylist(req.payload._id,
-                req.body.playlist.isPublic,
-                req.body.playlist.name,
-                req.body.playlist.description);
-            newPlaylist.jsonPlaylist = req.body.playlist.jsonPlaylist;
+                req.body.playlist.IsPublic,
+                req.body.playlist.Name,
+                req.body.playlist.Description);
+            newPlaylist.JsonPlaylist = req.body.playlist.JsonPlaylist;
             newPlaylist.ID = req.body.playlist.ID;
 
             Playlists.update(newPlaylist, function (error, result) {

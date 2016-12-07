@@ -35,15 +35,15 @@
                     vm.tempPlaylist.JsonPlaylist = angular.toJson(vm.tempPlaylist.JsonPlaylist);
                     meanData.editPlaylist(vm.tempPlaylist)
                         .error(function (err) {
-                            alert("error while updating playlist", err);
+                            alert("error while updating playlist" + err);
                         })
                         .then(function (data) {
                             vm.playlist = copyPlaylist(data.data);
                             vm.tempPlaylist.JsonPlaylist = JSON.parse(vm.tempPlaylist.JsonPlaylist);
-                            vm.editMode = false;
                             vm.songListModified = false;
                         })
                 }
+                vm.editMode = false;
             };
 
             vm.cancelEdit = function () {
@@ -103,7 +103,7 @@
             return {
                 ID: playlist.ID,
                 UserID: playlist.UserID,
-                isPublic: playlist.IsPublic,
+                IsPublic: playlist.IsPublic,
                 Name: playlist.Name,
                 Description: playlist.Description,
                 JsonPlaylist: playlist.JsonPlaylist || {"songs": []}
