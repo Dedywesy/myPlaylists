@@ -90,7 +90,6 @@ exports.getByID = function (id, callback) {
 };
 
 function userFromDB(rawUser) {
-    console.log("UserFromDB");
     return new User(rawUser.ID, rawUser.Email, rawUser.Name, rawUser.Salt, rawUser.Hash, rawUser.ProfilePic);
 }
 

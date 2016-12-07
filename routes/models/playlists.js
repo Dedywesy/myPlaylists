@@ -78,7 +78,7 @@ exports.getAllPlaylists = function (userID, callback) {
             result.rows.forEach(function (pl, index) {
                 likes.getPlaylistLikes(pl.ID, function (error, res) {
                     if (!err && res.rows[0]) {
-                        pl.likeCount = res.rows[0].count;
+                        pl.likeCount = res.rows.length;
                     } else {
                         pl.likeCount = 0;
                     }

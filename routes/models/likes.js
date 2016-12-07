@@ -59,7 +59,7 @@ exports.getUserLikes = function (userID, callback) {
 
 exports.getPlaylistLikes = function (playlistID, callback) {
     console.log('Get playlists likes function');
-    var select = "Count(*)";
+    var select = "*";
     var table = "public.likes";
     var where = '"PlaylistID" = ' + playlistID;
     var endArgs = "";

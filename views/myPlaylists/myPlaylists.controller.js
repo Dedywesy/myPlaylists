@@ -95,28 +95,7 @@
                         })
                     });
             }
-
-
-
         };
-
-        vm.unlike = function (playlistID) {
-            meanData.unlikePlaylist(playlistID)
-                .error(function (error) {
-                    console.log(error);
-                })
-                .then(function (data) {
-                    var index = vm.likes.indexOf(playlistID);
-                    if (index != -1) {
-                        vm.likes.splice(index, 1);
-                    }
-                    vm.playlists.forEach(function (item) {
-                        if (item.ID == playlistID) {
-                            item.likeCount--;
-                        }
-                    })
-                });
-        }
     }
 
 })();

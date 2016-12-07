@@ -78,6 +78,14 @@
             })
         };
 
+        var getPlaylistLikes = function(playlistID) {
+            return $http.get('/api/likes/' + playlistID, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            })
+        };
+
         var getTopPlaylist = function () {
             return $http.get('/api/topPlaylists');
         };
@@ -133,6 +141,7 @@
             deletePlaylist: deletePlaylist,
             getPlaylist: getPlaylist,
             getLikedPlaylists: getLikedPlaylists,
+            getPlaylistLikes: getPlaylistLikes,
             getTopPlaylists: getTopPlaylist,
             likePlaylist: likePlaylist,
             unlikePlaylist: unlikePlaylist,

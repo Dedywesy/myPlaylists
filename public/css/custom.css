@@ -55,6 +55,10 @@
     width : auto;
 }
 
+.centeredLike{
+    color: #FFFFFF;
+}
+
 .playlist.control{
     text-align: center;
     display: flex;
@@ -68,7 +72,7 @@
     text-align: center;
 }
 
-.playlist.clickable:hover{
+.clickable:hover{
     cursor: pointer;
 }
 

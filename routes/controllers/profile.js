@@ -10,7 +10,6 @@ module.exports.profileRead = function (req, res) {
     } else {
         console.log("Getting user by ID");
         User.getByID(req.params.id, function (err, user) {
-            console.log(user);
             if (req.payload._id != req.params.id) {
                 user.email = null;
 

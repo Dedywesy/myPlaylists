@@ -14,6 +14,7 @@
                 alert("no playlist at this id");
                 $location.path('home');
             }
+            //Get profile
             meanData.getProfile(vm.playlist.UserID)
                 .error(function (error) {
                     console.error("Error while retrieving user", error)
@@ -22,13 +23,30 @@
                     vm.profile = data.data;
                 });
 
+            //Get playlist comments
             meanData.getComments(vm.playlist.ID)
-                .error(function(error) {
+                .error(function (error) {
                     console.error("Error while retrieving comments", error)
                 })
-                .then(function (data){
-                    console.log(data.data);
+                .then(function (data) {
                     vm.comments = data.data;
+                });
+
+            //Get playlist likes
+            meanData.getPlaylistLikes(vm.playlist.ID)
+                .error(function (error) {
+                    console.error(error);
+                })
+                .then(function (data) {
+                    var likes = data.data;
+                    vm.playlist.likeCount = likes.length;
+                    vm.playlist.liked = false;
+                    for (var i = 0; i < likes.length; i++) {
+                        if (likes[i].UserID == vm.user._id) {
+                            vm.playlist.liked = true;
+                            break;
+                        }
+                    }
                 })
 
         };
@@ -45,9 +63,33 @@
                         alert("Error while adding comment, try again later")
                     })
                     .then(function (result) {
-                        result.data.Name = authentication.currentUser().name;
+                        result.data.Name = vm.user.name;
                         vm.comments.push(result.data);
                         vm.newComment = "";
+                    });
+            }
+        };
+
+        vm.toggleLike = function () {
+            if (vm.playlist.liked) {
+                meanData.unlikePlaylist(vm.playlist.ID)
+                    .error(function (error) {
+                        console.log(error);
+                    })
+                    .then(function (data) {
+                        vm.playlist.liked = false;
+                        vm.playlist.likeCount--;
+                    });
+            }
+            else {
+                meanData.likePlaylist(vm.playlist.ID)
+                    .error(function (error) {
+                        console.log(error);
+                    })
+                    .then(function (data) {
+                        vm.playlist.likeCount++;
+                        vm.playlist.liked = true;
+
                     });
             }
         };
@@ -57,6 +99,7 @@
         vm.profile = {};
         vm.comments = [];
         vm.newComment = "";
+        vm.user = authentication.currentUser();
         meanData.getPlaylist(id)
             .error(function (error) {
                 alert(error.message);

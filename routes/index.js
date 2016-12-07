@@ -39,6 +39,8 @@ router.delete('/playlist/:id', auth, ctrlPlaylists.deletePlaylist);
 /*******User's Likes*****************/
 //get user liked playlists
 router.get('/likes', auth, ctrlLikes.getUserLikes);
+//get playlists likes
+router.get('/likes/:id', auth, ctrlLikes.getPlaylistLikes);
 //"post" a like on a playlist
 router.post('/likes', auth, ctrlLikes.likePlaylist);
 //"delete" a like on a playlist
