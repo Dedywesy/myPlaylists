@@ -1,4 +1,5 @@
 var pg = require('pg');
+var format = require('pg-format');
 var db = require('./db');
 
 
@@ -19,9 +20,8 @@ exports.createComment = function (userId, playlistId, content) {
 exports.save = function (comment, callback) {
     console.log("Comment save function");
     var table = "public.comments";
-    var toInsert = ' ("UserID", "PlaylistID", "Content") values ( \'' +
-        comment.UserID + '\' , \'' + comment.PlaylistID + '\' , \'' + comment.Content + '\')';
-
+    var toInsert = format(' ("UserID", "PlaylistID", "Content") values ( %L, %L, %L)' , comment.UserID, comment.PlaylistID, comment.Content);
+    console.log(toInsert);
     db.insertQuery(table, toInsert, function (error, result) {
         if (error) {
             console.error("error while adding comment to playlist");
@@ -34,7 +34,7 @@ exports.getPlaylistComments = function(playlistID, callback){
     console.log("Get comments for playlist", playlistID);
     var select = 'c."ID", c."Date", c."Content", c."UserID", u."Name"';
     var from = 'comments c, users u';
-    var where = 'c."UserID" = u."ID" AND c."PlaylistID" = ' + playlistID;
+    var where = format('c."UserID" = u."ID" AND c."PlaylistID" = $L', + playlistID);
     var endArgs = "";
 
     db.selectQuery(select, from, where, endArgs, function(error, results){

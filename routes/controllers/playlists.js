@@ -22,12 +22,13 @@ module.exports.getPlaylist = function (req, res) {
         });
         return;
     }
+
     Playlists.getByID(req.params.id, function (error, result) {
         if (error == null && result != undefined) {
             //check if belongs to user or public
-            if((result.UserID == req.payload._id) || result.IsPublic){
+            if ((result.UserID == req.payload._id) || result.IsPublic) {
                 res.status(200).json(result);
-            } else{
+            } else {
                 res.status(401).json({
                     "message": "You don't have the rights to view this playlist"
                 })
@@ -69,10 +70,10 @@ module.exports.getUserPlaylists = function (req, res) {
     }
 };
 
-module.exports.getTopPlaylist = function(req, res){
+module.exports.getTopPlaylist = function (req, res) {
     console.log("get top playlists function");
-    Playlists.getTopPlaylists(function(error, result){
-        if(error){
+    Playlists.getTopPlaylists(function (error, result) {
+        if (error) {
             res.status(500).json(error);
         } else {
             res.status(200).json(result);
@@ -83,7 +84,7 @@ module.exports.getTopPlaylist = function(req, res){
 module.exports.createPlaylist = function (req, res) {
     console.log("create playlists function");
     var newPlaylist = Playlists.createPlaylist(req.payload._id,
-        req.body.playlist.IsPublic,
+        req.body.playlist.isPublic,
         req.body.playlist.name,
         req.body.playlist.description);
     Playlists.save(newPlaylist, function (error, result) {
@@ -100,7 +101,7 @@ module.exports.editPlaylist = function (req, res) {
     console.log("Edit playlists function");
     hasRightsOnPlaylist(req.payload._id, req.body.playlist.ID,
         function () {
-        console.log(req.body.playlist);
+            console.log(req.body.playlist);
             var newPlaylist = Playlists.createPlaylist(req.payload._id,
                 req.body.playlist.IsPublic,
                 req.body.playlist.Name,
