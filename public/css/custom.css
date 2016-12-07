@@ -1,9 +1,9 @@
 /*About playlist page*/
 .playlist{
     border: 1px;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 3px;
     height: auto;
     background-color: #eeeeee;
 }

@@ -1,0 +1,30 @@
+<div id="page-wrapper">
+    <navigation></navigation>
+    <!-- Main -->
+    <article id="main">
+        <header class="special container">
+            <span class="icon fa-music"></span>
+            <h2><strong>{{vm.playlist.Name}}</strong></h2>
+            <p><span>{{vm.playlist.Description}}</span>
+            <p><span>By : <a href="/profile/{{vm.profile.ID}}"> {{vm.profile.name}} </a></span></p>
+            <p class="fa fa-play-circle fa-3x playlist clickable" ng-click="vm.play()"/>
+        </header>
+
+        <ul class="wrapper style1 special container 75%" id="playlists">
+            <li class="playlist"
+                data-ng-repeat="song in vm.playlist.JsonPlaylist.songs">
+                <div class="playlist item">
+                    <div class="playlist song">
+                        <div class="playlist name">{{song.title}}</div>
+                        <div class="link"><a href={{song.link}}>Link</a></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </article>
+
+    <foot></foot>
+
+</div>
+

@@ -1586,7 +1586,7 @@ strong, b {
 }
 
 p, ul, ol, dl, table, blockquote {
-    margin: 0 0 2em 0;
+    margin: 0 0 0.5em 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -2090,8 +2090,8 @@ input[type="reset"].small,
 /* Wrapper */
 
 .wrapper {
-    margin-bottom: 5em;
-    padding: 5em;
+    margin-bottom: 2em;
+    padding: 2em;
 }
 
 .wrapper.style1 {
@@ -2545,8 +2545,8 @@ body.index #main {
     /* Section/Article */
 
     header.special {
-        padding-top: 5.5em;
-        margin-bottom: 4em;
+        padding-top: 3em;
+        margin-bottom: 1em;
     }
 
 }
