@@ -85,8 +85,18 @@
     float:right;
     width:50%;
 }
+
+#smallLeft{
+    width : 33%;
+    float : left;
+}
+#bigRight, #bigRightBis{
+    float:right;
+    width:63%;
+}
+
 @media screen and (max-width: 692px)   {
-    #left, #right{
+    #left, #right, #smallLeft, #bigRight, #bigRightBis {
         width:100%;
         float:none;
     }

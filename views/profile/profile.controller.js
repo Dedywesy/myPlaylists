@@ -8,11 +8,14 @@
     function profileCtrl(meanData, authentication, $routeParams) {
         var vm = this;
         var id;
+        var currentUserID = authentication.currentUser()._id;
+        var userID = parseInt($routeParams.id);
         if(!$routeParams.id){
-            id = authentication.currentUser()._id;
+            id = currentUserID
         }else{
-            id = parseInt($routeParams.id);
+            id = userID;
         }
+        vm.personalProfile = (currentUserID == id);
         vm.user = {};
         meanData.getProfile(id)
             .success(function (data) {
@@ -21,6 +24,22 @@
             .error(function (e) {
                 console.log(e);
             });
+
+        vm.likedPlaylists = [];
+        vm.publicPlaylists = [];
+
+
+        if(vm.personalProfile){
+            meanData.getLikedPlaylists()
+                .error(function (error) {
+                    console.error(error);
+                })
+                .then(function (data){
+                    vm.likedPlaylists = data.data;
+                })
+        } else{
+            //getpublicplaylist todo
+        }
     }
 
 })();

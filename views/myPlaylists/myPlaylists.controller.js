@@ -30,7 +30,7 @@
                         vm.likes = data.data;
                         vm.playlists.forEach(function (itemPlaylist) {
                             vm.likes.forEach(function (itemLike) {
-                                if (itemPlaylist.ID == itemLike.playlistId) {
+                                if (itemPlaylist.ID == itemLike.PlaylistID) {
                                     itemPlaylist.liked = true;
                                 }
                             })
