@@ -9,12 +9,6 @@ module.exports.postComment = function(req, res){
         });
         return;
     }
-    if(req.body.playlistID == parseInt(req.body.playlistID, 10)){
-        res.status(401).json({
-            "message": "PlaylistID is not an integer"
-        });
-        return;
-    }
     var comment = Comments.createComment(req.payload._id, req.body.playlistID, req.body.comment);
     Comments.save(comment, function(error, result){
         console.log(error);

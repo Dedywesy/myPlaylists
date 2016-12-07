@@ -34,7 +34,7 @@ exports.getPlaylistComments = function(playlistID, callback){
     console.log("Get comments for playlist", playlistID);
     var select = 'c."ID", c."Date", c."Content", c."UserID", u."Name"';
     var from = 'comments c, users u';
-    var where = format('c."UserID" = u."ID" AND c."PlaylistID" = $L', + playlistID);
+    var where = format('c."UserID" = u."ID" AND c."PlaylistID" = %L', + playlistID);
     var endArgs = "";
 
     db.selectQuery(select, from, where, endArgs, function(error, results){

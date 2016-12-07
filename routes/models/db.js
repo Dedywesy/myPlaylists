@@ -60,7 +60,7 @@ exports.selectQuery = function (select, from, where, endArg,  callback) {
         client.query(queryString, function (err, res) {
             done();
             if (err) {
-                console.error('error running GET query', err);
+                console.error('error running SELECT query', err);
             }
             callback(err, res);
         });
