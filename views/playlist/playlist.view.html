@@ -10,18 +10,36 @@
             <p class="fa fa-play-circle fa-3x playlist clickable" ng-click="vm.play()"/>
         </header>
 
-        <ul class="wrapper style1 special container 75%" id="playlists">
-            <li class="playlist"
-                data-ng-repeat="song in vm.playlist.JsonPlaylist.songs">
-                <div class="playlist item">
-                    <div class="playlist song">
-                        <div class="playlist name">{{song.title}}</div>
-                        <div class="link"><a href={{song.link}}>Link</a></div>
+        <div id="container" style="width:100%;">
+            <div id="left">
+                <ul class="wrapper style1 special container 50%">
+                    <div class="playlist"
+                         data-ng-repeat="song in vm.playlist.JsonPlaylist.songs">
+                        <div class="playlist item">
+                            <div class="playlist song">
+                                <div class="playlist name">{{song.title}}</div>
+                                <div class="link"><a href={{song.link}}>Link</a></div>
+                            </div>
+                        </div>
                     </div>
+                </ul>
+            </div>
+            <div id="right">
+                <div class="wrapper style3 special container 50%">
+                    <header>Comments :</header>
+                    <div ng-repeat="comment in vm.comments | orderBy: 'Date'" class="playlist">
+                        <p class = "comment">{{comment.Content}}</p>
+                        <p class="signature">By <a href="/profile/{{comment.UserID}}">{{comment.Name}}</a></p>
+                    </div>
+                    <form ng-submit="vm.addComment()">
+                        <label>My comment :</label>
+                        <input type="text" ng-model="vm.newComment">
+                        <input type="submit" value="Post comment">
+                    </form>
                 </div>
-            </li>
-        </ul>
 
+            </div>
+        </div>
     </article>
 
     <foot></foot>
