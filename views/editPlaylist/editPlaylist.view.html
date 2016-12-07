@@ -6,8 +6,9 @@
             <span class="icon fa-music"></span>
             <h2><strong>{{vm.playlist.Name}}</strong></h2>
             <p><span>{{vm.playlist.Description}}</span><span><abc ng-hide="!vm.playlist.IsPublic"> - Public
-            </abc><abc ng-hide = "vm.playlist.IsPublic"> - Private</abc> playlist</span>
-            </span></p>
+            </abc><abc ng-hide="vm.playlist.IsPublic"> - Private</abc> playlist</span>
+                </span></p>
+            <p><a href="/playlist/{{vm.playlist.ID}}">See playlist</a></p>
             <button class="button small" ng-click="vm.editMode = true" ng-hide="vm.editMode">Edit</button>
             <form ng-show="vm.editMode" class="wrapper style1 special container 75%">
                 <div class="onoffswitch">
@@ -24,9 +25,9 @@
                 <button class="button small fa fa-times-circle fa-4x" ng-click="vm.cancelEdit()"/>
             </form>
         </header>
-
-            <div class="wrapper style1 special container 75%" id="playlists">
-                <strong>Drag the songs to reorganize them</strong>
+        <div id="left">
+            <div class="wrapper style1 special container 50%" id="playlists">
+                <strong>Drag the songs to reorganize them - Don't forget to save after</strong>
                 <ul data-as-sortable="vm.dragControlListeners" data-ng-model="vm.tempPlaylist.JsonPlaylist.songs">
                     <li class="playlist playlistRow"
                         data-ng-repeat="song in vm.tempPlaylist.JsonPlaylist.songs"
@@ -48,9 +49,10 @@
                     Save list
                 </button>
             </div>
+        </div>
 
-
-            <section class="wrapper style4 special container 75%">
+        <div id="right">
+            <section class="wrapper style4 special container 50%">
                 <h2>
                     <strong>Add a new song to this playlist</strong>
                 </h2>
@@ -79,9 +81,9 @@
                         </div>
                     </form>
                 </div>
-
             </section>
-        <div class="wrapper style1 special container 75% centered">
+        </div>
+        <div class="wrapper style1 special container 75% centered" style="clear: both">
             <button class="button special" ng-click="vm.delete()">Delete playlist</button>
         </div>
 
