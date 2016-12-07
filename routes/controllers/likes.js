@@ -61,7 +61,7 @@ module.exports.unlikePlaylist = function (req, res){ //todo playlist is public?
         });
         return;
     }
-    Likes.delete(req.payload._id, req.params.id, function (err, res) {
+    Likes.delete(req.payload._id, req.params.id, function (err, result) {
         if(err == null){
             res.status(200).json({
                 message : "playlist unliked"

@@ -42,7 +42,7 @@ router.get('/likes', auth, ctrlLikes.getUserLikes);
 //"post" a like on a playlist
 router.post('/likes', auth, ctrlLikes.likePlaylist);
 //"delete" a like on a playlist
-router.delete('likes/:id', auth, ctrlLikes.unlikePlaylist);
+router.delete('/likes/:id', auth, ctrlLikes.unlikePlaylist);
 
 /********Comments********************/
 //Post a comment

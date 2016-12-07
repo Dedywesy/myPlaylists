@@ -31,7 +31,7 @@ exports.save = function (like, callback) {
 exports.delete = function (UserID, playlistID, callback) {
     console.log("like delete function");
     var table = "public.likes";
-    var where = '"UserID"=' + userID + 'AND "PlaylistID"= ' + playlistID;
+    var where = '"UserID"=' + UserID + 'AND "PlaylistID"= ' + playlistID;
     db.deleteQuery(table, where, function (err, result) {
         if (err) {
             console.error("Error while deleting like : ", likeID);
