@@ -31,8 +31,15 @@ module.exports.likePlaylist = function(req, res){
         });
         return;
     }
+    if(req.body.playlistID == parseInt(req.body.playlistID, 10)){
+        res.status(401).json({
+            "message": "PlaylistID is not an integer"
+        });
+        return;
+    }
     var like = Likes.createLike(req.payload._id, req.body.playlistID);
-    Likes.getSpecificLike(req.payload._id, req.body.playlistID, function (error, results){
+    Likes.getSpecificLike(req.payload._id, req.body.playlistID, function (error, results){//todo check that playlist
+        // is public
         if(error){
             res.status(500).json(error);
         } else if (results.rows[0]){
@@ -52,11 +59,17 @@ module.exports.likePlaylist = function(req, res){
     });
 };
 
-module.exports.unlikePlaylist = function (req, res){
+module.exports.unlikePlaylist = function (req, res){ //todo playlist is public?
     console.log("Unlike a playlist function");
     if (!req.payload._id) {
         res.status(401).json({
             "message": "Missing payload in header "
+        });
+        return;
+    }
+    if(req.params.id == parseInt(req.params.id, 10)){
+        res.status(401).json({
+            "message": "PlaylistID is not an integer"
         });
         return;
     }

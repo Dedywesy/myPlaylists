@@ -1,6 +1,6 @@
     <div class="row" ng-repeat="PlaylistRow in topPlaylistsVm.Separator | limitTo:topPlaylistsVm.limitrows">
         <div ng-repeat="playlist in PlaylistRow" class="6u 12u(narrower)">
-            <section>
+            <section class="playlist">
                 <a href="#" class="image featured"><img src="/images/playlist-illu.jpg" alt=""/></a>
                 <header>
                     <h3>{{playlist.playlistname}}</h3>
@@ -8,7 +8,8 @@
                 <span>{{playlist.playlistdescription}} - {{playlist.likecount}} like(s)</span>
                 <br/>
                 <span>Playlist created by <a href="/profile/{{playlist.userid}}">{{playlist.username}}</a></span>
-
+                <br/>
+                <a href="/playlist/{{playlist.playlistid}}">See playlist</a>
             </section>
         </div>
     </div>

@@ -11,6 +11,7 @@ var ctrlProfile = require('./controllers/profile');
 var ctrlAuth = require('./controllers/authentication');
 var ctrlPlaylists = require('./controllers/playlists');
 var ctrlLikes = require('./controllers/likes');
+var ctrlComments = require('./controllers/comments');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -42,6 +43,12 @@ router.get('/likes', auth, ctrlLikes.getUserLikes);
 router.post('/likes', auth, ctrlLikes.likePlaylist);
 //"delete" a like on a playlist
 router.delete('likes/:id', auth, ctrlLikes.unlikePlaylist);
+
+/********Comments********************/
+//Post a comment
+router.post('/comments', auth, ctrlComments.postComment);
+//Get comments on a playlist
+router.get('/comments/:id', auth, ctrlComments.getPlaylistComments);
 
 /**"Not secured" available without being logged in*/
 /********Authentication****************/

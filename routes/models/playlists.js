@@ -1,12 +1,18 @@
 var pg = require('pg');
 var db = require('./db');
 var likes = require('./likes');
+var format = require('pg-format');
 
 
 function Playlist(ID, userId, isPublic, name, description, jsonPlaylist) {
     this.ID = ID;
     this.UserID = userId;
-    this.IsPublic = isPublic;
+    console.log(isPublic);
+    if (isPublic == true) { //Toforce isPublic to be a boolean
+        this.IsPublic = true;
+    } else {
+        this.IsPublic = false;
+    }
     this.Name = name;
     this.Description = description;
     this.JsonPlaylist = jsonPlaylist;
@@ -22,10 +28,9 @@ exports.createPlaylist = function (userId, isPublic, name, description) {
 exports.save = function (playlist, callback) {
     console.log("playlist save function");
     var table = "public.playlists";
-    var toInsert = ' ("UserID", "IsPublic", "Name", "Description", "JsonPlaylist") values ( \'' +
-        playlist.UserID + '\' , \'' + playlist.IsPublic + '\' , \'' +
-        playlist.Name + '\' , \'' + playlist.Description + '\', \'' +
-        playlist.JsonPlaylist + '\')';
+    var toInsert = format(' ("UserID", "IsPublic", "Name", "Description", "JsonPlaylist") values ' +
+        '(%L,' + playlist.IsPublic + ', %L, %L, %L)', playlist.UserID, playlist.Name, playlist.Description, playlist.JsonPlaylist);
+    console.log(toInsert);
 
     db.insertQuery(table, toInsert, function (err, result) {
         if (err) {
@@ -38,10 +43,9 @@ exports.save = function (playlist, callback) {
 exports.update = function (playlist, callback) {
     console.log('playlist update function');
     var table = "public.playlists";
-    var setArgs = '("Name", "Description", "IsPublic", "JsonPlaylist") = ( \'' +
-        playlist.Name + '\' , \'' + playlist.Description + '\' , \'' +
-        playlist.IsPublic + '\' , \'' + playlist.JsonPlaylist + '\')';
-    var where = '"ID"=' + playlist.ID;
+    var setArgs = format('("Name", "Description", "IsPublic", "JsonPlaylist") = ( %L, %L, ' + playlist.IsPublic + ', %L)',
+        playlist.Name, playlist.Description, playlist.JsonPlaylist);
+    var where = format('"ID"=%L', playlist.ID);
     db.updateQuery(table, setArgs, where, function (err, result) {
         if (err) {
             console.error("Error while updating playlist table");
@@ -53,7 +57,7 @@ exports.update = function (playlist, callback) {
 exports.delete = function (playlistID, callback) {
     console.log("playlist delete function");
     var table = "public.playlists";
-    var where = '"ID"=' + playlistID;
+    var where = format('"ID"=%L', playlistID);
     db.deleteQuery(table, where, function (err, result) {
         if (err) {
             console.error("Error while deleting playlist : ", playlistID);
@@ -65,7 +69,7 @@ exports.delete = function (playlistID, callback) {
 exports.getAllPlaylists = function (userID, callback) {
     console.log('Get all playlists function');
     var table = "public.playlists";
-    var where = '"UserID" = ' + "'" + userID + "'";
+    var where = format('"UserID" = %L', userID);
     var results = [];
     var counter = 0;
 
@@ -109,7 +113,7 @@ exports.getPublicPlaylists = function (userID, callback) {
 exports.getByID = function (id, callback) {
     console.log("Playlist by id function");
     var table = "public.playlists";
-    var where = '"ID" = ' + id;
+    var where = format('"ID" = %L', id);
     console.log(where);
     db.getQuery(table, where, function (err, result) {
         var playlist;
@@ -127,7 +131,7 @@ exports.getTopPlaylists = function (callback) {
     var where = 'p."UserID" = u."ID" AND p."ID" = l."PlaylistID" AND p."IsPublic" = true';
     var endArgs = 'GROUP BY p."ID", u."Name", U."ID" ORDER BY likeCount DESC LIMIT 10';
 
-    db.selectQuery(select, from, where, endArgs, function(error, result){
+    db.selectQuery(select, from, where, endArgs, function (error, result) {
         callback(error, result.rows);
     })
 };
