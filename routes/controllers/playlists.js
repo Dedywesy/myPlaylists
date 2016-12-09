@@ -49,7 +49,6 @@ module.exports.getUserPlaylists = function (req, res) {
         });
         return;
     }
-
     var onDbResult = function (error, results) {
         if (!error) {
             res.status(200).json(results);
@@ -66,7 +65,7 @@ module.exports.getUserPlaylists = function (req, res) {
     }
     else {
         id = req.params.id;
-        Playlists.getPublicPlaylists(id, onDbResult); //TOdo implement
+        Playlists.getPublicPlaylists(id, onDbResult);
     }
 };
 

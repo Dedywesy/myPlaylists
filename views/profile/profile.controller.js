@@ -38,7 +38,13 @@
                     vm.likedPlaylists = data.data;
                 })
         } else{
-            //getpublicplaylist todo
+            meanData.getUserPlaylists(id)
+                .error(function (error){
+                    console.error(error)
+                })
+                .then(function (data){
+                    vm.publicPlaylists = data.data;
+                })
         }
     }
 

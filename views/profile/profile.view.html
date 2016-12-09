@@ -26,23 +26,33 @@
                 <div id="bigRight" class="wrapper style3 special container" ng-show="vm.personalProfile">
                     <strong>Playlist I liked</strong>
                     <div class="playlist" ng-repeat="likedplaylist in vm.likedPlaylists | orderBy: 'Name'">
-                            <div class="playlist properties">
-                                <div class="playlist name">
-                                    <a href="/playlist/{{likedplaylist.PlaylistID}}">{{likedplaylist.Name}}</a>
-                                </div>
-                                <div class="description">{{likedplaylist.Description}}</div>
+                        <div class="playlist properties">
+                            <div class="playlist name">
+                                <a href="/playlist/{{likedplaylist.PlaylistID}}">{{likedplaylist.Name}}</a>
                             </div>
-                            <div class="playlist controls">
-                                By : <a href="/profile/{{likedplaylist.UserID}}">{{likedplaylist.username}}</a>
-                            </div>
+                            <div class="description">{{likedplaylist.Description}}</div>
+                        </div>
+                        <div class="playlist controls">
+                            By : <a href="/profile/{{likedplaylist.UserID}}">{{likedplaylist.username}}</a>
                         </div>
                     </div>
                 </div>
-                <div id="bigRightBis" class="wrapper style3 special container" ng-hide="vm.personalProfile">Public
-                    playlists</div>
-
+                <div id="bigRightBis" class="wrapper style3 special container" ng-hide="vm.personalProfile">
+                    <strong>Public playlists</strong>
+                    <div class="playlist" ng-repeat="publicPlaylist in vm.publicPlaylists | orderBy: 'Name'">
+                        <div class="playlist properties">
+                            <div class="playlist name">
+                                <a href="/playlist/{{publicPlaylist.PlaylistID}}">{{publicPlaylist.Name}}</a>
+                            </div>
+                            <div class="description">{{publicPlaylist.Description}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
         </div>
-    </article>
-    <foot></foot>
+</div>
+</article>
+<foot></foot>
 </div>

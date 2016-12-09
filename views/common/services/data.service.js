@@ -136,6 +136,7 @@
         return {
             getProfile: getProfile,
             getMyPlaylists: getMyPlaylists,
+            getUserPlaylists: getUserPlaylists,
             createPlaylist: createPlaylist,
             editPlaylist: editPlaylist,
             deletePlaylist: deletePlaylist,
