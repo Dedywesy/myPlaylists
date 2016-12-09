@@ -12,6 +12,7 @@ var ctrlAuth = require('./controllers/authentication');
 var ctrlPlaylists = require('./controllers/playlists');
 var ctrlLikes = require('./controllers/likes');
 var ctrlComments = require('./controllers/comments');
+var ctrlYoutube = require('./controllers/youtubeController');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -51,6 +52,9 @@ router.delete('/likes/:id', auth, ctrlLikes.unlikePlaylist);
 router.post('/comments', auth, ctrlComments.postComment);
 //Get comments on a playlist
 router.get('/comments/:id', auth, ctrlComments.getPlaylistComments);
+
+/***********Youtube search***********/
+router.get('/youtubeResults/:search', auth, ctrlYoutube.search);
 
 /**"Not secured" available without being logged in*/
 /********Authentication****************/

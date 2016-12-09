@@ -131,7 +131,16 @@
                     Authorization: 'Bearer ' + authentication.getToken()
                 }
             });
-        }
+        };
+
+        var getYoutubeResults = function (research) {
+            return $http.get('/api/youtubeResults/' + research, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
 
         return {
             getProfile: getProfile,
@@ -147,7 +156,8 @@
             likePlaylist: likePlaylist,
             unlikePlaylist: unlikePlaylist,
             commentPlaylist:commentPlaylist,
-            getComments: getComments
+            getComments: getComments,
+            getYoutubeResults: getYoutubeResults
         };
     }
 

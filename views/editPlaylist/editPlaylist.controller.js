@@ -13,6 +13,9 @@
             vm.tempPlaylist = copyPlaylist(vm.playlist);
             vm.link = "";
             vm.title = "";
+            vm.research = "";
+            vm.YoutubeResults = [];
+            vm.SoundcloudResult = [];
             vm.songListModified = false;
 
             if (vm.playlist == {}) {
@@ -77,6 +80,29 @@
                 vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
                 vm.title = "";
                 vm.link = "";
+            };
+
+            vm.addYoutube = function(result){
+                vm.songListModified = true;
+                var newSong = {
+                    from : "Youtube",
+                    title : result.snippet.title,
+                    id: result.id.videoId,
+                    link: "https://www.youtube.com/watch?v="+result.id.videoId,
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
+                }
+                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
+            };
+
+            vm.searchSong = function(){
+              meanData.getYoutubeResults(vm.research)
+                  .error(function (error) {
+                      console.log(error)
+                  })
+                  .then(function(data){
+                      console.log(data.data);
+                      vm.YoutubeResults = data.data.items;
+                  })
             };
 
             vm.removeSong = function (song) {

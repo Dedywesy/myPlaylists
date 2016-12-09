@@ -1,20 +1,28 @@
 /*About playlist page*/
-.playlist{
+.playlist, .result{
     border: 1px;
     border-radius: 3px;
     margin: 3px;
     padding: 3px;
     height: auto;
     background-color: #eeeeee;
+    width: 99%;
+    display: table;
 }
+
+.prop{
+    display: flex;
+    padding:5px;
+}
+
 .playlist .item{
     height: auto;
 }
 
-.playlist.properties{
+.properties{
     width: 60%;
     height: 100%;
-    display : inline-block;
+    display : table-cell;
     vertical-align: top;
 }
 
@@ -24,45 +32,42 @@
     font-weight: bold;
 }
 
-.playlist.description{
+.description{
     text-align: left;
     font-style: italic;
+    font-size: 0.95em;
+    line-height: 1.1em;
 }
 
-.playlist.song{
-    width : auto;
-    display: inline-block;
+.song{
+    text-align: left;
+    width: 70%;
+    display: table-cell;
     height:100%;
     vertical-align: top;
 }
 
-.playlist.controls{
-    display: inline-block;
+.controls{
+    display: table-cell;
     float: right;
     text-align:right;
     vertical-align: top;
     height:100%;
-    width : auto;
     margin: 0px;
     padding: 0px;
 }
-.playlist.likes{
-    display: inline-block;
+
+.likes{
     float: left;
     text-align:left;
     height:100%;
     color: #FFFFFF;
     width : auto;
+    display: table-cell;
 }
 
 .centeredLike{
     color: #FFFFFF;
-}
-
-.playlist.control{
-    text-align: center;
-    display: flex;
-    margin : 0px;
 }
 
 .playlist.playlistRow:hover{
