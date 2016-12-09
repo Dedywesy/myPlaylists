@@ -4,8 +4,8 @@
         .module('meanApp')
         .controller('myPlaylistsCtrl', myPlaylistsCtrl);
 
-    myPlaylistsCtrl.$inject = ['$location', 'meanData'];
-    function myPlaylistsCtrl($location, meanData) {
+    myPlaylistsCtrl.$inject = ['$location', 'meanData', 'playlistService'];
+    function myPlaylistsCtrl($location, meanData, playlistService) {
         var vm = this;
 
         vm.playlists = [];
@@ -59,6 +59,7 @@
 
         vm.play = function (playlist) {
             console.log("Play", playlist); //TODO
+            playlistService.setPlaylist(playlist);
         };
 
         vm.toggleLike = function (playlist) {

@@ -81,6 +81,17 @@
     cursor: pointer;
 }
 
+player{
+    position: fixed;
+    bottom :0px;
+    right: 0px;
+    background-color: white;
+}
+
+foot{
+    padding-bottom: 120px;
+}
+
 /*******************Column**********************/
 #left{
     width : 50%;
