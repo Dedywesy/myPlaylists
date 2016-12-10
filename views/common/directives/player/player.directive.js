@@ -3,15 +3,15 @@
  */
 
 
-(function (){
+(function () {
 
     angular
         .module('meanApp')
         .directive('player', player);
 
-    player.$inject = ['$window','YT_event']
+    player.$inject = ['$window', 'YT_event', 'SC_event', '$http']
 
-    function player($window,YT_event) {
+    function player($window, YT_event, SC_event, $http) {
 
         return {
             restrict: "E",
@@ -19,21 +19,23 @@
             scope: {
                 height: "@",
                 width: "@",
-                videoid: "@"
+                videoid: "@",
+                scid: "@"
             },
-            controller : "playerCtrl as yt",
+            controller: "playerCtrl as yt",
 
             templateUrl: "/common/directives/player/player.html",
 
-            link: function(scope, element, attrs, $rootScope) {
-                var tag = document.createElement('script');
-                tag.src = "https://www.youtube.com/iframe_api";
+            link: function (scope, element, attrs, $rootScope) {
+                /***********YOUTUBE*************/
+                var tagYT = document.createElement('script');
+                tagYT.src = "https://www.youtube.com/iframe_api";
                 var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                firstScriptTag.parentNode.insertBefore(tagYT, firstScriptTag);
 
                 var player;
 
-                $window.onYouTubeIframeAPIReady = function() {
+                $window.onYouTubeIframeAPIReady = function () {
 
                     player = new YT.Player(element.children()[0], {
                         playerVars: {
@@ -50,21 +52,23 @@
                         height: scope.height,
                         width: scope.width,
                         videoId: scope.videoid,
+                        volume: 50,
 
                         events: {
-                            'onStateChange': function(event) {
+                            'onStateChange': function (event) {
 
                                 var message = {
                                     event: YT_event.STATUS_CHANGE,
                                     data: ""
                                 };
 
-                                switch(event.data) {
+                                switch (event.data) {
                                     case YT.PlayerState.PLAYING:
                                         message.data = "PLAYING";
                                         break;
                                     case YT.PlayerState.ENDED:
                                         message.data = "ENDED";
+                                        player.clearVideo();
                                         break;
                                     case YT.PlayerState.UNSTARTED:
                                         message.data = "NOT PLAYING";
@@ -74,7 +78,7 @@
                                         break;
                                 }
 
-                                scope.$apply(function() {
+                                scope.$apply(function () {
                                     scope.$emit(message.event, message.data);
                                 });
                             }
@@ -82,28 +86,73 @@
                     });
                 };
 
-                scope.$watch('height + width', function(newValue, oldValue) {
+
+                /**************SoundCloud******************/
+                var clientid = 'b23455855ab96a4556cbd0a98397ae8c';
+
+                var loadSoundcloud = function () {
+                    if (scope.scid != "") {
+                        $http({
+                            method: 'GET',
+                            url: 'http://api.soundcloud.com/tracks/' + scope.scid + '.json?client_id=' + clientid
+                        })
+                            .error(function () {
+                                //todo
+                            })
+                            .success(function (data) {
+                                scope.band = data.user.username;
+                                scope.bandUrl = data.user.permalink_url;
+                                scope.title = data.title;
+                                scope.trackUrl = data.permalink_url;
+                                scope.albumArt = data.artwork_url.replace("large", "t500x500");
+                                scope.wave = data.waveform_url;
+                                scope.stream = data.stream_url + '?client_id=' + clientid;
+                                scope.song = new Audio();
+
+                                scope.song.onended = function () {
+                                    scope.band="";
+                                    scope.title ="";
+                                    scope.$emit(YT_event.STATUS_CHANGE, "ENDED");
+                                };
+
+                                scope.playing = false;
+                                scope.play = function () {
+                                    if (scope.song.src == '') {
+                                        scope.song.src = scope.stream;
+                                    }
+                                    scope.song.play();
+
+                                };
+                                scope.play();
+                            });
+                    }
+
+                };
+                /***************Watchers*********************/
+                scope.$watch('videoid', function (newValue, oldValue) {
                     if (newValue == oldValue) {
                         return;
                     }
-
-                    player.setSize(scope.width, scope.height);
-
-                });
-
-                scope.$watch('videoid', function(newValue, oldValue) {
-                    if (newValue == oldValue) {
-                        return;
+                    if (scope.videoid != "") {
+                        player.cueVideoById(scope.videoid);
+                        player.playVideo();
+                    }
+                    else {
+                        player.seekTo(0);
+                        player.stopVideo();
                     }
 
-                    player.cueVideoById(scope.videoid);
-                    player.playVideo();
 
                 });
 
-                scope.$on(YT_event.STOP, function () {
-                    player.seekTo(0);
-                    player.stopVideo();
+                scope.$watch('scid', function () {
+                    if(scope.scid != ""){
+                        loadSoundcloud();
+                    } else{
+                        scope.song.pause();
+                        scope.song.currentTime = 0;
+                    }
+
                 });
 
                 scope.$on(YT_event.PLAY, function () {
@@ -113,14 +162,19 @@
                 scope.$on(YT_event.PAUSE, function () {
                     player.pauseVideo();
                 });
+
+                scope.$on(SC_event.PLAY, function () {
+                    scope.song.play();
+                    if(player){
+                        player = null;
+                    }
+                });
+
+                scope.$on(SC_event.PAUSE, function () {
+                    scope.song.pause();
+                });
             }
         };
-
-
-
-
     }
-
-
 })();
 

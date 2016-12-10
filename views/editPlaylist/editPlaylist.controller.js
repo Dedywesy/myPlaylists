@@ -73,7 +73,9 @@
             vm.addSong = function () {
                 vm.songListModified = true;
                 var newSong = {
+                    from: "Soundcloud",
                     title: vm.title,
+                    id: vm.link,
                     link: vm.link,
                     rank: vm.tempPlaylist.JsonPlaylist.songs.length
                 };
