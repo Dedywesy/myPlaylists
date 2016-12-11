@@ -1,5 +1,4 @@
 <div id="page-wrapper">
-    <navigation></navigation>
     <!-- Main -->
     <article id="main">
         <header class="special container">
@@ -7,7 +6,20 @@
             <h2><strong>{{vm.playlist.Name}}</strong></h2>
             <p><span>{{vm.playlist.Description}}</span>
             <p><span>By : <a href="/profile/{{vm.profile.ID}}"> {{vm.profile.name}} </a></span></p>
-            <p class="fa fa-play-circle fa-3x playlist clickable" ng-click="vm.play()"/>
+            <p class="fa fa-play-circle fa-3x clickable" ng-click="vm.play()"/>
+            <br/>
+            <div class="fa-stack fa-1x clickable centeredLike">
+                <i ng-show="vm.playlist.liked" style="color: plum"
+                   class="fa fa-heart fa-stack-2x"
+                ></i>
+                <i ng-hide="vm.playlist.liked" style="color: grey"
+                   class="fa fa-heart fa-stack-2x"
+                ></i>
+                <strong class="fa-stack-1x fa-stack-text file-text"
+                        ng-click="vm.toggleLike(playlist)">
+                    {{vm.playlist.likeCount}}</strong>
+            </div>
+
         </header>
 
         <div id="container" style="width:100%;">
@@ -41,8 +53,6 @@
             </div>
         </div>
     </article>
-
-    <foot></foot>
 
 </div>
 

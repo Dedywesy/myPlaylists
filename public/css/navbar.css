@@ -1,0 +1,123 @@
+/*Strip the ul of padding and list styling*/
+ul.menu {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    position: absolute;
+    z-index: 9999;
+    background-color: rgba(28, 32, 33, 0.3);
+    width: 100%;
+    height: 65px;
+}
+
+ul.submenu{
+    width : auto;
+}
+
+/*Create a horizontal list with spacing*/
+li.menu {
+    display:inline-block;
+}
+
+/*Style for menu links*/
+li.menu a {
+    display:block;
+    min-width:140px;
+    width: auto;
+    height: 65px;
+    text-align: center;
+    line-height: 65px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*Hover state for top level links*/
+li.menu:hover a {
+    background: #6d6bc5;
+}
+
+/*Style for dropdown links*/
+li.menu:hover ul a {
+    background: #f3f3f3;
+    color: #2f3036;
+    height: 40px;
+    line-height: 40px;
+}
+
+/*Hover state for dropdown links*/
+li.menu:hover ul a:hover {
+    background: #9fb0c5;
+    color: #fff;
+}
+
+/*Hide dropdown links until they are needed*/
+li.menu ul {
+    display: none;
+}
+
+/*Make dropdown links vertical*/
+li.menu ul li {
+    display: block;
+    float: none;
+}
+
+/*Prevent text wrapping*/
+li.menu ul li a {
+    width: inherit;
+    min-width: 100px;
+    padding: 0 20px;
+}
+
+/*Display the dropdown on hover*/
+ul.menu li a:hover + .hidden, .hidden:hover {
+    display: block;
+
+}
+
+/*Style 'show menu' label button and hide it by default*/
+.show-menu {
+    text-decoration: none;
+    color: #fff;
+    background: #6d6bc5;
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+}
+
+/*Hide checkbox*/
+input.menu[type=checkbox]{
+    display: none;
+}
+
+/*Show menu when invisible checkbox is checked*/
+input.menu[type=checkbox]:checked ~ #menu{
+    display: block;
+}
+
+
+/*Responsive Styles*/
+
+@media screen and (max-width : 760px){
+    /*Make dropdown links appear inline*/
+    ul.menu {
+        position: absolute;
+        display: none;
+        z-index: 9999;
+        width: 100%;
+    }
+    /*Create vertical spacing*/
+    li.menu  {
+        margin-bottom: 1px;
+    }
+    li.menu a {
+        background-color: #1c2021;
+    }
+    /*Make all menu links full width*/
+    ul.menu li, li a {
+        width: 100%;
+    }
+    /*Display 'show menu' link*/
+    .show-menu {
+        display:block;
+    }
+}

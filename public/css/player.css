@@ -1,0 +1,32 @@
+player{
+    position: fixed;
+    bottom :0px;
+    right: 0px;
+    background-color: rgba(167, 53, 0, 0.8);
+    width: 300px;
+    border-radius: 2px;
+    padding-right: 5px;
+}
+
+player div.track-info{
+    text-align: center;
+    padding-right: 10px;
+    color: #000;
+}
+
+.player.control{
+    height: 35px;
+    width: 35px;
+    background-color: rgba(205, 180, 255, 0.71);
+    color: black;
+}
+
+.track-control{
+    display: table;
+}
+.player.artwork{
+    display: table-cell;
+}
+.player.controls{
+    display: table-cell;
+}

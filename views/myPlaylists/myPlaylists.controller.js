@@ -4,8 +4,8 @@
         .module('meanApp')
         .controller('myPlaylistsCtrl', myPlaylistsCtrl);
 
-    myPlaylistsCtrl.$inject = ['$location', 'meanData'];
-    function myPlaylistsCtrl($location, meanData) {
+    myPlaylistsCtrl.$inject = ['$location', 'meanData', 'playlistService'];
+    function myPlaylistsCtrl($location, meanData, playlistService) {
         var vm = this;
 
         vm.playlists = [];
@@ -30,7 +30,7 @@
                         vm.likes = data.data;
                         vm.playlists.forEach(function (itemPlaylist) {
                             vm.likes.forEach(function (itemLike) {
-                                if (itemPlaylist.ID == itemLike.playlistId) {
+                                if (itemPlaylist.ID == itemLike.PlaylistID) {
                                     itemPlaylist.liked = true;
                                 }
                             })
@@ -58,7 +58,7 @@
         };
 
         vm.play = function (playlist) {
-            console.log("Play", playlist); //TODO
+            playlistService.setPlaylist(playlist);
         };
 
         vm.toggleLike = function (playlist) {
@@ -95,28 +95,7 @@
                         })
                     });
             }
-
-
-
         };
-
-        vm.unlike = function (playlistID) {
-            meanData.unlikePlaylist(playlistID)
-                .error(function (error) {
-                    console.log(error);
-                })
-                .then(function (data) {
-                    var index = vm.likes.indexOf(playlistID);
-                    if (index != -1) {
-                        vm.likes.splice(index, 1);
-                    }
-                    vm.playlists.forEach(function (item) {
-                        if (item.ID == playlistID) {
-                            item.likeCount--;
-                        }
-                    })
-                });
-        }
     }
 
 })();

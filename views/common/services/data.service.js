@@ -78,6 +78,14 @@
             })
         };
 
+        var getPlaylistLikes = function(playlistID) {
+            return $http.get('/api/likes/' + playlistID, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            })
+        };
+
         var getTopPlaylist = function () {
             return $http.get('/api/topPlaylists');
         };
@@ -123,21 +131,39 @@
                     Authorization: 'Bearer ' + authentication.getToken()
                 }
             });
-        }
+        };
+
+        var getYoutubeResults = function (research) {
+            return $http.get('/api/youtubeResults/' + research, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
+        var getSoundcloudResults = function (research) {
+            var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
+            return $http.get('http://api.soundcloud.com/tracks/?q='+research+'&client_id='+client_id);
+        };
+
 
         return {
             getProfile: getProfile,
             getMyPlaylists: getMyPlaylists,
+            getUserPlaylists: getUserPlaylists,
             createPlaylist: createPlaylist,
             editPlaylist: editPlaylist,
             deletePlaylist: deletePlaylist,
             getPlaylist: getPlaylist,
             getLikedPlaylists: getLikedPlaylists,
+            getPlaylistLikes: getPlaylistLikes,
             getTopPlaylists: getTopPlaylist,
             likePlaylist: likePlaylist,
             unlikePlaylist: unlikePlaylist,
             commentPlaylist:commentPlaylist,
-            getComments: getComments
+            getComments: getComments,
+            getYoutubeResults: getYoutubeResults,
+            getSoundcloudResults: getSoundcloudResults
         };
     }
 

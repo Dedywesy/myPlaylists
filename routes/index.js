@@ -12,6 +12,7 @@ var ctrlAuth = require('./controllers/authentication');
 var ctrlPlaylists = require('./controllers/playlists');
 var ctrlLikes = require('./controllers/likes');
 var ctrlComments = require('./controllers/comments');
+var ctrlYoutube = require('./controllers/youtubeController');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -39,16 +40,21 @@ router.delete('/playlist/:id', auth, ctrlPlaylists.deletePlaylist);
 /*******User's Likes*****************/
 //get user liked playlists
 router.get('/likes', auth, ctrlLikes.getUserLikes);
+//get playlists likes
+router.get('/likes/:id', auth, ctrlLikes.getPlaylistLikes);
 //"post" a like on a playlist
 router.post('/likes', auth, ctrlLikes.likePlaylist);
 //"delete" a like on a playlist
-router.delete('likes/:id', auth, ctrlLikes.unlikePlaylist);
+router.delete('/likes/:id', auth, ctrlLikes.unlikePlaylist);
 
 /********Comments********************/
 //Post a comment
 router.post('/comments', auth, ctrlComments.postComment);
 //Get comments on a playlist
 router.get('/comments/:id', auth, ctrlComments.getPlaylistComments);
+
+/***********Youtube search***********/
+router.get('/youtubeResults/:search', auth, ctrlYoutube.search);
 
 /**"Not secured" available without being logged in*/
 /********Authentication****************/

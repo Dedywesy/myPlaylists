@@ -1,8 +1,24 @@
 var Likes = require('../models/likes');
 
 
-module.exports.getPlaylistLikes = function (playlistID, callback) {
-    Likes.getPlaylistLikes(playlistID, callback(error, result));
+module.exports.getPlaylistLikes = function (req, res) {
+    console.log("get playlist likes");
+    if(!req.params.id){
+        res.status(500).json({
+            "message": "Missing playlist ID in params"
+        });
+        return;
+    }
+    Likes.getPlaylistLikes(req.params.id, function (error, result) {
+        if(error){
+            console.error("Error while getting playlist likes");
+            res.status(500).json({
+                "message": "Error while getting playlist likes"
+            });
+        } else{
+            res.status(200).json(result.rows);
+        }
+    });
 };
 
 module.exports.getUserLikes = function(req, res){
@@ -61,7 +77,7 @@ module.exports.unlikePlaylist = function (req, res){ //todo playlist is public?
         });
         return;
     }
-    Likes.delete(req.payload._id, req.params.id, function (err, res) {
+    Likes.delete(req.payload._id, req.params.id, function (err, result) {
         if(err == null){
             res.status(200).json({
                 message : "playlist unliked"

@@ -1,27 +1,52 @@
-<div id="" page-wrapper>
-    <navigation></navigation>
-    <article id="main">
-        <div class="container">
-            <div class="row">
+<article id="main">
+    <header class="special container">
+        <span class="icon fa-user"></span>
+    </header>
+    <section class="special container">
+        <div id="smallLeft" class="wrapper style3 special container ">
 
-                <div class="col-md-6">
+            <h1>Profile</h1>
+            <img src={{vm.user.profilePic}} alt="Profile picture" style="width:128px;height:128px;">
 
-                    <h1 class="form-signin-heading">Profile</h1>
-                    <img src={{vm.user.profilePic}} alt="Profile picture" style="width:128px;height:128px;">
+            <div class="form-group">
+                <label>Pseudo</label>
+                <p>{{ vm.user.name }}</p>
+            </div>
+            <div ng-show="vm.user.email != null">
+                <label>Email</label>
+                <p>{{ vm.user.email }}</p>
+            </div>
+            <div ng-show="vm.personalProfile">
+                <a href="/myPlaylists" class="button">My playlists</a>
+            </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Pseudo</label>
-                        <p class="form-control-static">{{ vm.user.name }}</p>
+        </div>
+
+        <div id="bigRight" class="wrapper style3 special container" ng-show="vm.personalProfile">
+            <strong>Playlist I liked</strong>
+            <div class="playlist" ng-repeat="likedplaylist in vm.likedPlaylists | orderBy: 'Name'">
+                <div class="playlist properties">
+                    <div class="playlist name">
+                        <a href="/playlist/{{likedplaylist.PlaylistID}}">{{likedplaylist.Name}}</a>
                     </div>
-                    <div class="form-group" ng-show="vm.user.email != null">
-                        <label class="col-sm-3 control-label">Email</label>
-                        <p class="form-control-static">{{ vm.user.email }}</p>
-                    </div>
-
+                    <div class="description">{{likedplaylist.Description}}</div>
                 </div>
-
+                <div class="playlist controls">
+                    By : <a href="/profile/{{likedplaylist.UserID}}">{{likedplaylist.username}}</a>
+                </div>
             </div>
         </div>
-    </article>
-    <foot></foot>
-</div>
+        <div id="bigRightBis" class="wrapper style3 special container" ng-hide="vm.personalProfile">
+            <strong>Public playlists</strong>
+            <div class="playlist" ng-repeat="publicPlaylist in vm.publicPlaylists | orderBy: 'Name'">
+                <div class="playlist properties">
+                    <div class="playlist name">
+                        <a href="/playlist/{{publicPlaylist.PlaylistID}}">{{publicPlaylist.Name}}</a>
+                    </div>
+                    <div class="description">{{publicPlaylist.Description}}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+

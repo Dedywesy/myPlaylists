@@ -1,20 +1,28 @@
 /*About playlist page*/
-.playlist{
+.playlist, .result{
     border: 1px;
     border-radius: 3px;
     margin: 3px;
     padding: 3px;
     height: auto;
     background-color: #eeeeee;
+    width: 99%;
+    display: table;
 }
+
+.prop{
+    display: flex;
+    padding:5px;
+}
+
 .playlist .item{
     height: auto;
 }
 
-.playlist.properties{
+.properties{
     width: 60%;
     height: 100%;
-    display : inline-block;
+    display : table-cell;
     vertical-align: top;
 }
 
@@ -24,41 +32,42 @@
     font-weight: bold;
 }
 
-.playlist.description{
+.description{
     text-align: left;
     font-style: italic;
+    font-size: 0.95em;
+    line-height: 1.1em;
 }
 
-.playlist.song{
-    width : auto;
-    display: inline-block;
+.song{
+    text-align: left;
+    width: 70%;
+    display: table-cell;
     height:100%;
     vertical-align: top;
 }
 
-.playlist.controls{
-    display: inline-block;
+.controls{
+    display: table-cell;
     float: right;
     text-align:right;
     vertical-align: top;
     height:100%;
-    width : auto;
     margin: 0px;
     padding: 0px;
 }
-.playlist.likes{
-    display: inline-block;
+
+.likes{
     float: left;
     text-align:left;
     height:100%;
     color: #FFFFFF;
     width : auto;
+    display: table-cell;
 }
 
-.playlist.control{
-    text-align: center;
-    display: flex;
-    margin : 0px;
+.centeredLike{
+    color: #FFFFFF;
 }
 
 .playlist.playlistRow:hover{
@@ -68,8 +77,12 @@
     text-align: center;
 }
 
-.playlist.clickable:hover{
+.clickable:hover{
     cursor: pointer;
+}
+
+foot{
+    padding-bottom: 120px;
 }
 
 /*******************Column**********************/
@@ -81,8 +94,18 @@
     float:right;
     width:50%;
 }
+
+#smallLeft{
+    width : 33%;
+    float : left;
+}
+#bigRight, #bigRightBis{
+    float:right;
+    width:63%;
+}
+
 @media screen and (max-width: 692px)   {
-    #left, #right{
+    #left, #right, #smallLeft, #bigRight, #bigRightBis {
         width:100%;
         float:none;
     }

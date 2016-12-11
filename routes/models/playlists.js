@@ -78,7 +78,7 @@ exports.getAllPlaylists = function (userID, callback) {
             result.rows.forEach(function (pl, index) {
                 likes.getPlaylistLikes(pl.ID, function (error, res) {
                     if (!err && res.rows[0]) {
-                        pl.likeCount = res.rows[0].count;
+                        pl.likeCount = res.rows.length;
                     } else {
                         pl.likeCount = 0;
                     }
@@ -94,20 +94,20 @@ exports.getAllPlaylists = function (userID, callback) {
 };
 
 exports.getPublicPlaylists = function (userID, callback) {
-    /*console.log('Get public playlists function');
-     var table = "public.playlists";
-     var where = '"UserID" = ' + "'" + userID + "' AND IsPublic is true";
-     var results = [];
+    console.log('Get public playlists function');
+    var table = "public.playlists";
+    var where = '"IsPublic" is true AND "UserID" = ' + userID;
+    var results = [];
 
-     db.getQuery(table, where, function (err, result) {
-     if (!err && result.rows[0]) {
-     for (var i = 0, len = result.rows.length; i < len; i++) {
-     var pl = playlistFromDB(result.rows[i]);
-     results.push(pl);
-     }
-     }
-     callback(err, results);
-     });*/
+    db.getQuery(table, where, function (err, result) {
+        if (!err && result.rows[0]) {
+            for (var i = 0, len = result.rows.length; i < len; i++) {
+                var pl = result.rows[i];
+                results.push(pl);
+            }
+        }
+        callback(err, results);
+    });
 };
 
 exports.getByID = function (id, callback) {
