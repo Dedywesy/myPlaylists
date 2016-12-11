@@ -141,6 +141,11 @@
             });
         };
 
+        var getSoundcloudResults = function (research) {
+            var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
+            return $http.get('http://api.soundcloud.com/tracks/?q='+research+'&client_id='+client_id);
+        };
+
 
         return {
             getProfile: getProfile,
@@ -157,7 +162,8 @@
             unlikePlaylist: unlikePlaylist,
             commentPlaylist:commentPlaylist,
             getComments: getComments,
-            getYoutubeResults: getYoutubeResults
+            getYoutubeResults: getYoutubeResults,
+            getSoundcloudResults: getSoundcloudResults
         };
     }
 

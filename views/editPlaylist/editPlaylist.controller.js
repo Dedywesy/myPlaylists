@@ -15,7 +15,7 @@
             vm.title = "";
             vm.research = "";
             vm.YoutubeResults = [];
-            vm.SoundcloudResult = [];
+            vm.SoundcloudResults = [];
             vm.songListModified = false;
 
             if (vm.playlist == {}) {
@@ -91,8 +91,23 @@
                     title : result.snippet.title,
                     id: result.id.videoId,
                     link: "https://www.youtube.com/watch?v="+result.id.videoId,
-                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
-                }
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length,
+                    artwork:result.snippet.thumbnails.default.url
+                };
+                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
+            };
+
+            vm.addSoundcloud = function(result){
+                vm.songListModified = true;
+                var title = result.title + " - " + result.user.username;
+                var newSong = {
+                    from : "Soundcloud",
+                    title : title,
+                    id: result.id,
+                    link: result.permalink_url,
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length,
+                    artwork: result.artwork_url
+                };
                 vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
             };
 
@@ -102,9 +117,21 @@
                       console.log(error)
                   })
                   .then(function(data){
-                      console.log(data.data);
                       vm.YoutubeResults = data.data.items;
+                  });
+
+              meanData.getSoundcloudResults(vm.research)
+                  .error(function (error) {
+                      console.log(error)
                   })
+                  .then(function(data){
+                      if(data.data.length > 5){
+                          vm.SoundcloudResults = data.data.splice(0, 4);
+                      }else{
+                          vm.SoundcloudResults = data.data;
+                      }
+
+                  });
             };
 
             vm.removeSong = function (song) {

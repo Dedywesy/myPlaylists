@@ -144,15 +144,13 @@
                 });
 
                 scope.$watch('scid', function () {
+                    if(scope.song){
+                        scope.song.pause();
+                        scope.song.currentTime = 0;
+                    }
                     if(scope.scid != ""){
                         loadSoundcloud();
-                    } else{
-                        if(scope.song){
-                            scope.song.pause();
-                            scope.song.currentTime = 0;
-                        }
                     }
-
                 });
 
                 scope.$on(YT_event.PLAY, function () {

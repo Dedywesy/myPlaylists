@@ -74,7 +74,7 @@
                     </form>
                 </div>
                 <div class="content" ng-hide="vm.YoutubeResults.length == 0">
-                    <strong>Youtube Results</strong>
+                    <i class="fa fa-youtube"></i> <strong>Youtube Results</strong>
                     <div ng-repeat="result in vm.YoutubeResults" class="result">
                         <div class="likes"><img
                                 src="{{result.snippet.thumbnails.default.url}}" alt="Youtube thumbnail">
@@ -88,8 +88,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="content" ng-hide="vm.SoundcloudResults.length == 0">
+                    <i class="fa fa-soundcloud"></i> <strong>Soundcloud Results</strong>
+                    <div ng-repeat="result in vm.SoundcloudResults" class="result">
+                        <div class="likes"><img
+                                src="{{result.artwork_url}}" alt="Soundcloud artwork">
+                        </div>
+                        <div class="properties"><a target="_blank"
+                                                   href="{{result.permalink_url}}">
+                            {{result.title}}</a>
+                        </div>
+                        <div class="controls clickable">
+                            <i class="fa fa-plus fa-2x" ng-click="vm.addSoundcloud(result)"></i>
+                        </div>
+                    </div>
+                </div>
             </section>
-                        <section class="wrapper style4 special container 50%">
+                  <!--      <section class="wrapper style4 special container 50%">
                             <h2>
                                 <strong>Add a new song to this playlist</strong>
                             </h2>
@@ -119,6 +134,7 @@
                                 </form>
                             </div>
                         </section>
+                        -->
 
         </div>
         <div class="wrapper style1 special container 75% centered" style="clear: both">
