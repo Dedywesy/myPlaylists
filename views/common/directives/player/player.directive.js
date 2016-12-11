@@ -45,8 +45,8 @@
                             modesbranding: 0,
                             color: "white",
                             iv_load_policy: 3,
-                            showinfo: 1,
-                            controls: 1
+                            showinfo: 0,
+                            controls: 0
                         },
 
                         height: scope.height,
@@ -141,16 +141,16 @@
                         player.seekTo(0);
                         player.stopVideo();
                     }
-
-
                 });
 
                 scope.$watch('scid', function () {
                     if(scope.scid != ""){
                         loadSoundcloud();
                     } else{
-                        scope.song.pause();
-                        scope.song.currentTime = 0;
+                        if(scope.song){
+                            scope.song.pause();
+                            scope.song.currentTime = 0;
+                        }
                     }
 
                 });

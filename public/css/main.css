@@ -1684,7 +1684,7 @@ header.special h2 + p {
 
 header.special .icon {
     cursor: default;
-    height: 7em;
+    height: 5em;
     left: 0;
     position: absolute;
     text-align: center;
@@ -2460,7 +2460,8 @@ input[type="reset"].small,
     background-position: top left, top right, bottom left, bottom right;
     background-repeat: no-repeat;
     background-size: 25em;
-    padding: 7em 0;
+    padding: 4em 0;
+    z-index: 10;
 }
 
 #main > :last-child {
@@ -2830,6 +2831,7 @@ body.index #main {
         -ms-transition: -ms-transform 0.5s ease;
         transition: transform 0.5s ease;
         padding-bottom: 1px;
+        z-index: 10;
     }
 
     #navButton {

@@ -58,7 +58,6 @@
         };
 
         vm.play = function (playlist) {
-            console.log("Play", playlist); //TODO
             playlistService.setPlaylist(playlist);
         };
 
