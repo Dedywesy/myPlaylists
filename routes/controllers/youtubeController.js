@@ -11,6 +11,7 @@ module.exports.search = function (req, res) {
         });
         return;
     }
+    youTube.addParam('type', 'video');
     youTube.search(req.params.search, 5, function (error, result) {
         if (error) {
             console.error(error);

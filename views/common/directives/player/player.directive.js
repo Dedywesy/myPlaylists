@@ -1,8 +1,3 @@
-/**
- * Created by Paul on 09/12/2016.
- */
-
-
 (function () {
 
     angular
