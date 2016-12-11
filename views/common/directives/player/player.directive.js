@@ -28,11 +28,11 @@
                 var firstScriptTag = document.getElementsByTagName('script')[0];
                 firstScriptTag.parentNode.insertBefore(tagYT, firstScriptTag);
 
-                var player;
+                scope.player;
 
                 $window.onYouTubeIframeAPIReady = function () {
 
-                    player = new YT.Player(element.children()[0], {
+                    scope.player = new YT.Player(element.children()[0], {
                         playerVars: {
                             autoplay: 1,
                             html5: 1,
@@ -47,7 +47,7 @@
                         height: scope.height,
                         width: scope.width,
                         videoId: scope.videoid,
-                        volume: 50,
+                        volume: 100,
 
                         events: {
                             'onStateChange': function (event) {
@@ -63,10 +63,10 @@
                                         break;
                                     case YT.PlayerState.ENDED:
                                         message.data = "ENDED";
-                                        player.clearVideo();
+                                        scope.player.clearVideo();
                                         break;
                                     case YT.PlayerState.UNSTARTED:
-                                        message.data = "NOT PLAYING";
+                                        message.data = "UNSTARTED";
                                         break;
                                     case YT.PlayerState.PAUSED:
                                         message.data = "PAUSED";
@@ -78,6 +78,7 @@
                                 });
                             }
                         }
+
                     });
                 };
 
@@ -116,9 +117,9 @@
                                         scope.song.src = scope.stream;
                                     }
                                     scope.song.play();
-
                                 };
                                 scope.play();
+                                scope.$emit(SC_event.LOADED, scope.song);
                             });
                     }
 
@@ -129,12 +130,12 @@
                         return;
                     }
                     if (scope.videoid != "") {
-                        player.cueVideoById(scope.videoid);
-                        player.playVideo();
+                        scope.player.cueVideoById(scope.videoid);
+                        scope.player.playVideo();
                     }
                     else {
-                        player.seekTo(0);
-                        player.stopVideo();
+                        scope.player.seekTo(0);
+                        scope.player.stopVideo();
                     }
                 });
 
@@ -149,17 +150,17 @@
                 });
 
                 scope.$on(YT_event.PLAY, function () {
-                    player.playVideo();
+                    scope.player.playVideo();
                 });
 
                 scope.$on(YT_event.PAUSE, function () {
-                    player.pauseVideo();
+                    scope.player.pauseVideo();
                 });
 
                 scope.$on(SC_event.PLAY, function () {
                     scope.song.play();
-                    if(player){
-                        player = null;
+                    if(scope.player){
+                        scope.player.pauseVideo();
                     }
                 });
 

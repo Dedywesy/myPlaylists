@@ -6,12 +6,14 @@
     playerCtrl.$inject = ['$scope', 'YT_event', 'SC_event', '$window'];
     function playerCtrl($scope, YT_event, SC_event, $window) {
         var index = 0;
-        var currentPlaylist = [];
+        var time_update_interval;
+        $scope.currentPlaylist = [];
         var playingFrom = "";
         var playing = true;
         $scope.yt = {
             title: "",
-            link: ""
+            link: "",
+            artwork: ""
         };
 
         $scope.YT_event = YT_event;
@@ -36,9 +38,9 @@
         };
 
         $scope.nextSong = function(){
-            if (index + 1 < currentPlaylist.length) {
+            if (index + 1 < $scope.currentPlaylist.length) {
                 index++;
-                var song = currentPlaylist[index];
+                var song = $scope.currentPlaylist[index];
                 if (song.from == "Youtube") {
                     $scope.scid ="";
                     $scope.videoid = song.id;
@@ -51,18 +53,52 @@
                 }
                 $scope.yt.title = song.title;
                 $scope.yt.link = song.link;
+                $scope.yt.artwork = song.artwork;
             }
         };
 
+        $scope.prevSong = function () {
+            if(index > 0){
+                index -= 2;
+                $scope.nextSong();
+            }
+
+        };
+
         $scope.$on(YT_event.STATUS_CHANGE, function (event, data) {
-            $scope.yt.playerStatus = data;
+            clearInterval(time_update_interval);
             if (data == 'ENDED') {
                 $scope.nextSong();
+            }
+            if( data=='PLAYING'){
+                var player = $scope.player;
+                time_update_interval = setInterval(function () {
+                    $scope.$apply(function () {
+                        var elapsedMin = parseInt((player.getCurrentTime()/60), 10);
+                        var elapsedSec = parseInt((player.getCurrentTime()%60), 10);
+                        var totalMin = parseInt((player.getDuration()/60), 10);
+                        var totalSec = parseInt((player.getDuration()%60), 10);
+                        $scope.timePlayed = elapsedMin + ":" + elapsedSec+ "/" + totalMin+ ":" + totalSec ;
+                    })
+                }, 1000)
+            }
+        });
+
+        $scope.$on(SC_event.LOADED, function (event, data) {
+            var song = data;
+            song.ontimeupdate = function () {
+                $scope.$apply(function () {
+                    var elapsedMin = parseInt((song.currentTime/60), 10);
+                    var elapsedSec = parseInt((song.currentTime%60), 10);
+                    var totalMin = parseInt((song.duration/60), 10);
+                    var totalSec = parseInt((song.duration%60), 10);
+                    $scope.timePlayed = elapsedMin + ":" + elapsedSec+ "/" + totalMin+ ":" + totalSec ;
+                })
             }
         });
 
         $scope.$on('playlistChanged', function (event, data) {
-            currentPlaylist = data.data.JsonPlaylist.songs;
+            $scope.currentPlaylist = data.data.JsonPlaylist.songs;
             index = -1;
             $scope.nextSong();
         })

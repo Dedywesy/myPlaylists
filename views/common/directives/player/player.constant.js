@@ -6,7 +6,8 @@
             STOP:            0,
             PLAY:            1,
             PAUSE:           2,
-            STATUS_CHANGE:   3
+            STATUS_CHANGE:   3,
+            LOADED :         4
         } );
 
 })();
@@ -16,10 +17,11 @@
     angular
         .module('meanApp')
         .constant('SC_event',{
-            STOP:            4,
-            PLAY:            5,
-            PAUSE:           6,
-            STATUS_CHANGE:   7
+            STOP:            5,
+            PLAY:            6,
+            PAUSE:           7,
+            STATUS_CHANGE:   8,
+            LOADED:          9
         } );
 
 })();

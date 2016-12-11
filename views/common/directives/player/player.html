@@ -1,8 +1,19 @@
 <br/>
-<button ng-click="sendControlEvent(YT_event.PLAY)">Send Play</button>
-<button ng-click="nextSong()">Next</button>
-    <div class="track-info">
-        <a target="_blank" ng-href="{{yt.link}}"><h1>{{yt.title}}</h1></a>
+
+<div class="track-control">
+    <div class="player artwork">
+        <img src="{{yt.artwork}}" alt="artwork">
     </div>
+
+    <div class="player controls">
+        <div ng-bind="timePlayed"></div>
+        <button class="player control fa fa-step-backward" ng-click="prevSong()" ></button>
+        <button class="player control fa fa-play" ng-click="sendControlEvent(YT_event.PLAY)" ></button>
+        <button class="player control fa fa-step-forward" ng-click="nextSong()" ></button>
+    </div>
+</div>
+<div class="track-info">
+    <a target="_blank" ng-href="{{yt.link}}"><span>{{yt.title}}</span></a>
+</div>
 <br/>
 

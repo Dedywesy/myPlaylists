@@ -70,20 +70,6 @@
                 }
             };
 
-            vm.addSong = function () {
-                vm.songListModified = true;
-                var newSong = {
-                    from: "Soundcloud",
-                    title: vm.title,
-                    id: vm.link,
-                    link: vm.link,
-                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
-                };
-                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
-                vm.title = "";
-                vm.link = "";
-            };
-
             vm.addYoutube = function(result){
                 vm.songListModified = true;
                 var newSong = {
