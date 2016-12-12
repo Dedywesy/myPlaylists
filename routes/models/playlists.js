@@ -75,7 +75,7 @@ exports.getAllPlaylists = function (userID, callback) {
 
     db.getQuery(table, where, function (err, result) {
         if (!err && result.rows[0]) {
-            result.rows.forEach(function (pl, index) {
+            result.rows.forEach(function (pl) {
                 likes.getPlaylistLikes(pl.ID, function (error, res) {
                     if (!err && res.rows[0]) {
                         pl.likeCount = res.rows.length;
@@ -126,12 +126,31 @@ exports.getByID = function (id, callback) {
 
 exports.getTopPlaylists = function (callback) {
     var select = 'count(p."ID") likeCount, p."ID" PlaylistID, p."Name" PlaylistName, p."Description"' +
-        ' PlaylistDescription, p."JsonPlaylist" PlaylistPlaylist, u."Name" UserName, u."ID" UserID'
+        ' PlaylistDescription, p."JsonPlaylist" PlaylistPlaylist, u."Name" UserName, u."ID" UserID';
     var from = 'public.playlists p, public.users u, public.likes l';
     var where = 'p."UserID" = u."ID" AND p."ID" = l."PlaylistID" AND p."IsPublic" = true';
     var endArgs = 'GROUP BY p."ID", u."Name", U."ID" ORDER BY likeCount DESC LIMIT 10';
 
     db.selectQuery(select, from, where, endArgs, function (error, result) {
         callback(error, result.rows);
+    })
+};
+
+exports.search = function (research, callback) {
+    var splitted = research.split(' ');
+    var regex = '%(' + splitted[0].toLowerCase();;
+    for(var i = 1; i<splitted.length; i++){
+        regex += '|'+splitted[i].toLowerCase();;
+    }
+    regex += ')%';
+    var select = 'p."ID", p."Name", "Description", u."Name" userName, "UserID"';
+    var from = 'playlists p, users u';
+    var where = '"IsPublic" AND p."UserID" = u."ID" AND (lower(p."Name") similar to \''+regex+'\' OR' +
+        ' (lower(p."Description") similar to' +
+        ' \''+regex+'\'))';
+    var endArgs = 'limit 20';
+
+    db.selectQuery(select, from, where, endArgs, function(error, results){
+        callback(error, results.rows);
     })
 };

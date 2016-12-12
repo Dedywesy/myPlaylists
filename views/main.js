@@ -54,6 +54,11 @@
                 controller: 'playlistCtrl',
                 controllerAs: 'vm'
             })
+            .when('/search/:search', {
+                templateUrl: '/researchResults/researchResults.view.html',
+                controller: 'researchResultCtrl',
+                controllerAs: 'vm'
+            })
             .otherwise({redirectTo: '/'});
 
         // use the HTML5 History API

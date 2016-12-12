@@ -75,7 +75,7 @@ exports.getByEmail = function (email, callback) {
     });
 };
 
-exports.getByName = function (name, callback){
+exports.getByName = function (name, callback) {
     console.log('User by name function');
     var table = "public.users";
     var where = '"Name" = ' + "'" + name + "'";
@@ -101,6 +101,23 @@ exports.getByID = function (id, callback) {
         }
         callback(err, currentUser);
     });
+};
+
+exports.search = function (research, callback) {
+    var splitted = research.split(' ');
+    var regex = '%(' + splitted[0].toLowerCase();
+    for (var i = 1; i < splitted.length; i++) {
+        regex += '|' + splitted[i].toLowerCase();
+    }
+    regex += ')%';
+    var select = '"Name", "ID", "ProfilePic"';
+    var from = 'users';
+    var where = '(lower("Name") similar to \'' + regex + '\')';
+    var endArgs = 'LIMIT 20';
+
+    db.selectQuery(select, from, where, endArgs, function (error, results) {
+        callback(error, results.rows);
+    })
 };
 
 function userFromDB(rawUser) {

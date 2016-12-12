@@ -32,6 +32,11 @@
     font-weight: bold;
 }
 
+.profile.picture{
+    height: 90px;
+    width:90px;
+}
+
 .description{
     text-align: left;
     font-style: italic;

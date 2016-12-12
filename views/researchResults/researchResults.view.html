@@ -1,0 +1,60 @@
+<div id="page-wrapper">
+    <!-- Main -->
+    <article id="main">
+
+        <header class="special container">
+            <span class="icon fa-question"></span>
+            <h2><strong>results</strong></h2>
+            <form ng-submit="vm.search()">
+                <input type="search" ng-model="vm.research">
+                <button type="submit" style="border: none;"><i class="fa fa-search fa-2x"></i> </button>
+            </form>
+        </header>
+        <div id="left">
+            <section class="wrapper style4 special container 50%">
+                <h2>
+                    <strong>User(s)</strong>
+                </h2>
+                <!-- Content -->
+                <div class="content">
+                    <div ng-show="vm.retrievedUsers.length == 0">No user matching your research... :-(</div>
+                    <div class="playlist" ng-repeat="user in vm.retrievedUsers">
+                        <div>
+                            <img  class="profile picture" src="{{user.ProfilePic}}" alt="Profile picture">
+                        </div>
+                        <div class="playlist properties">
+                            <div class="playlist name">
+                                <a href="/profile/{{user.ID}}">{{user.Name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <div id="right">
+            <section class="wrapper style4 special container 50%">
+                <h2>
+                    <strong>Playlist(s)</strong>
+                </h2>
+                <!-- Content -->
+                <div class="content">
+                    <div ng-show="vm.retrievedPlaylists.length == 0">No playlist matching your research... :-(</div>
+                    <div class="playlist" ng-repeat="playlist in vm.retrievedPlaylists">
+                        <div class="playlist properties">
+                            <div class="playlist name">
+                                <a href="/playlist/{{playlist.ID}}">{{playlist.Name}}</a>
+                            </div>
+                            <div class="description">{{playlist.Description}}</div>
+                        </div>
+                        <div class="playlist controls">
+                            By : <a href="/profile/{{playlist.UserID}}">{{playlist.username}}</a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </article>
+</div>
