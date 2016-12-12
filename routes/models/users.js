@@ -75,6 +75,20 @@ exports.getByEmail = function (email, callback) {
     });
 };
 
+exports.getByName = function (name, callback){
+    console.log('User by name function');
+    var table = "public.users";
+    var where = '"Name" = ' + "'" + name + "'";
+
+    db.getQuery(table, where, function (err, result) {
+        var currentUser;
+        if (!err && result.rows[0]) {
+            currentUser = userFromDB(result.rows[0]);
+        }
+        callback(err, currentUser);
+    });
+};
+
 exports.getByID = function (id, callback) {
     console.log("User by id function");
     var table = "public.users";

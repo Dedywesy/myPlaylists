@@ -96,7 +96,7 @@
                         </div>
                         <div class="properties"><a target="_blank"
                                                    href="{{result.permalink_url}}">
-                            {{result.title}} + {{result.user.username}}</a>
+                            {{result.title}} - {{result.user.username}}</a>
                         </div>
                         <div class="controls clickable">
                             <i class="fa fa-plus fa-2x" ng-click="vm.addSoundcloud(result)"></i>
@@ -104,38 +104,6 @@
                     </div>
                 </div>
             </section>
-                  <!--      <section class="wrapper style4 special container 50%">
-                            <h2>
-                                <strong>Add a new song to this playlist</strong>
-                            </h2>
-                            <div class="content">
-                                <form ng-submit="vm.addSong()">
-                                    <div class="row 100%">
-                                        <div class="12u">
-                                            <span for="newSongName">Song title</span>
-                                            <input id="newSongName" type="text" name="song_title" placeholder="Title"
-                                                   ng-model="vm.title"/>
-                                        </div>
-                                    </div>
-                                    <div class="row 100%">
-                                        <div class="12u">
-                                            <span for="newSongLink">Link</span>
-                                            <input id="newSongLink" type="text" name="song_link" placeholder="Link from youtube"
-                                                   ng-model="vm.link"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="12u">
-                                            <ul class="buttons">
-                                                <li><input type="submit" class="button small" value="Add to playlist"/></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </section>
-                        -->
-
         </div>
         <div class="wrapper style1 special container 75% centered" style="clear: both">
             <button class="button special" ng-click="vm.delete()">Delete playlist</button>

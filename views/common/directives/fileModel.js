@@ -10,12 +10,10 @@
                     var modelSetter = model.assign;
 
                     var onChangeFunc = function(){
-                        console.log("ça m'en touche une");
                         scope.$apply(function () {
                             modelSetter(scope, element[0].files[0]);
                         })
                     }
-
                     element.bind('change', onChangeFunc);
                 }
             };

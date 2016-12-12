@@ -10,11 +10,11 @@ cloudinary.config({ //TODO get out of the code
 
 module.exports.saveImage = function (source, callback) {
     cloudinary.uploader.upload(source, function(result) {
-        if(!result.url){ //error while uploading
+        if(!result.secure_url){ //error while uploading
             callback(null);
         }
         else { //everything went fine
-            callback(result.url);
+            callback(result.secure_url);
         }
     });
 }

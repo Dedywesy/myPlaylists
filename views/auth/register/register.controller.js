@@ -7,6 +7,7 @@
   registerCtrl.$inject = ['$location', 'authentication'];
   function registerCtrl($location, authentication) {
     var vm = this;
+    vm.errorMessage = "";
 
     vm.credentials = {
       name : "",
@@ -19,7 +20,7 @@
           if(response.status === 200){
               $location.path('profile');
           } else{
-              alert(err);
+              vm.errorMessage = response.data.message;
           }
       })
     };

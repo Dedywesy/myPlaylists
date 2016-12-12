@@ -12,7 +12,6 @@ var sendJSONresponse = function (res, status, content) {
 
 module.exports.register = function (req, res) {
     console.log("Register function");
-    //TODO check name/email availability (email most important)
     if (!req.body.name || !req.body.email || !req.body.password) {
         sendJSONresponse(res, 400, {
             "message": "All fields required"
@@ -20,30 +19,65 @@ module.exports.register = function (req, res) {
         return;
     }
 
-    //Save profile picture;
-    Images.saveImage(req.files[0].path, function (result) {
-        fs.unlink(req.files[0].path, function () {
-        });
-        if (!result) { //error
-            sendJSONresponse(error, 500, {
-                "message": "Error while uploading profile picture"
+    var onUserNameOK = function () {
+        if(req.files[0].mimetype.substring(0, 5) != 'image'){
+            sendJSONresponse(res, 401, {
+                "message" : "Only image files are allowed in file field"
             });
+            fs.unlink(req.files[0].path, function () {
+            });
+            return;
+        }
+
+        //Save profile picture;
+        Images.saveImage(req.files[0].path, function (result) {
+            fs.unlink(req.files[0].path, function () {
+            });
+            if (!result) { //error
+                sendJSONresponse("", 500, {
+                    "message": "Error while uploading profile picture"
+                });
+            }
+            else {
+                var user = User.createUser(req.body.email, req.body.name, req.body.password, result);
+                console.log("User created!");
+                User.save(user, function (err, result) {
+                    if(!err){
+                        console.log("generating token...");
+                        user.ID = result.rows[0].ID;
+                        var token;
+                        token = user.generateJwt();
+                        res.status(200);
+                        res.json({
+                            "token": token
+                        });
+                    }
+                });
+            }
+        });
+    };
+
+    var onEmailOK = function () {
+        User.getByName(req.body.name, function (err, result) {
+            if (result){
+                sendJSONresponse(res, 500, {
+                    "message": "An account already exists with this pseudo"
+                });
+            }
+            else{
+                onUserNameOK();
+            }
+        });
+    };
+
+    User.getByEmail(req.body.email, function (err, result) {
+        if (result){
+            sendJSONresponse(res, 500, {
+                "message": "An account already exists with this email"
+            })
         }
         else {
-            var user = User.createUser(req.body.email, req.body.name, req.body.password, result);
-            console.log("User created!");
-            User.save(user, function (err, result) {
-                console.log("generating token...");
-                if(!err){
-                    user.ID = result.rows[0].ID;
-                    var token;
-                    token = user.generateJwt();
-                    res.status(200);
-                    res.json({
-                        "token": token
-                    });
-                }
-            });
+            onEmailOK();
         }
     });
 };
