@@ -3,11 +3,16 @@
     border: 1px;
     border-radius: 3px;
     margin: 3px;
-    padding: 3px;
+    padding: 5px;
     height: auto;
     background-color: #eeeeee;
     width: 99%;
     display: table;
+}
+
+.signature{
+    text-align: right;
+    font-size : smaller;
 }
 
 .prop{
@@ -33,8 +38,8 @@
 }
 
 .profile.picture{
-    height: 90px;
-    width:90px;
+    max-height: 128px;
+    width: auto;
 }
 
 .description{

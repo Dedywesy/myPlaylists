@@ -2,10 +2,11 @@ player{
     position: fixed;
     bottom :0px;
     right: 0px;
-    background-color: rgba(164, 167, 163, 0.8);
+    background-color: rgba(221, 211, 211, 0.8);
     width: 300px;
     border-radius: 2px;
     padding-right: 5px;
+    padding-left: 5px;
 }
 
 player div.track-info{
@@ -17,7 +18,7 @@ player div.track-info{
 .player.control{
     height: 35px;
     width: 35px;
-    background-color: rgba(205, 180, 255, 0.71);
+    background-color: rgba(226, 210, 255, 0.71);
     color: black;
 }
 

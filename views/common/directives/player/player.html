@@ -1,19 +1,21 @@
-<br/>
 
-<div class="track-control">
-    <div class="player artwork">
-        <img src="{{yt.artwork}}" alt="artwork">
+    <br/>
+
+    <div ng-hide="currentPlaylist.length==0" class="track-control">
+        <div class="player artwork">
+            <img src="{{yt.artwork}}" alt="artwork">
+        </div>
+
+        <div class="player controls">
+            <div ng-bind="timePlayed"></div>
+            <button class="player control fa fa-step-backward" ng-click="prevSong()"></button>
+            <button ng-hide="isPlaying" class="player control fa fa-play" ng-click="sendControlEvent(YT_event.PLAY)"
+            ></button>
+            <button ng-show="isPlaying" class="player control fa fa-pause" ng-click="sendControlEvent(YT_event.PLAY)"
+            ></button>
+            <button class="player control fa fa-step-forward" ng-click="nextSong()"></button>
+        </div>
     </div>
-
-    <div class="player controls">
-        <div ng-bind="timePlayed"></div>
-        <button class="player control fa fa-step-backward" ng-click="prevSong()" ></button>
-        <button class="player control fa fa-play" ng-click="sendControlEvent(YT_event.PLAY)" ></button>
-        <button class="player control fa fa-step-forward" ng-click="nextSong()" ></button>
+    <div ng-hide="currentPlaylist.length==0" class="track-info">
+        <a target="_blank" ng-href="{{yt.link}}"><span>{{yt.title}}</span></a>
     </div>
-</div>
-<div class="track-info">
-    <a target="_blank" ng-href="{{yt.link}}"><span>{{yt.title}}</span></a>
-</div>
-<br/>
-

@@ -9,7 +9,7 @@
         var time_update_interval;
         $scope.currentPlaylist = [];
         var playingFrom = "";
-        var playing = true;
+        $scope.isPlaying = true;
         $scope.yt = {
             title: "",
             link: "",
@@ -19,8 +19,8 @@
         $scope.YT_event = YT_event;
 
         $scope.sendControlEvent = function () {
-            playing = !playing;
-            if(playing){
+            $scope.isPlaying = !$scope.isPlaying;
+            if($scope.isPlaying){
                 if(playingFrom == "YT"){
                     this.$broadcast(YT_event.PLAY);
                 }
