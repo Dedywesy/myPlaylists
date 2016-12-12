@@ -111,10 +111,11 @@
                       console.log(error)
                   })
                   .then(function(data){
-                      if(data.data.length > 5){
-                          vm.SoundcloudResults = data.data.splice(0, 4);
+                      var result = JSON.parse(data.data);
+                      if(result.length > 5){
+                          vm.SoundcloudResults = result.splice(0, 4);
                       }else{
-                          vm.SoundcloudResults = data.data;
+                          vm.SoundcloudResults = result;
                       }
 
                   });

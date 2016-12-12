@@ -13,6 +13,7 @@ var ctrlPlaylists = require('./controllers/playlists');
 var ctrlLikes = require('./controllers/likes');
 var ctrlComments = require('./controllers/comments');
 var ctrlYoutube = require('./controllers/youtubeController');
+var ctrlSoundcloud = require('./controllers/soundcloudController');
 
 //Setup multer form multiform parsing
 router.use(multer({dest: './uploads/'}).any());
@@ -55,6 +56,8 @@ router.get('/comments/:id', auth, ctrlComments.getPlaylistComments);
 
 /***********Youtube search***********/
 router.get('/youtubeResults/:search', auth, ctrlYoutube.search);
+/***********Soundcloud search***********/
+router.get('/soundcloudResults/:search', auth, ctrlSoundcloud.search);
 
 /**"Not secured" available without being logged in*/
 /********Authentication****************/

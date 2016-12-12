@@ -78,7 +78,7 @@
             })
         };
 
-        var getPlaylistLikes = function(playlistID) {
+        var getPlaylistLikes = function (playlistID) {
             return $http.get('/api/likes/' + playlistID, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
@@ -125,7 +125,7 @@
                 });
         };
 
-        var getComments = function (playlistID){
+        var getComments = function (playlistID) {
             return $http.get('/api/comments/' + playlistID, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
@@ -142,8 +142,13 @@
         };
 
         var getSoundcloudResults = function (research) {
-            var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
-            return $http.get('https://api.soundcloud.com/tracks/?q='+research+'&client_id='+client_id);
+            /*var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
+             return $http.get('https://api.soundcloud.com/tracks/?q='+research+'&client_id='+client_id);*/
+            return $http.get('/api/soundcloudResults/' + research, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
         };
 
 
@@ -160,7 +165,7 @@
             getTopPlaylists: getTopPlaylist,
             likePlaylist: likePlaylist,
             unlikePlaylist: unlikePlaylist,
-            commentPlaylist:commentPlaylist,
+            commentPlaylist: commentPlaylist,
             getComments: getComments,
             getYoutubeResults: getYoutubeResults,
             getSoundcloudResults: getSoundcloudResults
