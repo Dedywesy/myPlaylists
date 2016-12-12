@@ -15,6 +15,14 @@
             });
         };
 
+        var searchUser = function(research) {
+            return $http.get('/api/profile/?q=' + research, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
         /*Playlists*/
         var getMyPlaylists = function () {
             var currentUserId = authentication.currentUser()._id;
@@ -64,6 +72,14 @@
 
         var getPlaylist = function (playlistId) {
             return $http.get('/api/playlist/' + playlistId, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
+        var searchPlaylist = function (research) {
+            return $http.get('/api/playlist/?q=' + research, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
                 }
@@ -142,8 +158,6 @@
         };
 
         var getSoundcloudResults = function (research) {
-            /*var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
-             return $http.get('https://api.soundcloud.com/tracks/?q='+research+'&client_id='+client_id);*/
             return $http.get('/api/soundcloudResults/' + research, {
                 headers: {
                     Authorization: 'Bearer ' + authentication.getToken()
@@ -162,12 +176,14 @@
 
         return {
             getProfile: getProfile,
+            searchUser: searchUser,
             getMyPlaylists: getMyPlaylists,
             getUserPlaylists: getUserPlaylists,
             createPlaylist: createPlaylist,
             editPlaylist: editPlaylist,
             deletePlaylist: deletePlaylist,
             getPlaylist: getPlaylist,
+            searchPlaylist: searchPlaylist,
             getLikedPlaylists: getLikedPlaylists,
             getPlaylistLikes: getPlaylistLikes,
             getTopPlaylists: getTopPlaylist,

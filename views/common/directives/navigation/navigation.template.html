@@ -1,28 +1,36 @@
 <div id="navbar">
     <link rel="stylesheet" href="/css/navbar.css"/>
 
-<label for="show-menu" class="show-menu">Show Menu</label>
-<input class="menu" type="checkbox" id="show-menu" role="button">
+    <label for="show-menu" class="show-menu">Show Menu</label>
+    <input class="menu" type="checkbox" id="show-menu" role="button">
 
-<ul class="menu" id="menu">
-    <li class="menu"><a href="/">Home</a></li>
-    <li class="menu">
-        <a href="#">Menu ￬</a>
-        <ul class="hidden menu submenu">
-            <li class="menu"><a href="/topPlaylists">TOP Playlists</a></li>
-            <li class="menu"><a href="/contact">Contact Us</a></li>
-        </ul>
-    </li>
-    <li class="menu" ng-hide="navvm.isLoggedIn"><a href="login">Sign In</a></li>
-    <li class = "menu submenu" ng-show="navvm.isLoggedIn">
-        <a>{{ navvm.currentUser.name }} ￬</a>
-        <ul class="hidden menu submenu">
-            <li class="menu"><a  href="/profile">My account</a></li>
-            <li class="menu"><a href="/myPlaylists">My playlists</a> </li>
-            <li class="menu"><a href="/logout">Disconnect</a> </li>
-        </ul>
-    </li>
-</ul>
+    <ul class="menu" id="menu">
+        <li class="menu"><a href="/">Home</a></li>
+        <li class="menu">
+            <a href="#">Menu ￬</a>
+            <ul class="hidden menu submenu">
+                <li class="menu"><a href="/topPlaylists">TOP Playlists</a></li>
+                <li class="menu"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </li>
+        <li class="menu" ng-hide="navvm.isLoggedIn"><a href="login">Sign In</a></li>
+        <li class="menu submenu" ng-show="navvm.isLoggedIn">
+            <a>{{ navvm.currentUser.name }} ￬</a>
+            <ul class="hidden menu submenu">
+                <li class="menu"><a href="/profile">My account</a></li>
+                <li class="menu"><a href="/myPlaylists">My playlists</a></li>
+                <li class="menu"><a href="/logout">Disconnect</a></li>
+            </ul>
+        </li>
+        <li class="menu">
+            <form ng-submit="navvm.search()">
+                <input class="menu" type="search" ng-model="navvm.research"/>
+                <button type="submit" class="menu search">
+                    <i class="fa fa-search fa-2x"></i>
+                </button>
+            </form>
+        </li>
+    </ul>
 
 </div>
 

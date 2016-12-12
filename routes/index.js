@@ -23,10 +23,14 @@ router.use(multer({dest: './uploads/'}).any());
 * */
 /********** Profile ***************/
 router.get('/profile/:id', auth, ctrlProfile.profileRead);
+//look for a user by name
+router.get('/profile/', auth, ctrlProfile.search);
 
 /*********Playlists****************/
 //get a playlist by id
 router.get('/playlist/:id', auth, ctrlPlaylists.getPlaylist);
+//look for a playlist by name / description
+router.get('/playlist/', auth, ctrlPlaylists.search);
 
 /*******User's Playlists***********/
 // get user's playlists

@@ -1,4 +1,13 @@
 /*Strip the ul of padding and list styling*/
+.menu.search{
+    height:50px;
+    width: 50px;
+    min-width:50px;
+    position: relative;
+    vertical-align: middle;
+    border: none;
+    background-color: transparent;
+}
 ul.menu {
     list-style-type:none;
     margin:0;
@@ -20,7 +29,7 @@ li.menu {
 }
 
 /*Style for menu links*/
-li.menu a {
+li.menu a, form{
     display:block;
     min-width:140px;
     width: auto;
@@ -109,7 +118,7 @@ input.menu[type=checkbox]:checked ~ #menu{
     li.menu  {
         margin-bottom: 1px;
     }
-    li.menu a {
+    li.menu a, form {
         background-color: #1c2021;
     }
     /*Make all menu links full width*/
