@@ -151,6 +151,14 @@
             });
         };
 
+        var getSoundcloudTrack = function (trackID) {
+            return $http.get('/api/soundcloudSong/' + trackID, {
+                headers: {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                }
+            });
+        };
+
 
         return {
             getProfile: getProfile,
@@ -168,7 +176,8 @@
             commentPlaylist: commentPlaylist,
             getComments: getComments,
             getYoutubeResults: getYoutubeResults,
-            getSoundcloudResults: getSoundcloudResults
+            getSoundcloudResults: getSoundcloudResults,
+            getSoundcloudTrack: getSoundcloudTrack
         };
     }
 

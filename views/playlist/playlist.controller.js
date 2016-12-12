@@ -48,12 +48,9 @@
                         }
                     }
                 })
-
         };
 
         vm.play = function () {
-            //TODO
-            console.log("play playlist");
             playlistService.setPlaylist(vm.playlist);
         };
 

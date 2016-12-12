@@ -10,7 +10,6 @@
 
         var setPlaylist = function(playlist){
             currentPlaylist = playlist;
-            console.log('Playlist changed !');
             $rootScope.$broadcast('playlistChanged', {
                 data: playlist
             });

@@ -58,6 +58,7 @@ router.get('/comments/:id', auth, ctrlComments.getPlaylistComments);
 router.get('/youtubeResults/:search', auth, ctrlYoutube.search);
 /***********Soundcloud search***********/
 router.get('/soundcloudResults/:search', auth, ctrlSoundcloud.search);
+router.get('/soundcloudSong/:songId', auth, ctrlSoundcloud.getTrack);
 
 /**"Not secured" available without being logged in*/
 /********Authentication****************/

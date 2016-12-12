@@ -4,9 +4,9 @@
         .module('meanApp')
         .directive('player', player);
 
-    player.$inject = ['$window', 'YT_event', 'SC_event', '$http']
+    player.$inject = ['$window', 'YT_event', 'SC_event', '$http', 'meanData']
 
-    function player($window, YT_event, SC_event, $http) {
+    function player($window, YT_event, SC_event, $http, meanData) {
 
         return {
             restrict: "E",
@@ -88,14 +88,12 @@
 
                 var loadSoundcloud = function () {
                     if (scope.scid != "") {
-                        $http({
-                            method: 'GET',
-                            url: 'http://api.soundcloud.com/tracks/' + scope.scid + '.json?client_id=' + clientid
-                        })
+                        meanData.getSoundcloudTrack(scope.scid)
                             .error(function () {
                                 //todo
                             })
-                            .success(function (data) {
+                            .success(function (jsonData) {
+                                var data = JSON.parse(jsonData);
                                 scope.band = data.user.username;
                                 scope.bandUrl = data.user.permalink_url;
                                 scope.title = data.title;
@@ -106,8 +104,8 @@
                                 scope.song = new Audio();
 
                                 scope.song.onended = function () {
-                                    scope.band="";
-                                    scope.title ="";
+                                    scope.band = "";
+                                    scope.title = "";
                                     scope.$emit(YT_event.STATUS_CHANGE, "ENDED");
                                 };
 
@@ -140,11 +138,11 @@
                 });
 
                 scope.$watch('scid', function () {
-                    if(scope.song){
+                    if (scope.song) {
                         scope.song.pause();
                         scope.song.currentTime = 0;
                     }
-                    if(scope.scid != ""){
+                    if (scope.scid != "") {
                         loadSoundcloud();
                     }
                 });
@@ -159,7 +157,7 @@
 
                 scope.$on(SC_event.PLAY, function () {
                     scope.song.play();
-                    if(scope.player){
+                    if (scope.player) {
                         scope.player.pauseVideo();
                     }
                 });
