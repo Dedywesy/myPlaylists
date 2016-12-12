@@ -4,8 +4,8 @@
   .module('meanApp')
   .controller('loginCtrl', loginCtrl);
 
-  loginCtrl.$inject = ['$location', 'authentication'];
-  function loginCtrl($location, authentication) {
+  loginCtrl.$inject = ['$location', 'authentication', '$rootScope'];
+  function loginCtrl($location, authentication, $rootScope) {
     var vm = this;
 
     vm.credentials = {
@@ -20,10 +20,10 @@
           alert(err);
         })
         .then(function(){
+          $rootScope.$broadcast('userLoggedIn');
           $location.path('profile');
         });
     };
-
   }
 
 })();

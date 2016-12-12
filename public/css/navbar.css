@@ -29,7 +29,7 @@ li.menu {
 }
 
 /*Style for menu links*/
-li.menu a, form{
+li.menu a, li.menu form{
     display:block;
     min-width:140px;
     width: auto;

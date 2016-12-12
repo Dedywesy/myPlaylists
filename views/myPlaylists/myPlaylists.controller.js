@@ -50,6 +50,7 @@
                     vm.playlists.push(data.data);
                     vm.newPlaylist.name = "";
                     vm.newPlaylist.description = "";
+                    $location.path('/editPlaylist/' + data.data.ID);
                 });
         };
 

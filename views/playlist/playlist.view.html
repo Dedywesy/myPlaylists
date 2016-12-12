@@ -5,7 +5,13 @@
             <span class="icon fa-music"></span>
             <h2><strong>{{vm.playlist.Name}}</strong></h2>
             <p><span>{{vm.playlist.Description}}</span>
-            <p><span>By : <a href="/profile/{{vm.profile.ID}}"> {{vm.profile.name}} </a></span></p>
+            <p>
+            <span>By :
+                <a href="/profile/{{vm.profile.ID}}"> {{vm.profile.name}} </a>
+                <a class="fa fa-wrench" ng-show="vm.profile.ID == vm.user._id"
+                   href="/editPlaylist/{{vm.playlist.ID}}"> </a>
+            </span>
+            </p>
             <p class="fa fa-play-circle fa-3x clickable" ng-click="vm.play()"/>
             <br/>
             <div class="fa-stack fa-1x clickable centeredLike">
@@ -30,7 +36,7 @@
                         <div class="playlist item">
                             <div class="playlist song">
                                 <div class="playlist name">{{song.title}}</div>
-                                <div class="link"><a href={{song.link}}>Link</a></div>
+                                <div class="link"><a target="_blank" href={{song.link}}>Link</a></div>
                             </div>
                         </div>
                     </div>
@@ -40,7 +46,7 @@
                 <div class="wrapper style3 special container 50%">
                     <header>Comments :</header>
                     <div ng-repeat="comment in vm.comments | orderBy: 'Date'" class="playlist">
-                        <p class = "comment">{{comment.Content}}</p>
+                        <p class="comment">{{comment.Content}}</p>
                         <p class="signature">By <a href="/profile/{{comment.UserID}}">{{comment.Name}}</a></p>
                     </div>
                     <form ng-submit="vm.addComment()">

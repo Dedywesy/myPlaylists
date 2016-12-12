@@ -24,6 +24,9 @@
 
         <div id="bigRight" class="wrapper style3 special container" ng-show="vm.personalProfile">
             <strong>Playlist I liked</strong>
+            <div class="playlist" ng-show="vm.likedPlaylists.length == 0">No liked playlists
+                <a href="/topPlaylists"> Suggestions?</a>
+            </div>
             <div class="playlist" ng-repeat="likedplaylist in vm.likedPlaylists | orderBy: 'Name'">
                 <div class="playlist properties">
                     <div class="playlist name">
@@ -38,10 +41,11 @@
         </div>
         <div id="bigRightBis" class="wrapper style3 special container" ng-hide="vm.personalProfile">
             <strong>Public playlists</strong>
+            <div class="playlist" ng-show="vm.publicPlaylists.length == 0">No public playlists to show</div>
             <div class="playlist" ng-repeat="publicPlaylist in vm.publicPlaylists | orderBy: 'Name'">
                 <div class="playlist properties">
                     <div class="playlist name">
-                        <a href="/playlist/{{publicPlaylist.PlaylistID}}">{{publicPlaylist.Name}}</a>
+                        <a href="/playlist/{{publicPlaylist.ID}}">{{publicPlaylist.Name}}</a>
                     </div>
                     <div class="description">{{publicPlaylist.Description}}</div>
                 </div>

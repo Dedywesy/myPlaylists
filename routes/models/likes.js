@@ -42,7 +42,7 @@ exports.delete = function (UserID, playlistID, callback) {
 
 exports.getUserLikes = function (userID, callback) {
     console.log('Get all user likes function');
-    var select = 'l."ID", l."UserID", l."PlaylistID", p."Name", p."Description", u."Name" userName';
+    var select = 'l."ID", p."UserID", l."PlaylistID", p."Name", p."Description", u."Name" userName';
     var table = "likes l, playlists p, users u";
     var where = 'l."PlaylistID" = p."ID" AND p."UserID" = u."ID" AND l."UserID" = ' + userID;
     var endArgs = '';
