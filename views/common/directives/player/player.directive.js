@@ -137,8 +137,8 @@
                     }
                 });
 
-                scope.$watch('scid', function () {
-                    if (scope.song) {
+                scope.$on('UPDATE', function (data, id) {
+                    if (id == "") {
                         scope.song.pause();
                         scope.song.currentTime = 0;
                     }
@@ -155,6 +155,10 @@
                     scope.player.pauseVideo();
                 });
 
+                scope.$on(YT_event.STOP, function () {
+                    scope.player.stopVideo();
+                });
+
                 scope.$on(SC_event.PLAY, function () {
                     scope.song.play();
                     if (scope.player) {
@@ -165,6 +169,11 @@
                 scope.$on(SC_event.PAUSE, function () {
                     scope.song.pause();
                 });
+
+                scope.$on(SC_event.STOP, function () {
+                    scope.song.pause();
+                });
+
             }
         };
     }

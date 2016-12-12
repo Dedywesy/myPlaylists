@@ -48,8 +48,10 @@
                     playingFrom = "YT";
                 } else if (song.from == "Soundcloud") {
                     $scope.videoid="";
-                    $scope.scid = song.id;
+                    $scope.scid = song.id;;
                     playingFrom = "SC";
+                    $scope.$broadcast("UPDATE", $scope.scid);
+
                 }
                 $scope.yt.title = song.title;
                 $scope.yt.link = song.link;
@@ -99,6 +101,12 @@
 
         $scope.$on('playlistChanged', function (event, data) {
             $scope.currentPlaylist = data.data.JsonPlaylist.songs;
+            if(playingFrom == "YT"){
+                $scope.$broadcast(YT_event.STOP);
+            }
+            if(playingFrom == "SC"){
+                $scope.$broadcast(SC_event.STOP);
+            }
             index = -1;
             $scope.nextSong();
         })
