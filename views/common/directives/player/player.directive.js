@@ -138,7 +138,7 @@
                 });
 
                 scope.$on('UPDATE', function (data, id) {
-                    if (id == "") {
+                    if(scope.song){
                         scope.song.pause();
                         scope.song.currentTime = 0;
                     }

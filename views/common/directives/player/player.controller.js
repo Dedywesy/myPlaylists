@@ -50,9 +50,8 @@
                     $scope.videoid="";
                     $scope.scid = song.id;;
                     playingFrom = "SC";
-                    $scope.$broadcast("UPDATE", $scope.scid);
-
                 }
+                $scope.$broadcast("UPDATE", $scope.scid);
                 $scope.yt.title = song.title;
                 $scope.yt.link = song.link;
                 $scope.yt.artwork = song.artwork;
