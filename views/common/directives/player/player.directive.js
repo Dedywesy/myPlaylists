@@ -89,8 +89,8 @@
                 var loadSoundcloud = function () {
                     if (scope.scid != "") {
                         meanData.getSoundcloudTrack(scope.scid)
-                            .error(function () {
-                                //todo
+                            .error(function (e) {
+                                console.error("error while retrieving music from soundcloud")
                             })
                             .success(function (jsonData) {
                                 var data = JSON.parse(jsonData);

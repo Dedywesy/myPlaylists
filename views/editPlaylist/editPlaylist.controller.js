@@ -53,7 +53,7 @@
                 vm.editMode = false;
                 var temp = vm.tempPlaylist.JsonPlaylist;
                 vm.tempPlaylist = copyPlaylist(vm.playlist);
-                vm.tempPlaylist.JsonPlaylist = temp; //TODO Adapt
+                vm.tempPlaylist.JsonPlaylist = temp;
             };
 
             vm.delete = function () {
@@ -70,25 +70,25 @@
                 }
             };
 
-            vm.addYoutube = function(result){
+            vm.addYoutube = function (result) {
                 vm.songListModified = true;
                 var newSong = {
-                    from : "Youtube",
-                    title : result.snippet.title,
+                    from: "Youtube",
+                    title: result.snippet.title,
                     id: result.id.videoId,
-                    link: "https://www.youtube.com/watch?v="+result.id.videoId,
+                    link: "https://www.youtube.com/watch?v=" + result.id.videoId,
                     rank: vm.tempPlaylist.JsonPlaylist.songs.length,
-                    artwork:result.snippet.thumbnails.default.url
+                    artwork: result.snippet.thumbnails.default.url
                 };
                 vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
             };
 
-            vm.addSoundcloud = function(result){
+            vm.addSoundcloud = function (result) {
                 vm.songListModified = true;
                 var title = result.title + " - " + result.user.username;
                 var newSong = {
-                    from : "Soundcloud",
-                    title : title,
+                    from: "Soundcloud",
+                    title: title,
                     id: result.id,
                     link: result.permalink_url,
                     rank: vm.tempPlaylist.JsonPlaylist.songs.length,
@@ -97,43 +97,48 @@
                 vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
             };
 
-            vm.searchSong = function(){
-              meanData.getYoutubeResults(vm.research)
-                  .error(function (error) {
-                      console.log(error)
-                  })
-                  .then(function(data){
-                      vm.YoutubeResults = data.data.items;
-                  });
+            vm.searchSong = function () {
+                meanData.getYoutubeResults(vm.research)
+                    .error(function (error) {
+                        console.log(error)
+                    })
+                    .then(function (data) {
+                        vm.YoutubeResults = data.data.items;
+                    });
 
-              meanData.getSoundcloudResults(vm.research)
-                  .error(function (error) {
-                      console.log(error)
-                  })
-                  .then(function(data){
-                      var result = JSON.parse(data.data);
-                      if(result.length > 5){
-                          vm.SoundcloudResults = result.splice(0, 4);
-                      }else{
-                          vm.SoundcloudResults = result;
-                      }
+                meanData.getSoundcloudResults(vm.research)
+                    .error(function (error) {
+                        console.log(error)
+                    })
+                    .then(function (data) {
+                        var result = JSON.parse(data.data);
+                        if (result.length > 5) {
+                            vm.SoundcloudResults = result.splice(0, 4);
+                        } else {
+                            vm.SoundcloudResults = result;
+                        }
 
-                  });
+                    });
             };
 
             vm.removeSong = function (song) {
                 vm.songListModified = true;
                 var index = vm.tempPlaylist.JsonPlaylist.songs.indexOf(song);
-                if(index != -1){
+                if (index != -1) {
                     vm.tempPlaylist.JsonPlaylist.songs.splice(index, 1);
                 }
             };
 
             vm.dragControlListeners = {
-                accept: function (sourceItemHandleScope, destSortableScope) {return true},//override to determine
+                accept: function (sourceItemHandleScope, destSortableScope) {
+                    return true
+                },//override to determine
                 // drag is allowed or not. default is true.
-                itemMoved: function (event) {},//Does nothing,
-                orderChanged: function (event) {vm.songListModified = true;},//Do what you want},
+                itemMoved: function (event) {
+                },//Does nothing,
+                orderChanged: function (event) {
+                    vm.songListModified = true;
+                },//Do what you want},
                 longTouch: true
             };
 
@@ -162,12 +167,12 @@
             });
 
 
-        vm.indexOfSong = function(song){
+        vm.indexOfSong = function (song) {
             return vm.tempPlaylist.JsonPlaylist.songs.indexOf(song);
         };
 
-        function resetRanks(){
-            for(var i = 0; i<vm.tempPlaylist.JsonPlaylist.songs.length ; i++ ){
+        function resetRanks() {
+            for (var i = 0; i < vm.tempPlaylist.JsonPlaylist.songs.length; i++) {
                 vm.tempPlaylist.JsonPlaylist.songs[i].rank = i;
             }
         }

@@ -10,13 +10,18 @@ module.exports.profileRead = function (req, res) {
     } else {
         console.log("Getting user by ID");
         User.getByID(req.params.id, function (err, user) {
-            if (req.payload._id != req.params.id) {
-                user.email = null;
-
+            if(user != undefined){
+                if (req.payload._id != req.params.id) {
+                    user.email = null;
+                }
+                user.salt = null;
+                user.hash = null;
+                res.status(200).json(user);
+            } else{
+                res.status(500).json({
+                    message:"This user does not exist"
+                })
             }
-            user.salt = null;
-            user.hash = null;
-            res.status(200).json(user);//todo handle error
         });
     }
 };

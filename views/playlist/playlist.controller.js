@@ -17,7 +17,7 @@
             //Get profile
             meanData.getProfile(vm.playlist.UserID)
                 .error(function (error) {
-                    console.error("Error while retrieving user", error)
+                    console.error("Error while retrieving user", error.message)
                 })
                 .then(function (data) {
                     vm.profile = data.data;
@@ -26,7 +26,7 @@
             //Get playlist comments
             meanData.getComments(vm.playlist.ID)
                 .error(function (error) {
-                    console.error("Error while retrieving comments", error)
+                    console.error("Error while retrieving comments", error.message)
                 })
                 .then(function (data) {
                     vm.comments = data.data;
@@ -72,7 +72,7 @@
             if (vm.playlist.liked) {
                 meanData.unlikePlaylist(vm.playlist.ID)
                     .error(function (error) {
-                        console.log(error);
+                        console.log(error.message);
                     })
                     .then(function (data) {
                         vm.playlist.liked = false;
@@ -82,7 +82,7 @@
             else {
                 meanData.likePlaylist(vm.playlist.ID)
                     .error(function (error) {
-                        console.log(error);
+                        console.log(error.message);
                     })
                     .then(function (data) {
                         vm.playlist.likeCount++;

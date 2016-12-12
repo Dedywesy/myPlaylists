@@ -114,7 +114,6 @@ exports.getByID = function (id, callback) {
     console.log("Playlist by id function");
     var table = "public.playlists";
     var where = format('"ID" = %L', id);
-    console.log(where);
     db.getQuery(table, where, function (err, result) {
         var playlist;
         if (!err && result.rows[0]) {
@@ -154,3 +153,21 @@ exports.search = function (research, callback) {
         callback(error, results.rows);
     })
 };
+
+exports.isAccessible = function(playlistID, userID, callback){
+    var table = "public.playlists";
+    var where = format('"ID" = %L', playlistID);
+    db.getQuery(table, where, function (err, result) {
+        if (!err && result.rows[0]) {
+            if(result.rows[0].IsPublic || result.rows[0].UserID == userID){
+                return callback(true);
+            } else {
+                return callback(false);
+            }
+        }
+        else{
+            return callback(false);
+        }
+    });
+
+}

@@ -1,5 +1,5 @@
 var pg = require('pg');
-var query = require('pg-query');//TODO use pg-escape to escape special char
+var query = require('pg-query');
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/myplaylists';
 
 if (process.env.DATABASE_URL) { //connection from heroku
@@ -8,7 +8,6 @@ if (process.env.DATABASE_URL) { //connection from heroku
 }
 
 var config = configFromString(connectionString)
-
 
 var pool = new pg.Pool(config);
 
@@ -40,12 +39,12 @@ exports.getQuery = function (tableName, where, callback) {
             return console.error('error fetching client from pool', err);
         }
         var queryString = 'SELECT * FROM ' + tableName + ' WHERE ' + where;
-        client.query(queryString, function (err, res) {
+        client.query(queryString, function (error, res) {
             done();
-            if (err) {
+            if (error) {
                 console.error('error running GET query', err);
             }
-            callback(err, res);
+            callback(error, res);
         });
     });
 };
@@ -57,12 +56,12 @@ exports.selectQuery = function (select, from, where, endArg,  callback) {
         }
         var queryString = 'SELECT '+ select + ' FROM ' + from + ' WHERE ' + where + ' ' + endArg;
         console.log(queryString);
-        client.query(queryString, function (err, res) {
+        client.query(queryString, function (error, res) {
             done();
-            if (err) {
+            if (error) {
                 console.error('error running SELECT query', err);
             }
-            callback(err, res);
+            callback(error, res);
         });
     });
 };
@@ -73,12 +72,12 @@ exports.updateQuery = function (tableName, setArg, where, callback) {
             return console.error('error fetching client from pool', err);
         }
         var queryString = 'UPDATE ' + tableName + ' SET ' + setArg + ' WHERE ' + where + ' RETURNING *';
-        client.query(queryString, function (err, res) {
+        client.query(queryString, function (error, res) {
             done();
-            if(err) {
+            if(error) {
                 console.error('error running UPDATE query', err);
             }
-            callback(err, res);
+            callback(error, res);
         });
     });
 };
@@ -89,12 +88,12 @@ exports.deleteQuery = function(tableName, where, callback){
             return console.error('error fetching client from pool');
         }
         var queryString = 'DELETE FROM ' + tableName + ' WHERE ' + where;
-        client.query(queryString, function(err, res){
+        client.query(queryString, function(error, res){
             done();
-            if(err) {
+            if(error) {
                 console.error('error running DELETE query');
             }
-            callback(err, res);
+            callback(error, res);
         })
     })
 };
