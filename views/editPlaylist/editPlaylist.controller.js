@@ -15,7 +15,7 @@
             vm.title = "";
             vm.research = "";
             vm.YoutubeResults = [];
-            vm.SoundcloudResult = [];
+            vm.SoundcloudResults = [];
             vm.songListModified = false;
 
             if (vm.playlist == {}) {
@@ -70,18 +70,6 @@
                 }
             };
 
-            vm.addSong = function () {
-                vm.songListModified = true;
-                var newSong = {
-                    title: vm.title,
-                    link: vm.link,
-                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
-                };
-                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
-                vm.title = "";
-                vm.link = "";
-            };
-
             vm.addYoutube = function(result){
                 vm.songListModified = true;
                 var newSong = {
@@ -89,8 +77,23 @@
                     title : result.snippet.title,
                     id: result.id.videoId,
                     link: "https://www.youtube.com/watch?v="+result.id.videoId,
-                    rank: vm.tempPlaylist.JsonPlaylist.songs.length
-                }
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length,
+                    artwork:result.snippet.thumbnails.default.url
+                };
+                vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
+            };
+
+            vm.addSoundcloud = function(result){
+                vm.songListModified = true;
+                var title = result.title + " - " + result.user.username;
+                var newSong = {
+                    from : "Soundcloud",
+                    title : title,
+                    id: result.id,
+                    link: result.permalink_url,
+                    rank: vm.tempPlaylist.JsonPlaylist.songs.length,
+                    artwork: result.artwork_url
+                };
                 vm.tempPlaylist.JsonPlaylist.songs.push(newSong);
             };
 
@@ -100,9 +103,22 @@
                       console.log(error)
                   })
                   .then(function(data){
-                      console.log(data.data);
                       vm.YoutubeResults = data.data.items;
+                  });
+
+              meanData.getSoundcloudResults(vm.research)
+                  .error(function (error) {
+                      console.log(error)
                   })
+                  .then(function(data){
+                      var result = JSON.parse(data.data);
+                      if(result.length > 5){
+                          vm.SoundcloudResults = result.splice(0, 4);
+                      }else{
+                          vm.SoundcloudResults = result;
+                      }
+
+                  });
             };
 
             vm.removeSong = function (song) {

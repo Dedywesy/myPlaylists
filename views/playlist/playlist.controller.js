@@ -3,8 +3,8 @@
         .module('meanApp')
         .controller('playlistCtrl', playlistCtrl);
 
-    playlistCtrl.$inject = ['$location', 'meanData', 'authentication', '$routeParams'];
-    function playlistCtrl($location, meanData, authentication, $routeParams) {
+    playlistCtrl.$inject = ['$location', 'meanData', 'authentication', '$routeParams', 'playlistService'];
+    function playlistCtrl($location, meanData, authentication, $routeParams, playlistService) {
         vm = this;
         var id = parseInt($routeParams.id);
 
@@ -48,12 +48,10 @@
                         }
                     }
                 })
-
         };
 
         vm.play = function () {
-            //TODO
-            console.log("play playlist");
+            playlistService.setPlaylist(vm.playlist);
         };
 
         vm.addComment = function () {

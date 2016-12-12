@@ -81,6 +81,10 @@
     cursor: pointer;
 }
 
+foot{
+    padding-bottom: 120px;
+}
+
 /*******************Column**********************/
 #left{
     width : 50%;

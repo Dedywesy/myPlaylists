@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="meanApp">
 <head>
-  <title>Dedywesy</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
-  <link rel="stylesheet" href="/css/main.css" />
-  <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
-  <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
-  <link rel="stylesheet" type="text/css" href="/css/ng-sortable.min.css"/>
-  <base href="/">
+    <title>Dedywesy</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--[if lte IE 8]>
+    <script src="js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/ng-sortable.min.css"/>
+    <base href="/">
 </head>
+
 <body>
+<navigation></navigation>
 <div ng-view>
 </div>
+<foot></foot>
+<player width="0" height="0" videoid="" scid=""></player>
 <!-- Scripts -->
-<script src="/js/jquery.min.js"></script>
-
 <script src="/lib/angular/angular.min.js"></script>
 <script src="/lib/angular/angular-route.min.js"></script>
 <script src="/lib/angular/ng-sortable/ng-sortable.js"></script>
 <script src="app.min.js"></script>
-
 </body>
-
-
 </html>
