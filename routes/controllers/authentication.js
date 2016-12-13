@@ -20,6 +20,12 @@ module.exports.register = function (req, res) {
     }
 
     var onUserNameOK = function () {
+        if(!req.files[0]){
+            sendJSONresponse(res, 401, {
+                "message" : "No file attached to this account creation"
+            });
+            return
+        }
         if(req.files[0].mimetype.substring(0, 5) != 'image'){
             sendJSONresponse(res, 401, {
                 "message" : "Only image files are allowed in file field"
