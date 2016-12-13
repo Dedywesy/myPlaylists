@@ -137,9 +137,9 @@ exports.getTopPlaylists = function (callback) {
 
 exports.search = function (research, callback) {
     var splitted = research.split(' ');
-    var regex = '%(' + splitted[0].toLowerCase();;
+    var regex = '%(' + splitted[0].toLowerCase();
     for(var i = 1; i<splitted.length; i++){
-        regex += '|'+splitted[i].toLowerCase();;
+        regex += '|'+splitted[i].toLowerCase();
     }
     regex += ')%';
     var select = 'p."ID", p."Name", "Description", u."Name" userName, "UserID"';
@@ -169,5 +169,4 @@ exports.isAccessible = function(playlistID, userID, callback){
             return callback(false);
         }
     });
-
-}
+};

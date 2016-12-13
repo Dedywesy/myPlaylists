@@ -135,7 +135,7 @@ module.exports.deletePlaylist = function (req, res) {
     hasRightsOnPlaylist(req.payload._id, req.params.id,
         function () {
             console.log("lol");
-            Playlists.delete(req.params.id, function (error, result) {
+            Playlists.delete(req.params.id, function (error) {
                 if (error == null) {
                     res.status(200).json("Deleted");
                 } else {

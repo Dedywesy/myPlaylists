@@ -7,7 +7,7 @@ if (process.env.DATABASE_URL) { //connection from heroku
     console.log(process.env.DATABASE_URL);
 }
 
-var config = configFromString(connectionString)
+var config = configFromString(connectionString);
 
 var pool = new pg.Pool(config);
 

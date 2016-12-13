@@ -113,7 +113,7 @@ module.exports.unlikePlaylist = function (req, res) {
     }
 
     function onTrue (){
-        Likes.delete(req.payload._id, req.params.id, function (err, result) {
+        Likes.delete(req.payload._id, req.params.id, function (err) {
             if (err == null) {
                 res.status(200).json({
                     message: "playlist unliked"

@@ -1,8 +1,8 @@
 var YouTube = require('youtube-node');
 
 var youTube = new YouTube();
-
-youTube.setKey('AIzaSyAvI0IP5efOrgIIUw1NqzpDm4faZRBsh_E');
+var key = process.env.YT_KEY;
+youTube.setKey(key);
 
 
 module.exports.search = function (req, res) {

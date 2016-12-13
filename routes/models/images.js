@@ -1,10 +1,10 @@
 /*Save user profile pictures on a cloud*/
 var cloudinary = require('cloudinary');
 
-cloudinary.config({ //TODO get out of the code
+cloudinary.config({
     cloud_name: 'dxifcsvkt',
     api_key: '199998563936565',
-    api_secret: 'B00dR_0a66oyrRZzin0yn00hF7Q'
+    api_secret: process.env.CLOUD_SECRET
 });
 
 
@@ -17,4 +17,4 @@ module.exports.saveImage = function (source, callback) {
             callback(result.secure_url);
         }
     });
-}
+};

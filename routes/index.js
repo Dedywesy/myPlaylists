@@ -3,7 +3,7 @@ var multer = require('multer');
 var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({
-    secret: "MYSECRET", //TODO Remove from the code
+    secret: process.env.JWT_SECRET || "MYSECRET",
     userProperty: 'payload'
 });
 

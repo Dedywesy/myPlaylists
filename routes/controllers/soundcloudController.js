@@ -1,6 +1,6 @@
 var http = require('http');
 
-var client_id = 'b23455855ab96a4556cbd0a98397ae8c';
+var client_id = process.env.SC_KEY;
 
 module.exports.search = function (req, res) {
     var query = req.params.search.replace(/ /g, "+");
@@ -17,11 +17,9 @@ module.exports.search = function (req, res) {
         });
         response.on('end', function() {
             res.status(200).json(body);
-            return;
         });
         response.on('error', function(error){
             res.status(500).json(error);
-            return;
         })
     });
 };
@@ -40,11 +38,9 @@ module.exports.getTrack = function (req, res) {
         });
         response.on('end', function() {
             res.status(200).json(body);
-            return;
         });
         response.on('error', function(error){
             res.status(500).json(error);
-            return;
         })
     });
-}
+};

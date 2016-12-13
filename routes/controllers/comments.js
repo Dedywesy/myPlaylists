@@ -24,13 +24,13 @@ module.exports.postComment = function (req, res) {
                 res.status(500).json(error);
             }
         })
-    };
+    }
 
     function onFalse() {
         res.status(500).json({
             "message": "This playlist is private or does not exist"
         });
-    };
+    }
 
     Playlist.isAccessible(req.body.playlistID, req.payload._id, function (accessible) {
         if(accessible){

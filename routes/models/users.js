@@ -1,7 +1,7 @@
 var pg = require('pg');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
-var db = require('./db')
+var db = require('./db');
 
 
 function User(ID, email, name, salt, hash, profilePic) {
@@ -35,7 +35,7 @@ User.prototype.validPassword = function (password) {
 
 User.prototype.generateJwt = function () {
     var expiry = new Date();
-    expiry.setDate(expiry.getDate() + 7);
+    expiry.setDate(expiry.getDate() + 1);
     console.log("Generating jwt for user : ", this.ID);
     return jwt.sign({
         _id: this.ID,
@@ -43,7 +43,7 @@ User.prototype.generateJwt = function () {
         name: this.name,
         exp: parseInt(expiry.getTime() / 1000)
 
-    }, "MYSECRET"); //TODO GET OUT OF THE CODE
+    }, process.env.JWT_SECRET || "MYSECRET");
 };
 
 exports.save = function (user, callback) {
