@@ -4,12 +4,12 @@
         <header class="special container">
             <span class="icon fa-music"></span>
             <h2><strong>{{vm.playlist.Name}}</strong></h2>
+            <a class="fa fa-wrench" ng-show="vm.profile.ID == vm.user._id"
+               href="/editPlaylist/{{vm.playlist.ID}}"> </a>
             <p><span>{{vm.playlist.Description}}</span>
             <p>
             <span>By :
                 <a href="/profile/{{vm.profile.ID}}"> {{vm.profile.name}} </a>
-                <a class="fa fa-wrench" ng-show="vm.profile.ID == vm.user._id"
-                   href="/editPlaylist/{{vm.playlist.ID}}"> </a>
             </span>
             </p>
             <p class="fa fa-play-circle fa-3x clickable" ng-click="vm.play()"/>

@@ -8,12 +8,13 @@
 
         <div class="player controls">
             <div ng-bind="timePlayed"></div>
-            <button class="player control fa fa-step-backward" ng-click="prevSong()"></button>
+            <button class="player control fa fa-step-backward" ng-click="prevSong()" ng-hide="firstSong()"></button>
             <button ng-hide="isPlaying" class="player control fa fa-play" ng-click="sendControlEvent(YT_event.PLAY)"
             ></button>
             <button ng-show="isPlaying" class="player control fa fa-pause" ng-click="sendControlEvent(YT_event.PLAY)"
             ></button>
-            <button class="player control fa fa-step-forward" ng-click="nextSong()"></button>
+            <button class="player control fa fa-step-forward" ng-click="nextSong()" ng-hide="lastSong()"></button>
+            <span>{{index + 1}}/{{currentPlaylist.length}}</span>
         </div>
     </div>
     <div ng-hide="currentPlaylist.length==0" class="track-info">

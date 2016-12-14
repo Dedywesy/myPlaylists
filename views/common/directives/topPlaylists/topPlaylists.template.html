@@ -1,7 +1,7 @@
     <div class="row" ng-repeat="PlaylistRow in topPlaylistsVm.Separator | limitTo:topPlaylistsVm.limitrows">
         <div ng-repeat="playlist in PlaylistRow" class="6u 12u(narrower)">
             <section class="playlist">
-                <a href="#" class="image featured"><img src="/images/playlist-illu.jpg" alt=""/></a>
+                <a href="/playlist/{{playlist.playlistid}}" class="image featured"><img src="/images/playlist-illu.jpg" alt=""/></a>
                 <header>
                     <h3>{{playlist.playlistname}}</h3>
                 </header>

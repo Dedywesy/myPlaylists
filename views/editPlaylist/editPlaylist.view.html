@@ -73,6 +73,7 @@
                         </div>
                     </form>
                 </div>
+                <div ng-show="vm.noResult()">No music retrieved</div>
                 <div class="content" ng-hide="vm.YoutubeResults.length == 0">
                     <i class="fa fa-youtube"></i> <strong>Youtube Results</strong>
                     <div ng-repeat="result in vm.YoutubeResults" class="result">

@@ -76,6 +76,9 @@
             if ($location.path() === '/editPlaylist' && !authentication.isLoggedIn()) {
                 $location.path('/login');
             }
+            if ($location.path() == '/playlist' && !authentication.isLoggedIn()) {
+                $location.path('/login');
+            }
         });
     }
 

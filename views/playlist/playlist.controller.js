@@ -11,7 +11,7 @@
         //If the playlist can be accessed
         var playlistRetrieved = function () {
             if (vm.playlist == {}) {
-                alert("no playlist at this id");
+                console.error("no playlist at this id");
                 $location.path('home');
             }
             //Get profile
@@ -100,7 +100,7 @@
         vm.user = authentication.currentUser();
         meanData.getPlaylist(id)
             .error(function (error) {
-                alert(error.message);
+                console.error(error.message);
                 $location.path("myPlaylists");
             })
             .then(function (data) {

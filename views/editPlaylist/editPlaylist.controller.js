@@ -103,6 +103,7 @@
                         console.log(error)
                     })
                     .then(function (data) {
+                        vm.YoutubeResults.length = 0;
                         vm.YoutubeResults = data.data.items;
                     });
 
@@ -112,12 +113,12 @@
                     })
                     .then(function (data) {
                         var result = JSON.parse(data.data);
+                        vm.SoundcloudResults.length = 0;
                         if (result.length > 5) {
                             vm.SoundcloudResults = result.splice(0, 4);
                         } else {
                             vm.SoundcloudResults = result;
                         }
-
                     });
             };
 
@@ -127,6 +128,10 @@
                 if (index != -1) {
                     vm.tempPlaylist.JsonPlaylist.songs.splice(index, 1);
                 }
+            };
+
+            vm.noResult = function () {
+                return (vm.YoutubeResults.length == 0 && vm.SoundcloudResults.length == 0);
             };
 
             vm.dragControlListeners = {

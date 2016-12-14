@@ -5,7 +5,7 @@
 
     playerCtrl.$inject = ['$scope', 'YT_event', 'SC_event', '$window'];
     function playerCtrl($scope, YT_event, SC_event, $window) {
-        var index = 0;
+        $scope.index = 0;
         var time_update_interval;
         $scope.currentPlaylist = [];
         var playingFrom = "";
@@ -20,35 +20,36 @@
 
         $scope.sendControlEvent = function () {
             $scope.isPlaying = !$scope.isPlaying;
-            if($scope.isPlaying){
-                if(playingFrom == "YT"){
+            if ($scope.isPlaying) {
+                if (playingFrom == "YT") {
                     this.$broadcast(YT_event.PLAY);
                 }
-                if(playingFrom == "SC"){
+                if (playingFrom == "SC") {
                     this.$broadcast(SC_event.PLAY);
                 }
-            }else{
-                if(playingFrom == "YT"){
+            } else {
+                if (playingFrom == "YT") {
                     this.$broadcast(YT_event.PAUSE);
                 }
-                if(playingFrom == "SC"){
+                if (playingFrom == "SC") {
                     this.$broadcast(SC_event.PAUSE);
                 }
             }
         };
 
-        $scope.nextSong = function(){
-            if (index + 1 < $scope.currentPlaylist.length) {
-                index++;
-                var song = $scope.currentPlaylist[index];
+        $scope.nextSong = function () {
+            if ($scope.index + 1 < $scope.currentPlaylist.length) {
+                $scope.index++;
+                var song = $scope.currentPlaylist[$scope.index];
                 if (song.from == "Youtube") {
-                    $scope.scid ="";
+                    $scope.scid = "";
                     $scope.videoid = song.id;
                     $scope.$broadcast(YT_event.PLAY);
                     playingFrom = "YT";
                 } else if (song.from == "Soundcloud") {
-                    $scope.videoid="";
-                    $scope.scid = song.id;;
+                    $scope.videoid = "";
+                    $scope.scid = song.id;
+                    ;
                     playingFrom = "SC";
                 }
                 $scope.$broadcast("UPDATE", $scope.scid);
@@ -59,11 +60,18 @@
         };
 
         $scope.prevSong = function () {
-            if(index > 0){
-                index -= 2;
+            if ($scope.index > 0) {
+                $scope.index -= 2;
                 $scope.nextSong();
             }
 
+        };
+
+        $scope.firstSong = function () {
+            return ($scope.index <= 0);
+        };
+        $scope.lastSong = function () {
+            return $scope.index == $scope.currentPlaylist.length -1;
         };
 
         $scope.$on(YT_event.STATUS_CHANGE, function (event, data) {
@@ -71,15 +79,21 @@
             if (data == 'ENDED') {
                 $scope.nextSong();
             }
-            if( data=='PLAYING'){
+            if (data == 'PLAYING') {
                 var player = $scope.player;
                 time_update_interval = setInterval(function () {
                     $scope.$apply(function () {
-                        var elapsedMin = parseInt((player.getCurrentTime()/60), 10);
-                        var elapsedSec = parseInt((player.getCurrentTime()%60), 10);
-                        var totalMin = parseInt((player.getDuration()/60), 10);
-                        var totalSec = parseInt((player.getDuration()%60), 10);
-                        $scope.timePlayed = elapsedMin + ":" + elapsedSec+ "/" + totalMin+ ":" + totalSec ;
+                        var elapsedMin = parseInt((player.getCurrentTime() / 60), 10);
+                        var elapsedSec = parseInt((player.getCurrentTime() % 60), 10);
+                        if (elapsedSec < 10){
+                            elapsedSec = '0'+elapsedSec;
+                        }
+                        var totalMin = parseInt((player.getDuration() / 60), 10);
+                        var totalSec = parseInt((player.getDuration() % 60), 10);
+                        if(totalSec < 10){
+                            totalSec = '0'+totalSec;
+                        }
+                        $scope.timePlayed = elapsedMin + ":" + elapsedSec + "/" + totalMin + ":" + totalSec;
                     })
                 }, 1000)
             }
@@ -89,24 +103,30 @@
             var song = data;
             song.ontimeupdate = function () {
                 $scope.$apply(function () {
-                    var elapsedMin = parseInt((song.currentTime/60), 10);
-                    var elapsedSec = parseInt((song.currentTime%60), 10);
-                    var totalMin = parseInt((song.duration/60), 10);
-                    var totalSec = parseInt((song.duration%60), 10);
-                    $scope.timePlayed = elapsedMin + ":" + elapsedSec+ "/" + totalMin+ ":" + totalSec ;
+                    var elapsedMin = parseInt((song.currentTime / 60), 10);
+                    var elapsedSec = parseInt((song.currentTime % 60), 10);
+                    if (elapsedSec < 10){
+                        elapsedSec = '0'+elapsedSec;
+                    }
+                    var totalMin = parseInt((song.duration / 60), 10);
+                    var totalSec = parseInt((song.duration % 60), 10);
+                    if(totalSec < 10){
+                        totalSec = '0'+totalSec;
+                    }
+                    $scope.timePlayed = elapsedMin + ":" + elapsedSec + "/" + totalMin + ":" + totalSec;
                 })
             }
         });
 
         $scope.$on('playlistChanged', function (event, data) {
             $scope.currentPlaylist = data.data.JsonPlaylist.songs;
-            if(playingFrom == "YT"){
+            if (playingFrom == "YT") {
                 $scope.$broadcast(YT_event.STOP);
             }
-            if(playingFrom == "SC"){
+            if (playingFrom == "SC") {
                 $scope.$broadcast(SC_event.STOP);
             }
-            index = -1;
+            $scope.index = -1;
             $scope.nextSong();
         })
     }

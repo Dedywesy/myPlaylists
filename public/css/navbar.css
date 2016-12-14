@@ -118,7 +118,7 @@ input.menu[type=checkbox]:checked ~ #menu{
     li.menu  {
         margin-bottom: 1px;
     }
-    li.menu a, form {
+    li.menu a, form.menu {
         background-color: #1c2021;
     }
     /*Make all menu links full width*/
