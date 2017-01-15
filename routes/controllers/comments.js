@@ -4,7 +4,7 @@ var Playlist = require("../models/playlists");
 module.exports.postComment = function (req, res) {
     console.log("Comment a playlist function");
     if (!req.payload._id || !req.body.playlistID || !req.body.comment) {
-        res.status(401).json({
+        res.status(400).json({
             "message": "Missing payload, playlistID or comment"
         });
         return;
@@ -27,7 +27,7 @@ module.exports.postComment = function (req, res) {
     }
 
     function onFalse() {
-        res.status(500).json({
+        res.status(401).json({
             "message": "This playlist is private or does not exist"
         });
     }
@@ -43,7 +43,7 @@ module.exports.postComment = function (req, res) {
 
 module.exports.getPlaylistComments = function (req, res) {
     if (!req.params.id || !req.payload._id) {
-        res.status(500).json({
+        res.status(400).json({
             "message": "Missing payload or playlistID"
         });
         return;
@@ -65,12 +65,11 @@ module.exports.getPlaylistComments = function (req, res) {
     }
 
     function onFalse() {
-        res.status(500).json({
+        res.status(401).json({
             "message": "This playlist is private or does not exist"
         });
     }
 
-    console.log("calling is accessibel");
     Playlist.isAccessible(req.params.id, req.payload._id, function (accessible) {
         if(accessible){
             return onTrue();

@@ -21,4 +21,4 @@ gulp.task('watch', function() {
   });
 });
 
-gulp.task('default', ['scripts', 'watch']);
+gulp.task('default', ['scripts'/*, 'watch'*/]);

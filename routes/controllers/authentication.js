@@ -21,7 +21,7 @@ module.exports.register = function (req, res) {
 
     var onUserNameOK = function () {
         if(!req.files[0]){
-            sendJSONresponse(res, 401, {
+            sendJSONresponse(res, 400, {
                 "message" : "No file attached to this account creation"
             });
             return
@@ -66,7 +66,7 @@ module.exports.register = function (req, res) {
     var onEmailOK = function () {
         User.getByName(req.body.name, function (err, result) {
             if (result){
-                sendJSONresponse(res, 500, {
+                sendJSONresponse(res, 401, {
                     "message": "An account already exists with this pseudo"
                 });
             }
@@ -103,7 +103,7 @@ module.exports.login = function (req, res) {
 
         // If Passport throws/catches an error
         if (err) {
-            res.status(404).json(err);
+            res.status(401).json(err);
             return;
         }
 
@@ -118,7 +118,9 @@ module.exports.login = function (req, res) {
         } else {
             // If user is not found
             console.log("User not found ! ");
-            res.status(401).json(info);
+            sendJSONresponse(res, 400, {
+                "message": "Username and password not matching"
+            });
         }
     })(req, res);
 

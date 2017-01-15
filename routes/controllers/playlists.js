@@ -17,7 +17,7 @@ function hasRightsOnPlaylist(userID, playlistID, onSucess, onError) {
 module.exports.getPlaylist = function (req, res) {
     console.log("get playlist function");
     if (!req.payload._id || !req.params.id) {
-        res.status(401).json({
+        res.status(400).json({
             "message": "Missing payload in header or PlaylistID in params"
         });
         return;
@@ -34,7 +34,7 @@ module.exports.getPlaylist = function (req, res) {
                 })
             }
         } else {
-            res.status(500).json({
+            res.status(400).json({
                 "message": "This playlist does not exist"
             });
         }
@@ -44,7 +44,7 @@ module.exports.getPlaylist = function (req, res) {
 module.exports.getUserPlaylists = function (req, res) {
     console.log("get User playlists function");
     if (!req.payload._id || !req.params.id) {
-        res.status(401).json({
+        res.status(400).json({
             "message": "Missing payload in header or userID in params"
         });
         return;
@@ -127,8 +127,8 @@ module.exports.deletePlaylist = function (req, res) {
     console.log("Delete playlist function");
     console.log(req.params.id);
     if (!req.payload._id || !req.params.id) {
-        res.status(401).json({
-            "message": "Missing payload in header or playlist ID in params"
+        res.status(400).json({
+            "message": "Missing payload in header or playlistID in params"
         });
         return;
     }
@@ -137,7 +137,7 @@ module.exports.deletePlaylist = function (req, res) {
             console.log("lol");
             Playlists.delete(req.params.id, function (error) {
                 if (error == null) {
-                    res.status(200).json("Deleted");
+                    res.status(200).json({message:"Deleted"});
                 } else {
                     res.status(500).json(error);
                 }
@@ -152,7 +152,7 @@ module.exports.deletePlaylist = function (req, res) {
 module.exports.search = function (req, res) {
     console.log("Search playlists function");
     if(!req.query.q){
-        res.status(401).json({
+        res.status(400).json({
             "message": "Nothing to look for, please specify research query"
         });
         return;

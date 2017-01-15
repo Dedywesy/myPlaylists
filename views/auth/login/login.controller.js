@@ -17,7 +17,7 @@
       authentication
         .login(vm.credentials)
         .error(function(err){
-          alert(err);
+          alert(err.message);
         })
         .then(function(){
           $rootScope.$broadcast('userLoggedIn');

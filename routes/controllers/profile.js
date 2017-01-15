@@ -5,7 +5,7 @@ module.exports.profileRead = function (req, res) {
     if (!req.payload._id || !req.params.id) {
         console.error("No payload in the request !!");
         res.status(401).json({
-            "message": "UnauthorizedError: private profile or missing profile id"
+            "message": "Missing profile id"
         });
     } else {
         console.log("Getting user by ID");
@@ -18,7 +18,7 @@ module.exports.profileRead = function (req, res) {
                 user.hash = null;
                 res.status(200).json(user);
             } else{
-                res.status(500).json({
+                res.status(401).json({
                     message:"This user does not exist"
                 })
             }

@@ -5,7 +5,7 @@ var Playlist = require('../models/playlists');
 module.exports.getPlaylistLikes = function (req, res) {
     console.log("get playlist likes");
     if (!req.params.id) {
-        res.status(500).json({
+        res.status(400).json({
             "message": "Missing playlist ID in params"
         });
         return;
@@ -24,7 +24,7 @@ module.exports.getPlaylistLikes = function (req, res) {
     }
 
     function onFalse() {
-        res.status(500).json({
+        res.status(401).json({
             "message": "This playlist is private or does not exist"
         });
     }
@@ -41,7 +41,7 @@ module.exports.getPlaylistLikes = function (req, res) {
 module.exports.getUserLikes = function (req, res) {
     console.log("get User likes function");
     if (!req.payload._id) {
-        res.status(401).json({
+        res.status(400).json({
             "message": "Missing payload in header "
         });
         return;
@@ -72,7 +72,7 @@ module.exports.likePlaylist = function (req, res) {
             if (error) {
                 res.status(500).json(error);
             } else if (results.rows[0]) {
-                res.status(500).json({
+                res.status(401).json({
                     message: "You already like this playlist"
                 })
             } else {
@@ -89,7 +89,7 @@ module.exports.likePlaylist = function (req, res) {
     }
 
     function onFalse() {
-        res.status(500).json({
+        res.status(401).json({
             "message": "This playlist is private or does not exist"
         });
     }
@@ -106,7 +106,7 @@ module.exports.likePlaylist = function (req, res) {
 module.exports.unlikePlaylist = function (req, res) {
     console.log("Unlike a playlist function");
     if (!req.payload._id) {
-        res.status(401).json({
+        res.status(400).json({
             "message": "Missing payload in header "
         });
         return;
@@ -125,7 +125,7 @@ module.exports.unlikePlaylist = function (req, res) {
     }
 
     function onFalse (){
-        res.status(500).json({
+        res.status(401).json({
             "message": "This playlist is private or does not exist"
         });
     }
